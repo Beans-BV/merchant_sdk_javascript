@@ -1,0 +1,26 @@
+{
+    "name": "beans-merchant-sdk",
+    "version": "1.0.0",
+    "description": "Beans Merchant API Library",
+    "main": "beansMerchant.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/Beans-BV/merchant_sdk_javascript"
+    },
+    "keywords": ["beans", "merchant", "api", "stellar", "qr"],
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {},
+    "devDependencies": {},
+    "peerDependencies": {},
+    "engines": {
+      "node": ">=10.0.0"
+    },
+    "bugs": {
+      "url": "https://github.com/Beans-BV/merchant_sdk_javascript/issues"
+    },
+    "homepage": "https://www.beansapp.com/"
+  }

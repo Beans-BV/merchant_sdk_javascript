@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar SDK Sample</title>
+
+    <!-- Add Bootstrap CSS link -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container mt-5">
+
+    <h1 class="mb-4">Merchant SDK Sample</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="environment">Select Environment:</label>
+                <select id="environment" class="form-control">
+                    <option value="develop">Develop</option>
+                    <option value="staging">Staging</option>
+                </select>
+            </div>
+
+            <div id="customDomainGroup" class="form-group d-none">
+                <label for="domain">Custom Domain (for develop):</label>
+                <input type="text" id="domain" class="form-control" placeholder="Enter custom domain">
+            </div>
+
+            <div class="form-group">
+                <label for="currency">Select Currency:</label>
+                <select id="currency" class="form-control"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" class="form-control" placeholder="Enter amount">
+            </div>
+
+            <div class="form-group">
+                <label for="memo">Memo:</label>
+                <input type="text" id="memo" class="form-control" placeholder="Enter memo">
+            </div>
+
+            <div class="form-group">
+                <label for="webhookUrl">Webhook URL:</label>
+                <input type="text" id="webhookUrl" class="form-control" placeholder="Enter webhook URL">
+            </div>
+
+            <button onclick="generateQRCode()" class="btn btn-primary">Generate QR Code</button>
+        </div>
+        <div class="col-md-6">
+            <div id="qrCodeContainer" class="mt-4"></div>
+        </div>
+
+    </div>
+
+    <!-- Add Bootstrap JS and Popper.js scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Add your BeansMerchant script -->
+    <script type="module">
+        import {BeansMerchantSDK, BeansMerchantEnvironment} from './src/index.js';
+
+        const apiKey = '2B8F-1D7E-C3A1-9B2D';
+        const stellarAccountId = 'GB65LDAGJYPX7KLCP4V55EUJEPAKQGEAKWT2R6DORPPCTAQR4IBR7I4M';
+
+        const environmentSelect = document.getElementById('environment');
+        const customDomainGroup = document.getElementById('customDomainGroup');
+        const domainInput = document.getElementById('domain');
+        const currencySelect = document.getElementById('currency');
+        const amountInput = document.getElementById('amount');
+        const memoInput = document.getElementById('memo');
+        const webhookUrlInput = document.getElementById('webhookUrl');
+        const qrCodeContainer = document.getElementById('qrCodeContainer');
+
+        let merchant;
+        window.generateQRCode = generateQRCode;
+        function initializeMerchant() {
+            let domain;
+            if (environmentSelect.value === 'develop') {
+                domain = BeansMerchantEnvironment.DEVELOP;
+            } else {
+                domain = BeansMerchantEnvironment.STAGING;
+            }
+            merchant = new BeansMerchantSDK(apiKey, domain);
+        }
+
+        function fillCurrencyDropdown(currencies) {
+            currencySelect.innerHTML = ''; // Clear previous options
+
+            currencies.forEach(currency => {
+                const option = document.createElement('option');
+                option.value = currency.id;
+                option.textContent = `${currency.name} (${currency.code})`;
+                currencySelect.appendChild(option);
+            });
+        }
+
+        function generateQRCode() {
+            const currencyId = currencySelect.value;
+            const amount = amountInput.value;
+            const memo = memoInput.value;
+            const webhookUrl = webhookUrlInput.value;
+
+            merchant.generateSvgQRCode(stellarAccountId, currencyId, amount, memo, webhookUrl)
+                .then(qrCode => {
+                    qrCodeContainer.innerHTML = qrCode;
+                })
+                .catch(error => {
+                    console.error('Error generating QR code:', error);
+                });
+        }
+
+        function fetchCurrencies() {
+            merchant.fetchCurrencies(stellarAccountId)
+                .then(currencies => {
+                    fillCurrencyDropdown(currencies);
+                })
+                .catch(error => {
+                    console.error('Error fetching currencies:', error);
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeMerchant();
+            fetchCurrencies();
+        });
+
+        environmentSelect.addEventListener('change', () => {
+            initializeMerchant();
+            fetchCurrencies();
+        });
+    </script>
+</body>
+
+</html>
