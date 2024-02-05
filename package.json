@@ -19,7 +19,7 @@
     "stellar",
     "qr"
   ],
-  "author": "Jop Middelkamp & Khanh Than",
+  "author": "Beans B.V.",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^14.18.63",
