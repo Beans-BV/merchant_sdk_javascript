@@ -58,7 +58,7 @@
                 <input type="text" id="webhookUrl" class="form-control" placeholder="Enter webhook URL" />
             </div>
 
-            <button onclick="generateQRCode()" class="btn btn-primary">Generate QR Code</button>
+            <button id="btnGenerateQR" class="btn btn-primary">Generate QR Code</button>
         </div>
         <div class="col-md-6">
             <div id="qrCodeContainer" class="mt-4"></div>
@@ -73,8 +73,10 @@
 
     <!-- Add your BeansMerchantSdk script -->
     <script type="module">
-        import {BeansMerchantSdk, BeansMerchantSdkEnvironment} from '../dist/sdk.js';
-
+        // import {BeansMerchantSdk}  from '../dist/sdk.js';
+        import * as module  from '../dist/sdk.js';
+        let BeansMerchantSdk = module.BeansMerchantSdk;
+        let BeansMerchantSdkEnvironment = module.BeansMerchantSdkEnvironment;
         const environmentSelect = document.getElementById('environment');
         const apiKeyInput = document.getElementById('apiKey');
         const stellarAccountId = document.getElementById('stellarAccountId');
@@ -86,6 +88,9 @@
 
         environmentSelect.addEventListener("change", initSdk);
         apiKeyInput.addEventListener('change', initSdk);
+        stellarAccountId.addEventListener('change', initSdk);
+        document.getElementById("btnGenerateQR").addEventListener ("click", generateQRCode, false);
+
 
         let sdk;
 
@@ -98,9 +103,9 @@
             }
             sdk = new BeansMerchantSdk(env, apiKeyInput.value);
             stellarCurrenciesSelect.innerHTML = ''; // Clear previous options
-            sdk.fetchCurrencies(stellarAccountId)
-                .then(stellarCurrencies => {
-                    stellarCurrencies.forEach(stellarCurrency => {
+            sdk.fetchCurrencies(stellarAccountId.value)
+                .then(data => {
+                    data.stellarCurrencies.forEach(stellarCurrency => {
                         const option = document.createElement('option');
                         option.value = stellarCurrency.id;
                         option.textContent = `${stellarCurrency.name} (${stellarCurrency.code})`;
@@ -108,7 +113,7 @@
                     });
                 })
                 .catch(error => {
-                    alert('Error fetching currencies:', error);
+                    console.log('Error fetching currencies:', error);
                 });
         }
 
@@ -119,12 +124,12 @@
             }
             sdk.generateSvgQRCode(
                 stellarAccountId.value,
-                stellarCurrencyId.value,
+                stellarCurrenciesSelect.value,
                 amount.value,
                 memo.value,
                 webhookUrl.value == '' ? null : webhookUrl.value)
                 .then(qrCode => {
-                    qrCodeContainer.innerHTML = qrCode;
+                    qrCodeContainer.innerHTML = qrCode.svgQrCode;
                 })
                 .catch(error => {
                     alert('Error generating QR code:', error);

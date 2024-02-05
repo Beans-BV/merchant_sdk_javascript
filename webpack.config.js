@@ -6,16 +6,20 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts$/,
+        test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
       },
     ],
   },
+  experiments: {
+    outputModule: true
+  },
   resolve: {
     extensions: ['.ts', '.js'],
   },
   output: {
+    libraryTarget: 'module',
     filename: 'sdk.js', // output bundle file name
     path: path.resolve(__dirname, 'dist'), // output path
   },
