@@ -73,10 +73,8 @@
 
     <!-- Add your BeansMerchantSdk script -->
     <script type="module">
-        // import {BeansMerchantSdk}  from '../dist/sdk.js';
-        import * as module  from '../dist/sdk.js';
-        let BeansMerchantSdk = module.BeansMerchantSdk;
-        let BeansMerchantSdkEnvironment = module.BeansMerchantSdkEnvironment;
+        import {BeansMerchantSdk, BeansMerchantSdkEnvironment}  from '../dist/sdk.js';
+        
         const environmentSelect = document.getElementById('environment');
         const apiKeyInput = document.getElementById('apiKey');
         const stellarAccountId = document.getElementById('stellarAccountId');
