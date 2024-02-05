@@ -87,8 +87,7 @@
         environmentSelect.addEventListener("change", initSdk);
         apiKeyInput.addEventListener('change', initSdk);
         stellarAccountId.addEventListener('change', initSdk);
-        document.getElementById("btnGenerateQR").addEventListener ("click", generateQRCode, false);
-
+        document.getElementById("btnGenerateQR").addEventListener ("click", generateQrCode, false);
 
         let sdk;
 
@@ -101,7 +100,7 @@
             }
             sdk = new BeansMerchantSdk(env, apiKeyInput.value);
             stellarCurrenciesSelect.innerHTML = ''; // Clear previous options
-            sdk.fetchCurrencies(stellarAccountId.value)
+            sdk.fetchStellarCurrencies(stellarAccountId.value)
                 .then(data => {
                     data.stellarCurrencies.forEach(stellarCurrency => {
                         const option = document.createElement('option');
@@ -115,12 +114,12 @@
                 });
         }
 
-        function generateQRCode() {
+        function generateQrCode() {
             if (sdk === undefined) {
                 alert('Please initialize the SDK first');
                 return;
             }
-            sdk.generateSvgQRCode(
+            sdk.generateSvgQrCode(
                 stellarAccountId.value,
                 stellarCurrenciesSelect.value,
                 amount.value,

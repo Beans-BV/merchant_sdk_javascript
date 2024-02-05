@@ -17,7 +17,7 @@ export class BeansMerchantSdk {
     private environment: BeansMerchantSdkEnvironment;
     private debug: boolean;
 
-    async fetchCurrencies(stellarAccountId: string): Promise<FetchStellarCurrenciesResponse> {
+    async fetchStellarCurrencies(stellarAccountId: string): Promise<FetchStellarCurrenciesResponse> {
         const url = `https://${this.environment}/v3/companies/me/accounts/${stellarAccountId}/stellar-currencies`;
         try {
             const response = await fetch(url, {
@@ -35,9 +35,9 @@ export class BeansMerchantSdk {
         }
     }
 
-    async generatePngQRCode(
+    async generatePngQrCode(
         stellarAccountId: string,
-        currencyId: string,
+        stellarCurrencyId: string,
         amount: number,
         memo: string,
         webhookUrl: string | null = null,
@@ -45,7 +45,7 @@ export class BeansMerchantSdk {
     ): Promise<PngQrCodeResponse> {
         const url = `https://${this.environment}/v3/companies/me/accounts/${stellarAccountId}/payment-request`;
         const body = {
-            "stellarCurrencyId": currencyId,
+            "stellarCurrencyId": stellarCurrencyId,
             "amount": amount,
             "memo": memo,
             "paymentReceivedWebHookUrl": webhookUrl,
@@ -77,9 +77,9 @@ export class BeansMerchantSdk {
         }
     }
 
-    async generateSvgQRCode(
+    async generateSvgQrCode(
         stellarAccountId: string,
-        currencyId: string,
+        stellarCurrencyId: string,
         amount: number,
         memo: string,
         webhookUrl: string | null = null,
@@ -87,7 +87,7 @@ export class BeansMerchantSdk {
     ): Promise<SvgQrCodeResponse> {
         const url = `https://${this.environment}/v3/companies/me/accounts/${stellarAccountId}/payment-request`;
         const body = {
-            "stellarCurrencyId": currencyId,
+            "stellarCurrencyId": stellarCurrencyId,
             "amount": amount,
             "memo": memo,
             "paymentReceivedWebHookUrl": webhookUrl,

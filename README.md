@@ -1,8 +1,8 @@
-# beans-merchant
+# Beans Merchant SDK
 
 [![npm version](https://badge.fury.io/js/beans-merchant.svg)](https://www.npmjs.com/package/beans-merchant-sdk)
 
-Beans Merchant is a JavaScript library for interacting with the Beans Merchant API. It provides a convenient way to integrate Beans Merchant functionality into your web applications.
+Beans Merchant SDK is a JavaScript library for interacting with the Beans Merchant API. It provides a convenient way to integrate Beans Merchant functionality into your JavaScript applications.
 
 ## Installation
 
@@ -14,92 +14,108 @@ npm install beans-merchant-sdk
 
 ## Usage
 
-```bash
-// Import the BeansMerchantSDK class and BeansMerchantEnvironment
-import {BeansMerchantSDK, BeansMerchantEnvironment} from './index.js';
+```ts
+import {BeansMerchantSdk, BeansMerchantSdkEnvironment}  from '../node_modules/beans-merchant-sdk/dist/sdk.js';
 
-// Create an instance of BeansMerchantSDK
-const merchant = new BeansMerchantSDK('your-api-key', BeansMerchantEnvironment.STAGING);
+// Create an instance of BeansMerchantSdk
+const sdk = new BeansMerchantSdk(BeansMerchantSdkEnvironment.STAGING, 'your-api-key');
 
 // Fetch currencies
-merchant.fetchCurrencies('stellarAccountId')
-  .then(currencies => {
-    console.log('Available currencies:', currencies);
-  })
-  .catch(error => {
-    console.error('Error fetching currencies:', error);
+sdk.fetchCurrencies('stellarAccountId')
+  .then((response: FetchStellarCurrenciesResponse) => {
+    console.log('Available currencies:', response.stellarCurrencies);
   });
 
-// Generate QR code
-merchant.generateSvgQRCode('stellarAccountId','currency-id', 'amount', 'memo')
-  .then(qrCode => {
-    console.log('Generated QR code:', qrCode);
-  })
-  .catch(error => {
-    console.error('Error generating QR code:', error);
+// Generate SVG QR code
+sdk.generateSvgQRCode('stellarAccountId', 'stellarCurrencyId', 100, 'memo', 'https://your-domain.com/webhook', 250)
+  .then((response: SvgQrCodeResponse) => {
+    console.log('Generated SVG QR code:', response.svgQrCode);
+  });
+
+// Generate PNG QR code
+merchant.generatePngQRCode('stellarAccountId', 'stellarCurrencyId', 100, 'memo', 'https://your-domain.com/webhook', 250)
+  .then((response: PngQrCodeResponse) => {
+    console.log('Generated PNG QR code:', response.pngQrCodeBase64String);
   });
 ```
+
 ## API Reference
 
-### `BeansMerchantSDK(apiKey, environment)`
+### BeansMerchantSdk
 
-Constructor for creating a new instance of the BeansMerchantSDK class.
+The BeansMerchantSdk class provides methods for interacting with the Beans Merchant API.
 
+#### `BeansMerchantSdk(environment, apiKey)`
+
+Constructor for creating a new instance of the BeansMerchantSdk class.
+
+Input:
+- `environment`: The API environment (`BeansMerchantSdkEnvironment.STAGING` or `BeansMerchantSdkEnvironment.PRODUCTION`).
 - `apiKey`: Your Beans Merchant API key.
-- `environment`: The environment (development or staging) specified using `BeansMerchantEnvironment`.
-
-### `BeansMerchantEnvironment`
-
-An enumeration class that provides environment constants.
-
-- `DEVELOP`: Development environment.
-- `STAGING`: Staging environment.
 
 ### Methods:
 
-#### `updateEnvironment(environment)`
+#### `fetchStellarCurrencies(stellarAccountId)`
 
-Update the environment (development or staging).
+Retrieves the list of Stellar currencies accessible for the specified Stellar Account. Should the desired currency not appear in the response, it may be due to the absence of a trustline for that currency, or the currency is not supported by Beans App.
 
-- `environment`: The environment specified using `BeansMerchantEnvironment`.
-
-#### `fetchCurrencies(stellarAccountId)`
-
-Fetches available Stellar currencies.
-
-Returns a Promise that resolves to an array of currencies.
-
-#### `generateQRCode(stellarAccountId, currencyId, amount, memo, webhookUrl = '')`
-
-Generates a QR code for a payment request.
-
+Input:
 - `stellarAccountId`: Your Stellar account ID.
-- `currencyId`: Stellar currency ID.
-- `amount`: Amount for the payment request.
-- `memo`: Memo for the payment request.
-- `webhookUrl`: Optional webhook URL for payment received notification.
 
-Returns a Promise that resolves to the generated QR code.
+Output:
+Returns a Promise that resolves to a `FetchStellarCurrenciesResponse` object.
 
-#### `generatePngQRCode(stellarAccountId, currencyId, amount, memo, webhookUrl = '')`
+#### `generatePngQrCode(stellarAccountId, currencyId, amount, memo, webhookUrl, preferredSize)`
 
 Generates a PNG QR code for a payment request.
 
+Input:
 - `stellarAccountId`: Your Stellar account ID.
 - `currencyId`: Stellar currency ID.
 - `amount`: Amount for the payment request.
 - `memo`: Memo for the payment request.
-- `webhookUrl`: Optional webhook URL for payment received notification.
+- `webhookUrl`: (Optional) Webhook URL for payment received notification.
+- `preferredSize`: (Optional) Preferred size of the QR code. We will try to generate a QR code with a size as close as possible to the preferred size provided.
 
-Returns a Promise that resolves to the base64-encoded PNG QR code string.
+Output:
+Returns a Promise that resolves to a `PngQrCodeResponse` object.
 
-#### `generateSvgQRCode(stellarAccountId, currencyId, amount, memo, webhookUrl = '')`
+#### `generateSvgQrCode(stellarAccountId, currencyId, amount, memo, webhookUrl, size)`
 
 Generates an SVG QR code for a payment request.
 
+Input:
 - `stellarAccountId`: Your Stellar account ID.
 - `currencyId`: Stellar currency ID.
 - `amount`: Amount for the payment request.
 - `memo`: Memo for the payment request.
-- `webhookUrl`: Optional webhook URL for payment received notification.
+- `webhookUrl`: (Optional) Webhook URL for payment received notification.
+- `size`: (Optional) Size of the QR code.
 
+Output:
+Returns a Promise that resolves to a `SvgQrCodeResponse` object.
+
+### `FetchStellarCurrenciesResponse`
+
+The response object returned by the `fetchStellarCurrencies` method.
+
+Properties:
+- `stellarCurrencies`: An array of Stellar currencies accessible for the specified Stellar Account.
+
+### `PngQrCodeResponse`
+
+The response object returned by the `generatePngQrCode` method.
+
+Properties:
+- `id`: The ID of the payment request.
+- `deeplink`: The Beans App deeplink for the payment request.
+- `pngQrCodeBase64String`: The base64 encoded PNG QR code containing the deeplink.
+
+### `SvgQrCodeResponse`
+
+The response object returned by the `generateSvgQrCode` method.
+
+Properties:
+- `id`: The ID of the payment request.
+- `deeplink`: The Beans App deeplink for the payment request.
+- `svgQrCode`: The SVG QR code containing the deeplink.
