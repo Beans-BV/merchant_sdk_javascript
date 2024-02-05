@@ -24,6 +24,7 @@
   "author": "Beans B.V.",
   "license": "MIT",
   "devDependencies": {
+    "@types/eslint": "^8.56.2",
     "@types/node": "^14.18.63",
     "cross-env": "^7.0.3",
     "ts-loader": "^9.5.1",
