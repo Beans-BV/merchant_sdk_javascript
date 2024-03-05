@@ -26,15 +26,23 @@ sdk.fetchCurrencies('stellarAccountId')
     console.log('Available currencies:', response.stellarCurrencies);
   });
 
+// Generate deeplink
+sdk.generateDeeplink('stellarAccountId', 'stellarCurrencyId', 100, 'memo', 'https://your-domain.com/webhook')
+  .then((response: DeeplinkResponse) => {
+    console.log('Generated deeplink:', response.deeplink);
+  });
+
 // Generate SVG QR code
 sdk.generateSvgQRCode('stellarAccountId', 'stellarCurrencyId', 100, 'memo', 'https://your-domain.com/webhook', 250)
   .then((response: SvgQrCodeResponse) => {
+    console.log('Generated deeplink:', response.deeplink);
     console.log('Generated SVG QR code:', response.svgQrCode);
   });
 
 // Generate PNG QR code
 merchant.generatePngQRCode('stellarAccountId', 'stellarCurrencyId', 100, 'memo', 'https://your-domain.com/webhook', 250)
   .then((response: PngQrCodeResponse) => {
+    console.log('Generated deeplink:', response.deeplink);
     console.log('Generated PNG QR code:', response.pngQrCodeBase64String);
   });
 ```
@@ -64,6 +72,20 @@ Input:
 
 Output:
 Returns a Promise that resolves to a `FetchStellarCurrenciesResponse` object.
+
+#### `generateDeeplink(stellarAccountId, currencyId, amount, memo, webhookUrl)`
+
+Generates a PNG QR code for a payment request.
+
+Input:
+- `stellarAccountId`: Your Stellar account ID.
+- `currencyId`: Stellar currency ID.
+- `amount`: Amount for the payment request.
+- `memo`: Memo for the payment request.
+- `webhookUrl`: (Optional) Webhook URL for payment received notification.
+
+Output:
+Returns a Promise that resolves to a `DeeplinkResponse` object.
 
 #### `generatePngQrCode(stellarAccountId, currencyId, amount, memo, webhookUrl, preferredSize)`
 
@@ -101,6 +123,14 @@ The response object returned by the `fetchStellarCurrencies` method.
 
 Properties:
 - `stellarCurrencies`: An array of Stellar currencies accessible for the specified Stellar Account.
+
+### `DeeplinkResponse`
+
+The response object returned by the `generateDeeplink` method.
+
+Properties:
+- `id`: The ID of the payment request.
+- `deeplink`: The Beans App deeplink for the payment request.
 
 ### `PngQrCodeResponse`
 
