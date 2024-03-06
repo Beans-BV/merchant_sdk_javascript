@@ -75,7 +75,7 @@ Returns a Promise that resolves to a `FetchStellarCurrenciesResponse` object.
 
 #### `generateDeeplink(stellarAccountId, currencyId, amount, memo, webhookUrl)`
 
-Generates a PNG QR code for a payment request.
+Generates a deeplink for a payment request.
 
 Input:
 - `stellarAccountId`: Your Stellar account ID.
