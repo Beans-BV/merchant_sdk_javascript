@@ -32,6 +32,7 @@ export class BeansMerchantSdk {
         stellarCurrencyId: string,
         amount: number,
         memo: string,
+        maxAllowedPayments: number | null = null,
         webhookUrl: string | null = null
     ): Promise<DeeplinkResponse> {
         const response = await this.generatePaymentRequest<DeeplinkResponse>(
@@ -40,6 +41,7 @@ export class BeansMerchantSdk {
                 "stellarCurrencyId": stellarCurrencyId,
                 "amount": amount,
                 "memo": memo,
+                "maxAllowedPayments": maxAllowedPayments,
                 "paymentReceivedWebHookUrl": webhookUrl,
                 "deeplink": {
                     "include": true
@@ -54,6 +56,7 @@ export class BeansMerchantSdk {
         stellarCurrencyId: string,
         amount: number,
         memo: string,
+        maxAllowedPayments: number | null = null,
         webhookUrl: string | null = null,
         preferredSize: number | null = null
     ): Promise<PngQrCodeResponse> {
@@ -63,6 +66,7 @@ export class BeansMerchantSdk {
                 "stellarCurrencyId": stellarCurrencyId,
                 "amount": amount,
                 "memo": memo,
+                "maxAllowedPayments": maxAllowedPayments,
                 "paymentReceivedWebHookUrl": webhookUrl,
                 "deeplink": {
                     "include": true
@@ -81,6 +85,7 @@ export class BeansMerchantSdk {
         stellarCurrencyId: string,
         amount: number,
         memo: string,
+        maxAllowedPayments: number | null = null,
         webhookUrl: string | null = null,
         size: number | null = null
     ): Promise<SvgQrCodeResponse> {
@@ -90,6 +95,7 @@ export class BeansMerchantSdk {
                 "stellarCurrencyId": stellarCurrencyId,
                 "amount": amount,
                 "memo": memo,
+                "maxAllowedPayments": maxAllowedPayments,
                 "paymentReceivedWebHookUrl": webhookUrl,
                 "deeplink": {
                     "include": true

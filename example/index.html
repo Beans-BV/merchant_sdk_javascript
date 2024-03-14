@@ -49,6 +49,11 @@
             </div>
 
             <div class="form-group">
+                <label for="maxAllowedPayments">Max allowed payments (optional) (unlimited is -1) (defaults is 1):</label>
+                <input type="number" id="maxAllowedPayments" class="form-control" placeholder="Enter max allowed payments" />
+            </div>
+
+            <div class="form-group">
                 <label for="webhookUrl">Webhook URL (optional):</label>
                 <input type="text" id="webhookUrl" class="form-control" placeholder="Enter webhook URL" />
             </div>
@@ -76,6 +81,7 @@
         const stellarCurrenciesSelect = document.getElementById('stellarCurrencies');
         const amountInput = document.getElementById('amount');
         const memoInput = document.getElementById('memo');
+        const maxAllowedPaymentsInput = document.getElementById('maxAllowedPayments');
         const webhookUrlInput = document.getElementById('webhookUrl');
         const qrCodeContainer = document.getElementById('qrCodeContainer');
 
@@ -124,6 +130,7 @@
                 stellarCurrenciesSelect.value,
                 amount.value,
                 memo.value,
+                maxAllowedPayments.value == '' ? null : maxAllowedPayments.value,
                 webhookUrl.value == '' ? null : webhookUrl.value)
                 .then(qrCode => {
                     qrCodeContainer.innerHTML = qrCode.svgQrCode;

@@ -27,20 +27,20 @@ sdk.fetchCurrencies('stellarAccountId')
   });
 
 // Generate deeplink
-sdk.generateDeeplink('stellarAccountId', 'stellarCurrencyId', 100, 'memo', 'https://your-domain.com/webhook')
+sdk.generateDeeplink('stellarAccountId', 'stellarCurrencyId', 100, 'memo', 1, 'https://your-domain.com/webhook')
   .then((response: DeeplinkResponse) => {
     console.log('Generated deeplink:', response.deeplink);
   });
 
 // Generate SVG QR code
-sdk.generateSvgQRCode('stellarAccountId', 'stellarCurrencyId', 100, 'memo', 'https://your-domain.com/webhook', 250)
+sdk.generateSvgQRCode('stellarAccountId', 'stellarCurrencyId', 100, 'memo', 1, 'https://your-domain.com/webhook', 250)
   .then((response: SvgQrCodeResponse) => {
     console.log('Generated deeplink:', response.deeplink);
     console.log('Generated SVG QR code:', response.svgQrCode);
   });
 
 // Generate PNG QR code
-merchant.generatePngQRCode('stellarAccountId', 'stellarCurrencyId', 100, 'memo', 'https://your-domain.com/webhook', 250)
+merchant.generatePngQRCode('stellarAccountId', 'stellarCurrencyId', 100, 'memo', 1, 'https://your-domain.com/webhook', 250)
   .then((response: PngQrCodeResponse) => {
     console.log('Generated deeplink:', response.deeplink);
     console.log('Generated PNG QR code:', response.pngQrCodeBase64String);
@@ -73,7 +73,7 @@ Input:
 Output:
 Returns a Promise that resolves to a `FetchStellarCurrenciesResponse` object.
 
-#### `generateDeeplink(stellarAccountId, currencyId, amount, memo, webhookUrl)`
+#### `generateDeeplink(stellarAccountId, currencyId, amount, memo, maxAllowedPayments, webhookUrl)`
 
 Generates a deeplink for a payment request.
 
@@ -82,12 +82,13 @@ Input:
 - `currencyId`: Stellar currency ID.
 - `amount`: Amount for the payment request.
 - `memo`: Memo for the payment request.
+- `maxAllowedPayments`: (Optional) Maximum number of payments allowed for the payment request. Unlimited is -1. Default is 1.
 - `webhookUrl`: (Optional) Webhook URL for payment received notification.
 
 Output:
 Returns a Promise that resolves to a `DeeplinkResponse` object.
 
-#### `generatePngQrCode(stellarAccountId, currencyId, amount, memo, webhookUrl, preferredSize)`
+#### `generatePngQrCode(stellarAccountId, currencyId, amount, memo, maxAllowedPayments, webhookUrl, preferredSize)`
 
 Generates a PNG QR code for a payment request.
 
@@ -96,13 +97,14 @@ Input:
 - `currencyId`: Stellar currency ID.
 - `amount`: Amount for the payment request.
 - `memo`: Memo for the payment request.
+- `maxAllowedPayments`: (Optional) Maximum number of payments allowed for the payment request. Unlimited is -1. Default is 1.
 - `webhookUrl`: (Optional) Webhook URL for payment received notification.
 - `preferredSize`: (Optional) Preferred size of the QR code. We will try to generate a QR code with a size as close as possible to the preferred size provided.
 
 Output:
 Returns a Promise that resolves to a `PngQrCodeResponse` object.
 
-#### `generateSvgQrCode(stellarAccountId, currencyId, amount, memo, webhookUrl, size)`
+#### `generateSvgQrCode(stellarAccountId, currencyId, amount, memo, maxAllowedPayments, webhookUrl, size)`
 
 Generates an SVG QR code for a payment request.
 
@@ -111,6 +113,7 @@ Input:
 - `currencyId`: Stellar currency ID.
 - `amount`: Amount for the payment request.
 - `memo`: Memo for the payment request.
+- `maxAllowedPayments`: (Optional) Maximum number of payments allowed for the payment request. Unlimited is -1. Default is 1.
 - `webhookUrl`: (Optional) Webhook URL for payment received notification.
 - `size`: (Optional) Size of the QR code.
 
