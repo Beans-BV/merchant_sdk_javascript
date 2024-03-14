@@ -18,24 +18,19 @@
             <div class="form-group">
                 <label for="environment">Select Environment:</label>
                 <select id="environment" class="form-control">
-                    <option value="staging">Staging</option>
+                    <option value="staging" selected>Staging</option>
                     <option value="production">Production</option>
                 </select>
             </div>
 
-            <div id="customDomainGroup" class="form-group d-none">
-                <label for="domain">Custom Domain (for development):</label>
-                <input type="text" id="domain" class="form-control" placeholder="Enter custom domain" />
-            </div>
-
             <div class="form-group">
                 <label for="apiKey">API Key:</label>
-                <input type="text" id="apiKey" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX" />
+                <input type="text" id="apiKey" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX" value="2B8F-1D7E-C3A1-9B2D" />
             </div>
 
             <div class="form-group">
                 <label for="stellarAccountId">Destination Stellar Accound ID:</label>
-                <input type="text" id="stellarAccountId" class="form-control" placeholder="G..." />
+                <input type="text" id="stellarAccountId" class="form-control" placeholder="G..." value="GCXQCEJD4T56UQVM3432BCUBD4ULYIZUDUFVGYYCZCOLL36UVNNLGBB5" />
             </div>
 
             <div class="form-group">
@@ -54,7 +49,7 @@
             </div>
 
             <div class="form-group">
-                <label for="webhookUrl">Webhook URL:</label>
+                <label for="webhookUrl">Webhook URL (optional):</label>
                 <input type="text" id="webhookUrl" class="form-control" placeholder="Enter webhook URL" />
             </div>
 
@@ -93,10 +88,13 @@
 
         function initSdk() {
             let env;
-            if (environmentSelect.value === 'staging') {
-                env = BeansMerchantSdkEnvironment.STAGING;
-            } else {
-                env = BeansMerchantSdkEnvironment.PRODUCTION;
+            switch (environmentSelect.value) {
+                case 'staging':
+                    env = BeansMerchantSdkEnvironment.STAGING;
+                    break;
+                case 'production':
+                    env = BeansMerchantSdkEnvironment.PRODUCTION;
+                    break;
             }
             sdk = new BeansMerchantSdk(env, apiKeyInput.value);
             stellarCurrenciesSelect.innerHTML = ''; // Clear previous options
@@ -113,6 +111,8 @@
                     console.log('Error fetching currencies:', error);
                 });
         }
+
+        initSdk();
 
         function generateQrCode() {
             if (sdk === undefined) {
