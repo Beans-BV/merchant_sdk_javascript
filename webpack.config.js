@@ -2,7 +2,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
-// Convert __dirname to work with ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -28,11 +27,9 @@ export default {
     extensions: ['.ts', '.js'],
   },
   output: {
-    module: true, // Use module type for ES module support
+    libraryTarget: 'module',
+    module: true,
     filename: 'sdk.js', // output bundle file name
     path: path.resolve(__dirname, 'dist'), // output path
-    environment: { // Specify the environment features you want to use
-      module: true
-    }
   },
 };
