@@ -7,16 +7,16 @@ import { PaymentRequestResponse, DeeplinkResponse, SvgQrCodeResponse, PngQrCodeR
 export { BeansMerchantSdkEnvironment, StellarCurrency, FetchStellarCurrenciesResponse, SvgQrCodeResponse, PngQrCodeResponse };
 
 export class BeansMerchantSdk {
-    constructor(environment: BeansMerchantSdkEnvironment, apiKey: string) {
-        this.environment = environment;
+    constructor(apiEndpoint: string, apiKey: string) {
+        this.apiEndpoint = apiEndpoint;
         this.apiKey = apiKey;
     }
 
+    private apiEndpoint: string;
     private apiKey: string;
-    private environment: BeansMerchantSdkEnvironment;
 
     async fetchStellarCurrencies(stellarAccountId: string): Promise<FetchStellarCurrenciesResponse> {
-        const url = `https://${this.environment}/v3/companies/me/accounts/${stellarAccountId}/stellar-currencies`;
+        const url = `https://${this.apiEndpoint}/v3/companies/me/accounts/${stellarAccountId}/stellar-currencies`;
 
         const response = await fetch(url, {
             headers: {
@@ -112,7 +112,7 @@ export class BeansMerchantSdk {
     private async generatePaymentRequest<T extends PaymentRequestResponse>(
         stellarAccountId: string,
         body: any): Promise<T> {
-        const url = `https://${this.environment}/v3/companies/me/accounts/${stellarAccountId}/payment-request`;
+        const url = `https://${this.apiEndpoint}/v3/companies/me/accounts/${stellarAccountId}/payment-request`;
 
         const response = await fetch(url, {
             method: 'POST',

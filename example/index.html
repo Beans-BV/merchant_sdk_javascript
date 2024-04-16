@@ -8,6 +8,18 @@
 
     <!-- Add Bootstrap CSS link -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #333; /* Dark grey background */
+            color: #fff; /* White text */
+        }
+        input, select, button {
+            background-color: #666; /* Lighter grey for inputs */
+            color: #fff; /* White text */
+            border-color: #fff; /* White border */
+        }
+    </style>
 </head>
 
 <body class="container mt-5">
@@ -20,7 +32,13 @@
                 <select id="environment" class="form-control">
                     <option value="staging" selected>Staging</option>
                     <option value="production">Production</option>
+                    <option value="custom">Custom</option>
                 </select>
+            </div>
+
+            <div class="form-group d-none">
+                <label for="customEnvironment">Custom Environment:</label>
+                <input type="text" id="customEnvironment" class="form-control" placeholder="Enter custom environment" value="" />
             </div>
 
             <div class="form-group">
@@ -73,10 +91,11 @@
 
     <!-- Add your BeansMerchantSdk script -->
     <script type="module">
-        // import {BeansMerchantSdk, BeansMerchantSdkEnvironment}  from '../dist/sdk.js';
-        import {BeansMerchantSdk, BeansMerchantSdkEnvironment}  from 'https://cdn.jsdelivr.net/gh/Beans-BV/merchant_sdk_javascript@latest/dist/sdk.js';
+        import {BeansMerchantSdk, BeansMerchantSdkEnvironment}  from '../dist/sdk.js';
+        // import {BeansMerchantSdk, BeansMerchantSdkEnvironment}  from 'https://cdn.jsdelivr.net/gh/Beans-BV/merchant_sdk_javascript@latest/dist/sdk.js';
         
         const environmentSelect = document.getElementById('environment');
+        const customEnvironmentInput = document.getElementById('customEnvironment');
         const apiKeyInput = document.getElementById('apiKey');
         const stellarAccountId = document.getElementById('stellarAccountId');
         const stellarCurrenciesSelect = document.getElementById('stellarCurrencies');
@@ -86,12 +105,23 @@
         const webhookUrlInput = document.getElementById('webhookUrl');
         const qrCodeContainer = document.getElementById('qrCodeContainer');
 
-        environmentSelect.addEventListener("change", initSdk);
+        environmentSelect.addEventListener("change", environmentChanged);
+        customEnvironmentInput.addEventListener('change', initSdk);
         apiKeyInput.addEventListener('change', initSdk);
         stellarAccountId.addEventListener('change', initSdk);
         document.getElementById("btnGenerateQR").addEventListener ("click", generateQrCode, false);
 
         let sdk;
+
+        function environmentChanged() {
+            const customEnvironmentInput = document.getElementById('customEnvironment');
+            if (environmentSelect.value === 'custom') {
+                customEnvironmentInput.parentElement.classList.remove('d-none');
+            } else {
+                customEnvironmentInput.parentElement.classList.add('d-none');
+            }
+            initSdk();
+        }
 
         function initSdk() {
             let env;
@@ -101,6 +131,9 @@
                     break;
                 case 'production':
                     env = BeansMerchantSdkEnvironment.PRODUCTION;
+                    break;
+                case 'custom':
+                    env = customEnvironmentInput.value;
                     break;
             }
             sdk = new BeansMerchantSdk(env, apiKeyInput.value);
@@ -134,7 +167,9 @@
                 maxAllowedPayments.value == '' ? null : maxAllowedPayments.value,
                 webhookUrl.value == '' ? null : webhookUrl.value)
                 .then(qrCode => {
-                    qrCodeContainer.innerHTML = qrCode.svgQrCode;
+                    qrCodeContainer.innerHTML = qrCode.svgQrCode
+                        .replaceAll('#FFFFFF', '#333333')
+                        .replaceAll('#000000', '#FFFFFF');;
                 })
                 .catch(error => {
                     alert('Error generating QR code:', error);
