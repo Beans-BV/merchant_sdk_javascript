@@ -5,7 +5,9 @@
 - [Introduction](#introduction)
   - [Use Cases](#use-cases)
 - [Getting Started](#getting-started)
-  - [Request a Account](#request-a-account)
+  - [How to Request an Account](#how-to-request-an-account)
+    - [Company Details](#company-details)
+    - [Stellar Account Details](#stellar-account-details)
   - [Installation](#installation)
   - [Usage](#usage)
 - [API Reference](#api-reference)
@@ -16,6 +18,7 @@
       - [Generate Deeplink](#generate-deeplink)
       - [Generate PNG QR Code](#generate-png-qr-code)
       - [Generate SVG QR Code](#generate-svg-qr-code)
+  - [Webhook Notifications](#webhook-notifications)
 - [Questions and Answers](#questions-and-answers)
   - [Do I have to use stroops?](#do-i-have-to-use-stroops)
 
@@ -35,13 +38,30 @@ The Beans Merchant SDK offers a comprehensive toolkit for integrating the advanc
 
 # Getting Started
 
-## Request a Account
+## How to Request an Account
 
-To get started and request an merchant account please contact us at [merchants@beansapp.com](mailto:merchants@beansapp.com). Please send us the following information:
- - Your company name
- - Your company website
- - Your company email address
- - Your company logo (min 500x500px)
+Welcome to Beans App! To start your journey as a merchant, please request an account by contacting us. Follow the steps below to ensure your application is processed smoothly.
+
+Reach out to us via email at [merchants@beansapp.com](mailto:merchants@beansapp.com) with the following required details:
+
+### Company Details
+
+ - **Company Name:** Provide the official name of your company.
+ - **Company Website:** Include the URL to your business website.
+ - **Company Email Address:** This should be the official contact email for your business.
+ - **Company Logo:** Attach a high-resolution logo (minimum dimensions 500x500 pixels).
+
+### Stellar Account Details
+To handle payments, please provide your Stellar account details:
+
+ - **Beans App Account (reccomended):**
+   - **Username:** Provide your Beans App username.
+   - **Recommendation:** Using a Beans App account simplifies the withdrawal process.
+   - **New Users:** To create a Beans App account, download the app [here](https://beansapp.com/download). 
+ - **Custom Stellar Account:**
+   - **Public Key:** Provide the public key if you prefer to receive payments in a custom Stellar account.
+
+Thank you for choosing Beans App. We look forward to facilitating your business transactions!
 
 ## Installation
 
@@ -228,6 +248,19 @@ sdk.generateSvgQRCode('stellarAccountId', 'stellarCurrencyId', 100, 'memo', 1, '
     console.log('Generated deeplink:', response.deeplink);
     console.log('Generated SVG QR code:', response.svgQrCode);
   });
+```
+
+## Webhook Notifications
+
+*Beans Merchant API sends a webhook notification to the provided URL when a payment is received.*
+
+Example Webhook Payload:<br>
+```json
+{
+  "PaymentRequestId": "e3cfa903-548f-475c-a9f2-ebf3f4e2fa17",
+  "Memo": "example",
+  "TransactionHash": "b7f4e42935eb120e3a6f43cdae3c6a511a346da77b7e17299aff0f8c72dcf3c0"
+}
 ```
 
 # Questions and Answers
