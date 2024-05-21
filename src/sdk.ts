@@ -1,22 +1,32 @@
-
-import { BeansMerchantSdkEnvironment } from './environment';
 import { StellarCurrency } from './models/stellar_currency';
 import { FetchStellarCurrenciesResponse } from './models/fetch_stellar_currencies_response';
 import { PaymentRequestResponse, DeeplinkResponse, SvgQrCodeResponse, PngQrCodeResponse } from './models/qr_code_response';
 
-export { BeansMerchantSdkEnvironment, StellarCurrency, FetchStellarCurrenciesResponse, SvgQrCodeResponse, PngQrCodeResponse };
+export { StellarCurrency, FetchStellarCurrenciesResponse, SvgQrCodeResponse, PngQrCodeResponse };
 
 export class BeansMerchantSdk {
-    constructor(apiEndpoint: string, apiKey: string) {
-        this.apiEndpoint = apiEndpoint;
+    private constructor(
+        apiBaseUrl: string,
+        apiKey: string) {
+        this.apiBaseUrl = apiBaseUrl;
         this.apiKey = apiKey;
     }
+    static production(apiKey: string): BeansMerchantSdk {
+        return new BeansMerchantSdk('https://api.beansapp.com/v3', apiKey);
+    }
+    static staging(apiKey: string): BeansMerchantSdk {
+        return new BeansMerchantSdk('https://api.staging.beansapp.com/v3', apiKey);
+    }
+    static custom(apiBaseUrl: string, apiKey: string): BeansMerchantSdk {
+        const cleanApiBaseUrl = apiBaseUrl.endsWith('/') ? apiBaseUrl.slice(0, apiBaseUrl.length - 1) : apiBaseUrl;
+        return new BeansMerchantSdk(cleanApiBaseUrl, apiKey);
+    }
 
-    private apiEndpoint: string;
+    private apiBaseUrl: string;
     private apiKey: string;
 
     async fetchStellarCurrencies(stellarAccountId: string): Promise<FetchStellarCurrenciesResponse> {
-        const url = `https://${this.apiEndpoint}/v3/companies/me/accounts/${stellarAccountId}/stellar-currencies`;
+        const url = `${this.apiBaseUrl}/companies/me/accounts/${stellarAccountId}/stellar-currencies`;
 
         const response = await fetch(url, {
             headers: {
@@ -112,7 +122,7 @@ export class BeansMerchantSdk {
     private async generatePaymentRequest<T extends PaymentRequestResponse>(
         stellarAccountId: string,
         body: any): Promise<T> {
-        const url = `https://${this.apiEndpoint}/v3/companies/me/accounts/${stellarAccountId}/payment-request`;
+        const url = `${this.apiBaseUrl}/companies/me/accounts/${stellarAccountId}/payment-request`;
 
         const response = await fetch(url, {
             method: 'POST',

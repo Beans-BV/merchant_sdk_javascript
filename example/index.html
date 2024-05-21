@@ -91,8 +91,8 @@
 
     <!-- Add your BeansMerchantSdk script -->
     <script type="module">
-        import {BeansMerchantSdk, BeansMerchantSdkEnvironment}  from '../dist/sdk.js';
-        // import {BeansMerchantSdk, BeansMerchantSdkEnvironment}  from 'https://cdn.jsdelivr.net/gh/Beans-BV/merchant_sdk_javascript@latest/dist/sdk.js';
+        import {BeansMerchantSdk}  from '../dist/sdk.js';
+        // import {BeansMerchantSdk}  from 'https://cdn.jsdelivr.net/gh/Beans-BV/merchant_sdk_javascript@latest/dist/sdk.js';
         
         const environmentSelect = document.getElementById('environment');
         const customEnvironmentInput = document.getElementById('customEnvironment');
@@ -124,19 +124,17 @@
         }
 
         function initSdk() {
-            let env;
             switch (environmentSelect.value) {
                 case 'staging':
-                    env = BeansMerchantSdkEnvironment.STAGING;
+                    sdk = BeansMerchantSdk.staging(apiKeyInput.value);
                     break;
                 case 'production':
-                    env = BeansMerchantSdkEnvironment.PRODUCTION;
+                    sdk = BeansMerchantSdk.production(apiKeyInput.value);
                     break;
                 case 'custom':
-                    env = customEnvironmentInput.value;
+                    sdk = BeansMerchantSdk.custom(customEnvironmentInput.value, apiKeyInput.value);
                     break;
             }
-            sdk = new BeansMerchantSdk(env, apiKeyInput.value);
             stellarCurrenciesSelect.innerHTML = ''; // Clear previous options
             sdk.fetchStellarCurrencies(stellarAccountId.value)
                 .then(data => {
