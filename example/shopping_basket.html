@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Basket</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1c1c1c;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            background-color: #333;
+            border: none;
+        }
+        .card-header, .card-body {
+            background-color: #333;
+        }
+        .card-header {
+            font-size: 24px;
+            border-bottom: 1px solid #444;
+        }
+        .card-body img {
+            max-width: 100px;
+            margin-right: 20px;
+        }
+        .btn-primary {
+            background-color: #6b52ae;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #563d7c;
+        }
+        .subtotal, .proceed {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .proceed button {
+            width: 100%;
+        }
+    </style>
+    <script>
+        function proceedToCheckout() {
+            window.location.href = "checkout.html";
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="card mb-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div>EkoEbooks</div>
+                <div class="d-none d-sm-block">Shopping Basket</div>
+            </div>
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="./static/book.jpg" alt="Blockchain Basics">
+                    <div>
+                        <h5 class="card-title">Blockchain Basics: A Non-Technical Introduction in 25 Steps (e-book)</h5>
+                        <p class="card-text text-success">In stock</p>
+                        <p class="card-text">
+                            Sent from: <span class="text-primary">Eko Ebooks</span>
+                        </p>
+                        <p class="card-text">Gift options not available</p>
+                        <p class="card-text">
+                            <span>Quantity: 1</span>
+                            <span class="text-primary text-sm">Edit</span>
+                            <span class="text-primary font-weight-light">Delete</span>
+                            <span class="text-primary font-weight-light">Share</span>
+                        </p>
+                        
+                        
+                        
+                    </div>
+                    <div class="ml-auto text-right">
+                        <h5>₦32,500</h5>
+                        <p class="card-text">₦32,500 / piece</p>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div></div>
+                    <div class="subtotal">
+                        <p>Subtotal (1 items): ₦32,500</p>
+                        <p>Free shipping</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="proceed">
+            <button class="btn btn-primary btn-lg" onclick="proceedToCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+</body>
+</html>

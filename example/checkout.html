@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1c1c1c;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            background-color: #333;
+            border: none;
+        }
+        .card-header, .card-body {
+            background-color: #333;
+        }
+        .card-header {
+            font-size: 24px;
+            border-bottom: 1px solid #444;
+        }
+        .card-body img {
+            max-width: 100px;
+            margin-right: 20px;
+        }
+        .btn-primary {
+            background-color: #6b52ae;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #563d7c;
+        }
+        .order-summary, .payment-method {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .payment-method button {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card mb-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div>EkoEbooks</div>
+            </div>
+            <div class="card-body">
+                <h4 class="mb-3">Personal information</h4>
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="fullName">Full name</label>
+                            <input type="text" class="form-control" id="fullName" value="Adebayo Okafor">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Email</label>
+                            <input type="email" class="form-control" id="inputEmail4" value="adebayo@okafor.ng">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone number</label>
+                        <input type="text" class="form-control" id="phoneNumber" value="0812 345 6789">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAddress">Address</label>
+                        <input type="text" class="form-control" id="inputAddress" value="123 Victoria Island Road">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputCity">City</label>
+                            <input type="text" class="form-control" id="inputCity" value="Lagos">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">Zip</label>
+                            <input type="text" class="form-control" id="inputZip" value="101233">
+                        </div>
+                    </div>
+                </form>
+                <div class="order-summary mt-4">
+                    <h5>Order Summary</h5>
+                    <p>Items: ₦32,500</p>
+                    <p>Postage & packaging: ₦0.00</p>
+                    <h5>Order Total: ₦32,500</h5>
+                </div>
+                <div class="payment-method mt-4">
+                    <button id="btnGenerateQR" class="btn btn-primary btn-lg">Buy now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Code Modal -->
+<div class="modal fade" id="qrCodeModal" tabindex="-1" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background-color: #333; color: white;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="qrCodeModalLabel">Scan the QR code to pay with Beans App</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color: white;">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <div id="qrCodeContainer"></div>
+                <p class="seller-name"></p>
+                <p class="total-amount"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Add Bootstrap JS and Popper.js scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- BeansMerchantSdk script -->
+    <script type="module">
+        import { BeansMerchantSdk } from '../dist/sdk.js';
+        import Constants from './constants.js';
+
+        const environmentSelect = 'production';
+        const apiKeyInput = Constants.ekoEbooksApiKey;
+        const stellarAccountId = Constants.ekoEbooksStellarAccountId;
+        const stellarCurrencyId = Constants.ngnStellarCurrencyId;
+        const amountInput = 32500; // FIXME: 
+        const memoInput = "Purchase EkoEbooks"; // FIXME:
+
+        let sdk = BeansMerchantSdk.production(apiKeyInput);
+
+        
+        document.getElementById("btnGenerateQR").addEventListener("click", generateQrCode);
+
+        
+
+        function generateQrCode() {
+    if (!sdk) {
+        alert('Please initialize the SDK first');
+        return;
+    }
+    sdk.generateSvgQrCode(
+        stellarAccountId,
+        stellarCurrencyId,
+        amountInput,
+        memoInput,
+        null, 
+        null  
+    )
+    .then(qrCode => {
+        const qrCodeContainer = document.getElementById('qrCodeContainer');
+        qrCodeContainer.innerHTML = qrCode.svgQrCode.replaceAll('#FFFFFF', '#333333').replaceAll('#000000', '#FFFFFF');
+        
+        document.querySelector('.seller-name').textContent = 'Seller: EkoEbooks';
+        document.querySelector('.total-amount').textContent = 'Total Amount: ₦' + amountInput;
+
+        $('#qrCodeModal').modal('show');
+    })
+    .catch(error => {
+        alert('Error generating QR code:', error);
+    });
+}
+
+    </script>
+</body>
+</html>
