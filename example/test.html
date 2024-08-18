@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a; /* Background color similar to the image */
+            color: white; /* Text color similar to the image */
+            padding: 20px;
+        }
+        .form-container {
+            background-color: #2a2a2a; /* Form background color */
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .radio-group {
+            margin-bottom: 15px;
+            background-color: #1a1a1a;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #cccccc;
+        }
+        .radio-group input[type="radio"] {
+            appearance: none;
+            background-color: #2a2a2a;
+            margin: 0 10px 0 0;
+            font: inherit;
+            color: white;
+            width: 1.15em;
+            height: 1.15em;
+            border: 0.15em solid #767676;
+            border-radius: 50%;
+            display: grid;
+            place-content: center;
+        }
+        .radio-group input[type="radio"]::before {
+            content: "";
+            width: 0.65em;
+            height: 0.65em;
+            border-radius: 50%;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em #000000;
+            background-color: CanvasText;
+        }
+        .radio-group input[type="radio"]:checked::before {
+            transform: scale(1);
+        }
+        .radio-group input[type="radio"]:disabled {
+            cursor: not-allowed;
+        }
+        .radio-group p {
+            margin: 0;
+            padding-left: 1.35em;
+            color: #888888;
+        }
+    </style>
+    <title>Styled Form</title>
+</head>
+<body>
+
+<div class="form-container">
+    <div class="form-title">3 Payment method</div>
+    <div class="radio-group">
+        <label>
+            <input type="radio" name="payment" checked disabled>
+            Beans App
+        </label>
+        <p>Pay with your preferred currency. Free of charge.</p>
+        <label>
+            <input type="radio" name="payment" disabled>
+            iDEAL
+        </label>
+        <label>
+            <input type="radio" name="payment" disabled>
+            Credit Card
+        </label>
+        <label>
+            <input type="radio" name="payment" disabled>
+            Monthly invoice
+        </label>
+        <p>Pay within 14 days of receiving invoice. Free of charge with timely payment.</p>
+    </div>
+</div>
+
+</body>
+</html>

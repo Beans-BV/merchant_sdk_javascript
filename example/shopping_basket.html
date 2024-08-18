@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Basket</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <i class="arrow left mr-4 ml-3" id="backArrow"></i>
+      <a class="navbar-brand" href="#" style="color: white">
+        <img src="./static/merchant_logo.png" alt="Logo" /> EkoEbooks
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#"
+              ><i class="fas fa-shopping-cart"></i>
+              <span class="badge">1</span></a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="left-column">
+        <div class="card mb-3 rounded-bd">
+          <div
+            class="card-header d-flex justify-content-between align-items-center"
+          >
+            <div>Shopping Basket</div>
+          </div>
+          <div class="row">
+            <div class="inner-cart-left-col">
+              <div class="card-body ml-4">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="image-container">
+                    <img id="bookImage" src="" alt="Book Image" />
+                  </div>
+                  <div>
+                    <h5 id="bookTitle" class="card-title ship mb-4"></h5>
+                    <p
+                      id="bookStockStatus"
+                      class="text-success stock-status"
+                    ></p>
+                    <p class="card-text">
+                      Sent from:
+                      <span id="bookSeller" class="text-primary"></span>
+                    </p>
+                    <p class="card-text">Gift options not available</p>
+                    <p class="card-text">
+                      <span id="bookQuantity" class="mr-2"></span>
+                      <span class="text-primary mr-3 cart-options">Edit</span>
+                      <span class="text-primary mr-3 cart-options">Delete</span>
+                      <span class="text-primary cart-options">Share</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="inner-cart-right-col">
+              <div class="text-right mr-5 mt-4">
+                <h6 id="bookPrice" class="mb-1 font-weight-bold"></h6>
+                <p class="card-text" id="bookPricePerPiece"></p>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <h6 class="text-right mr-3 mb-3">
+            Subtotal (<span class="itemcount"></span> item):
+            <span id="cardSubtotal" class="font-weight-bold"></span>
+          </h6>
+        </div>
+      </div>
+      <div class="right-column">
+        <div class="d-flex ml-4">
+          <div></div>
+          <div class="subtotal text-right pt-3 pb-3">
+            <p class="text-right">
+              Subtotal (<span class="itemcount"></span> item item):
+              <span class="font-weight-bold" id="rightColumnSubtotal"></span>
+            </p>
+            <p class="shipping-text font-weight-bold mb-2">Free shipping</p>
+            <div class="proceed">
+              <button class="btn btn-primary" onclick="proceedToCheckout()">
+                <span>Proceed to Checkout</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="book.js"></script>
+  </body>
+</html>
