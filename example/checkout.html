@@ -295,6 +295,12 @@
           window.location.href = "index.html";
         });
 
+      document.getElementById("qrCode").addEventListener("click", function () {
+        qrCodeContainer.style.display = "none";
+        document.getElementById("paymentReceivedContainer").style.display =
+          "block";
+      });
+
       function generateQrCode() {
         if (!sdk) {
           alert("Please initialize the SDK first");
