@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <i class="arrow left mr-4 ml-3" id="backArrow"></i>
+      <a class="navbar-brand" href="#" style="color: white">
+        <img src="./static/merchant_logo.png" alt="Logo" /> EkoEbooks
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#"
+              ><i class="fas fa-shopping-cart"></i>
+              <span class="badge">1</span></a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div
+      id="loadingIndicator"
+      style="display: none; text-align: center; margin-top: 80px"
+    >
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <p class="mt-4">Generating QR Code, please wait...</p>
+    </div>
+    <div class="container" id="checkout-container">
+      <div class="left-column">
+        <div class="form-title">1 Personal information</div>
+        <div class="form-container">
+          <div class="form-group">
+            <label for="full-name">Full name</label>
+            <input type="text" id="full-name" value="Adebayo Okafor" />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" value="adebayo@okafor.ng" />
+          </div>
+          <div class="form-group">
+            <label for="phone-number">Phone number</label>
+            <input type="text" id="phone-number" value="0812 345 6789" />
+          </div>
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" id="address" value="123 Victoria Island Road" />
+          </div>
+          <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" value="Lagos" />
+          </div>
+          <div class="form-group">
+            <label for="zip-code">Zip code</label>
+            <input type="text" id="zip-code" value="101233" />
+          </div>
+        </div>
+        <hr class="mt-4" />
+        <div class="form-title mt-4">2 Choose Delivery Address</div>
+        <div class="form-container">
+          <div
+            class="form-group checkbox-group"
+            style="margin-top: 0px; margin-bottom: 0px"
+          >
+            <input type="checkbox" id="same-address" checked disabled />
+            <label for="same-address" style="font-size: 0.85em"
+              >Same as personal address</label
+            >
+          </div>
+        </div>
+        <hr class="mt-4" />
+        <div class="form-title mt-4">3 Payment Method</div>
+        <div class="form-container mb-4">
+          <div class="radio-group">
+            <label>
+              <input type="radio" name="payment" checked disabled />
+              Beans App
+            </label>
+            <p>Pay with your preferred currency. Free of charge.</p>
+            <label>
+              <input type="radio" name="payment" disabled />
+              iDEAL
+            </label>
+            <label>
+              <input type="radio" name="payment" disabled />
+              Credit Card
+            </label>
+            <label>
+              <input type="radio" name="payment" disabled />
+              Monthly invoice
+            </label>
+            <p style="margin-bottom: -20px">
+              Pay within 14 days of receiving invoice. Free of charge with
+              timely payment.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="right-column" style="margin-top: 3.5em">
+        <div class="d-flex ml-4">
+          <div class="subtotal text-right">
+            <div class="proceed">
+              <button id="btnGenerateQR" class="btn btn-primary">
+                <span>Buy Now</span>
+              </button>
+            </div>
+            <p class="text-center agreement-text">
+              By placing your order, you agree to EkoEbooks'
+              <a href="#">Conditions of Use & Sale</a>. Please see our
+              <a href="#">Privacy Notice</a>, our
+              <a href="#">Cookies Notice</a>, and our
+              <a href="#">Interest-Based Ads Notice</a>.
+            </p>
+            <hr class="mt-2" />
+            <h5 class="text-left order-summary-text">Order Summary</h5>
+            <div class="item">
+              <span>Items:</span>
+              <span id="orderItems">&#8358;32,500</span>
+            </div>
+            <div class="item">
+              <span>Postage &amp; packaging:</span>
+              <span>&#8358;0.00</span>
+            </div>
+            <hr />
+            <div class="item">
+              <span style="font-size: 1.2em; font-weight: bold"
+                >Order Total</span
+              >
+              <span style="color: green" id="orderTotal">&#8358;32,500</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="container"
+      id="qrCodeContainer"
+      style="display: none; text-align: center"
+    >
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 50px;
+        "
+      >
+        <h2
+          class="payment-title"
+          style="
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 0;
+            margin-right: 10px;
+          "
+        >
+          Pay with Beans App
+        </h2>
+        <img
+          src="./static/beans_logo.png"
+          alt="beanslogo"
+          style="height: 1.5rem"
+        />
+      </div>
+
+      <div
+        style="
+          background-color: #1a191e;
+          border-radius: 10px;
+          padding: 20px;
+          box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+          max-width: 800px;
+          margin: auto;
+        "
+      >
+        <div class="purchase-details">
+          <div style="display: flex; justify-content: space-between">
+            <p style="margin: 0; font-size: 0.8rem; font-weight: 400">To</p>
+            <p style="font-size: 0.8rem; font-weight: 400">Amount</p>
+          </div>
+
+          <div style="display: flex; justify-content: space-between">
+            <p
+              class="seller-name"
+              style="font-size: 1rem; font-weight: 600; margin: 1px 0"
+            >
+              SELLER NAME PLACEHOLDER
+            </p>
+            <p
+              class="total-amount"
+              style="font-size: 1rem; font-weight: 600; margin: 1px 0"
+            >
+              TOTAL AMOUNT PLACEHOLDER
+            </p>
+          </div>
+
+          <p
+            class="order-id"
+            style="font-size: 0.8rem; font-weight: 400; margin-bottom: 8px"
+          >
+            ORDER ID PLACEHOLDER
+          </p>
+        </div>
+        <hr style="border-width: 1px; border-color: aliceblue" />
+        <div
+          id="qrCode"
+          style="
+            display: block;
+            max-width: 250px;
+            margin: auto;
+            margin-top: 20px;
+          "
+        >
+          <!-- QR Code will be injected here -->
+        </div>
+        <p
+          style="
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            font-weight: 300;
+          "
+        >
+          Scan the QR code to pay with Beans App
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="container"
+      id="paymentReceivedContainer"
+      style="display: none; text-align: center; margin-top: 80px"
+    >
+      <h2>Payment received</h2>
+      <p class="mb-4 mt-2">Thank you for your purchase!</p>
+      <img
+        src="./static/checkmark.png"
+        alt="Payment received"
+        style="width: 100px; height: 100px"
+      />
+    </div>
+
+    <!-- Add Bootstrap JS and Popper.js scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- BeansMerchantSdk script -->
+    <script type="module">
+      import { BeansMerchantSdk } from "../dist/sdk.js";
+      import Constants from "./constants.js";
+
+      const apiKeyInput = Constants.ekoEbooksApiKey;
+      const stellarAccountId = Constants.ekoEbooksStellarAccountId;
+      const stellarCurrencyId = Constants.ngnStellarCurrencyId;
+
+      let amountInput = 0; // Gets updated later
+      let sdk = BeansMerchantSdk.production(apiKeyInput);
+
+      document
+        .getElementById("btnGenerateQR")
+        .addEventListener("click", generateQrCode);
+
+      document
+        .getElementById("backArrow")
+        .addEventListener("click", function () {
+          window.location.href = "index.html";
+        });
+
+      document.getElementById("qrCode").addEventListener("click", function () {
+        qrCodeContainer.style.display = "none";
+        document.getElementById("paymentReceivedContainer").style.display =
+          "block";
+      });
+
+      function generateQrCode() {
+        if (!sdk) {
+          alert("Please initialize the SDK first");
+          return;
+        }
+
+        // Show loading indicator
+        const qrCodeContainer = document.getElementById("qrCodeContainer");
+        const loadingIndicator = document.getElementById("loadingIndicator");
+        const qrCodeElement = document.getElementById("qrCode");
+
+        document.getElementById("checkout-container").style.display = "none";
+        qrCodeContainer.style.display = "none";
+        loadingIndicator.style.display = "block";
+        qrCodeElement.style.display = "none";
+
+        // Generate orderId using current timestamp
+        const orderId = "00" + Date.now();
+
+        sdk
+          .generateSvgQrCode(
+            stellarAccountId,
+            stellarCurrencyId,
+            amountInput,
+            orderId,
+            null,
+            null
+          )
+          .then((qrCode) => {
+            qrCodeContainer.style.display = "block";
+            loadingIndicator.style.display = "none";
+            qrCodeElement.style.display = "block";
+
+            qrCodeElement.innerHTML = qrCode.svgQrCode
+              .replaceAll("#FFFFFF", "#1a191e")
+              .replaceAll("#000000", "#FFFFFF");
+
+            document.querySelector(".seller-name").textContent =
+              "EkoEbooks Payments United States";
+            document.querySelector(".total-amount").textContent =
+              formatCurrency(amountInput);
+            document.querySelector(".order-id").textContent = orderId;
+
+            setTimeout(() => {
+              qrCodeContainer.style.display = "none";
+              document.getElementById(
+                "paymentReceivedContainer"
+              ).style.display = "block";
+            }, 22000);
+          })
+          .catch((error) => {
+            loadingIndicator.style.display = "none";
+            qrCodeContainer.style.display = "none";
+            document.getElementById("checkout-container").style.display =
+              "block";
+            alert("Error generating QR code:", error);
+          });
+      }
+
+      function formatCurrency(amount) {
+        return "₦" + amount.toLocaleString();
+      }
+
+      // Update order total based on amountInput
+      function updateOrderTotal() {
+        amountInput = book.price * book.quantity;
+        document.getElementById("orderTotal").textContent =
+          formatCurrency(amountInput);
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Populate book info in the checkout page
+        document.getElementById("orderItems").textContent = formatCurrency(
+          book.quantity * book.price
+        );
+        document.getElementById("orderTotal").textContent = formatCurrency(
+          book.quantity * book.price
+        );
+
+        // Update order total with amountInput
+        updateOrderTotal();
+      });
+    </script>
+    <script src="book.js"></script>
+  </body>
+</html>
