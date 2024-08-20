@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      .input-field {
+        position: relative;
+        width: 400px; /* Ensure the input field and its container have the same width */
+      }
+      .input-field input {
+        width: 100%;
+        height: 55px;
+        border-radius: 6px;
+        font-size: 18px;
+        padding: 0 50px 0 15px;
+        border: 1px solid #b5b5b5;
+        background: transparent;
+        color: #b5b5b5;
+        outline: none;
+        box-sizing: border-box;
+      }
+
+      .input-field input:hover {
+        border-color: white;
+      }
+
+      .input-field label {
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        transform: translateY(-50%);
+        color: #b5b5b5;
+        font-size: 19px;
+        pointer-events: none;
+        transition: 0.3s;
+      }
+      .input-suffix {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        color: #b5b5b5;
+        font-size: 18px;
+        display: none;
+        pointer-events: none;
+      }
+      input:focus {
+        border: 2px solid #bb86fc;
+      }
+      input:focus ~ .input-suffix,
+      input:valid ~ .input-suffix {
+        display: inline-block;
+      }
+      input:focus ~ label,
+      input:valid ~ label {
+        top: 0;
+        left: 15px;
+        font-size: 14px;
+        padding: 0 4px;
+        background: #060b23;
+        color: #bb86fc;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <i class="arrow left mr-4 ml-3" id="backArrow"></i>
+      <a class="navbar-brand" href="#" style="color: white; font-size: 22px">
+        UnaSwap
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fas fa-bars"></i></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- First Page -->
+    <div class="page-container" id="firstPage">
+      <img
+        src="./static/una_swap_logo.png"
+        alt="unaSwap Logo"
+        style="max-width: 150px; margin-bottom: 2.4em"
+      />
+
+      <div class="input-field">
+        <input
+          id="amountEntered"
+          type="number"
+          min="0"
+          oninput="validity.valid||(value='');"
+          required
+        />
+        <label>Amount</label>
+        <p class="input-suffix">XLM</p>
+      </div>
+      <div style="margin-top: 15px">
+        <button id="firstContinueButton" class="btn btn-primary custom-button">
+          <span>Continue</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Second Page -->
+    <div class="page-container" id="secondPage">
+      <img
+        src="./static/una_swap_logo.png"
+        alt="unaSwap Logo"
+        style="max-width: 150px; margin-bottom: 2.4em"
+      />
+
+      <div class="custom-dropdown">
+        <div class="select-box">
+          <span class="selected">Beans App</span>
+          <i class="fas fa-chevron-up"></i>
+        </div>
+        <div class="options-container">
+          <div class="option">Credit Card</div>
+          <div class="option">Bank Transfer</div>
+          <div class="option selected">Beans App</div>
+        </div>
+      </div>
+
+      <button id="secondContinueButton" class="btn btn-primary custom-button">
+        <span
+          class="spinner-border spinner-border-sm text-light mr-2"
+          id="loadingSpinner"
+          style="display: none"
+        ></span>
+        <span>Continue</span>
+      </button>
+    </div>
+
+    <!-- Completed Page -->
+    <div class="page-container" id="completedPage">
+      <img
+        src="./static/una_swap_logo.png"
+        alt="unaSwap Logo"
+        style="max-width: 150px; margin-bottom: 2.4em"
+      />
+
+      <h2>Deposit Completed</h2>
+      <p class="mt-2" style="font-style: italic; font-size: 18px" id="orderId">
+        orderId here
+      </p>
+    </div>
+
+    <!-- Modal for QR Code -->
+    <div
+      class="modal fade"
+      id="qrCodeModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="qrCodeModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div
+          class="modal-content"
+          style="
+            background-color: #141318;
+            border-radius: 20px;
+            max-width: 300px;
+            margin: auto;
+          "
+        >
+          <div class="modal-body text-center">
+            <div
+              id="qrCode"
+              style="display: block; max-width: 250px; margin: auto"
+            ></div>
+            <p
+              style="
+                margin-top: 20px;
+                margin-bottom: 20px;
+                font-size: 0.9rem;
+                font-weight: 300;
+                color: #fff;
+              "
+            >
+              Scan the QR to open Beans App
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Bootstrap JS and Popper.js scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- BeansMerchantSdk script -->
+    <script type="module">
+      import { BeansMerchantSdk } from "../dist/sdk.js";
+      import Constants from "./constants.js";
+
+      const apiKeyInput = Constants.unaSwapApiKey;
+      const stellarAccountId = Constants.unaSwapStellarAccountId;
+      const stellarCurrencyId = Constants.xlmStellarCurrencyId;
+
+      let amountInput = 0; // Gets updated later
+      let sdk = BeansMerchantSdk.production(apiKeyInput);
+
+      document.getElementById("secondPage").style.display = "none";
+      document.getElementById("completedPage").style.display = "none";
+
+      function addClickListener(id, callback) {
+        document.getElementById(id).addEventListener("click", callback);
+      }
+
+      addClickListener("backArrow", function () {
+        window.location.href = "index.html";
+      });
+
+      addClickListener("qrCode", function () {
+        document.getElementById("secondPage").style.display = "none";
+        document.getElementById("completedPage").style.display = "flex";
+        $("#qrCodeModal").modal("hide");
+      });
+
+      /* FIRST CONTINUE CLICK */
+      addClickListener("firstContinueButton", function () {
+        // Get the value from the input field
+        var amountEntered = document.getElementById("amountEntered").value;
+
+        if (amountEntered > 0) {
+          amountInput = amountEntered;
+          document.getElementById("firstPage").style.display = "none";
+          document.getElementById("secondPage").style.display = "flex";
+        }
+      });
+
+      /* PAYMENT DROPDOWN */
+      document
+        .querySelector(".select-box")
+        .addEventListener("click", function () {
+          this.parentElement.classList.toggle("active");
+          const icon = this.querySelector("i");
+          if (this.parentElement.classList.contains("active")) {
+            icon.classList.remove("fa-chevron-down");
+            icon.classList.add("fa-chevron-up");
+          } else {
+            icon.classList.remove("fa-chevron-up");
+            icon.classList.add("fa-chevron-down");
+          }
+        });
+
+      document.querySelectorAll(".option").forEach((option) => {
+        option.addEventListener("click", function () {
+          document.querySelector(".selected").innerText = this.innerText;
+          this.parentElement.parentElement.classList.remove("active");
+
+          document
+            .querySelectorAll(".option")
+            .forEach((opt) => opt.classList.remove("selected"));
+          this.classList.add("selected");
+        });
+      });
+
+      /* SECOND CONTINUE CLICK */
+      addClickListener("secondContinueButton", function () {
+        const selectedOption = document.querySelector(
+          ".select-box .selected"
+        ).innerText;
+        if (selectedOption == "Beans App") {
+          // Start loading animation
+          document.getElementById("loadingSpinner").style.display =
+            "inline-block";
+
+          // Disable button
+          this.disabled = true;
+
+          //Generate the QR CODE
+          generateQrCode();
+        }
+      });
+
+      function generateQrCode() {
+        if (!sdk) {
+          alert("Please initialize the SDK first");
+          return;
+        }
+
+        const qrCodeElement = document.getElementById("qrCode");
+        qrCodeElement.style.display = "none";
+
+        // Generate orderId using current timestamp
+        const orderId = "00" + Date.now();
+
+        console.log(stellarAccountId, stellarCurrencyId, amountInput, orderId);
+        sdk
+          .generateSvgQrCode(
+            stellarAccountId,
+            stellarCurrencyId,
+            amountInput,
+            orderId,
+            null,
+            null
+          )
+          .then((qrCode) => {
+            qrCodeElement.style.display = "block";
+
+            qrCodeElement.innerHTML = qrCode.svgQrCode
+              .replaceAll("#FFFFFF", "#141318")
+              .replaceAll("#000000", "#FFFFFF");
+
+            $("#qrCodeModal").modal("show");
+
+            document.getElementById("orderId").textContent = "ID: " + orderId;
+            setTimeout(() => {
+              document.getElementById("secondPage").style.display = "none";
+              document.getElementById("completedPage").style.display = "flex";
+              $("#qrCodeModal").modal("hide");
+            }, 22000);
+          })
+          .catch((error) => {
+            console.log(error);
+            alert("Error generating QR code:", error);
+          });
+      }
+    </script>
+  </body>
+</html>
