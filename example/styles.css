@@ -51,8 +51,13 @@ body {
   border: none;
 }
 
+.btn-primary {
+  background-color: #c5b3fe;
+  border: none;
+}
+
 .btn-primary:hover {
-  background-color: #563d7c;
+  background-color: #ae9ee0;
 }
 
 .subtotal,
@@ -417,4 +422,89 @@ p {
 
 .purchase-details {
   text-align: left;
+}
+
+/* Custom Dropdown CSS */
+.custom-dropdown {
+  width: 400px;
+  position: relative;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.select-box {
+  background-color: #141318;
+  color: #ffffff;
+  padding: 12px;
+  border: 1px solid #b5b5b5;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  height: 55px;
+  align-items: center;
+  cursor: pointer;
+}
+.select-box:hover {
+  border: 1px solid #ffffff;
+}
+
+.select-box i {
+  color: #a1a1b5;
+}
+
+.options-container {
+  background-color: #312d2d;
+  border: 0px solid #54546e;
+  border-radius: 4px;
+  display: none;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  margin-top: 8px;
+}
+
+.option {
+  padding: 12px;
+  color: #d1d1e0;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.option:hover,
+.option.selected {
+  background-color: #383838;
+  color: #ffffff;
+}
+
+.custom-dropdown.active .options-container {
+  display: block;
+}
+
+.custom-dropdown.active .select-box {
+  border-color: #bb86fc;
+}
+
+/* Page CSS */
+.page-container {
+  padding-top: 20px;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.custom-button {
+  height: 2.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  min-width: 60px;
+  color: black;
+  border-radius: 20px;
+}
+.custom-button span {
+  padding: 16px;
 }
