@@ -1,16 +1,14 @@
 export interface PaymentRequestResponse {
-  id: string;
+    id: string;
 }
-
 export interface DeeplinkResponse extends PaymentRequestResponse {
-  deeplink: string;
+    deeplink: string;
 }
-
 export interface SvgQrCodeResponse extends DeeplinkResponse {
-  id: string;
-  svgQrCode: string;
+    id: string;
+    svgQrCode: string;
 }
-
 export interface PngQrCodeResponse extends DeeplinkResponse {
-  pngQrCodeBase64String: string;
+    pngQrCodeBase64String: string;
 }
+//# sourceMappingURL=qr_code_response.d.ts.map

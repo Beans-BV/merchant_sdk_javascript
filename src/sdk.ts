@@ -1,6 +1,7 @@
 import { StellarCurrency } from './models/stellar_currency';
 import { FetchStellarCurrenciesResponse } from './models/fetch_stellar_currencies_response';
 import { PaymentRequestResponse, DeeplinkResponse, SvgQrCodeResponse, PngQrCodeResponse } from './models/qr_code_response';
+import { PaymentRequestStatusResponse } from './models/payment_request_status_response';
 
 export { StellarCurrency, FetchStellarCurrenciesResponse, SvgQrCodeResponse, PngQrCodeResponse };
 
@@ -133,6 +134,22 @@ export class BeansMerchantSdk {
             body: JSON.stringify(body)
         });
         const data: T = await response.json();
+        console.log('API Response:', data); // Log the response data
+        return data;
+    }
+
+    async checkPaymentRequest(
+        paymentRequestId: string): Promise<PaymentRequestStatusResponse> {
+        const url = `${this.apiBaseUrl}/companies/me/${paymentRequestId}/status`;
+
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Beans-Company-Api-Key': this.apiKey
+            }
+        });
+        const data: PaymentRequestStatusResponse = await response.json();
         return data;
     }
 }
