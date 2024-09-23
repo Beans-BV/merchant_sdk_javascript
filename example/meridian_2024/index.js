@@ -3,12 +3,13 @@
 import { BeansMerchantSdk } from "../../dist/sdk.js";
 
 // Get GET parameters
-const apiKey = new URLSearchParams(window.location.search).get('apiKey');
-const stellarAccountId = new URLSearchParams(window.location.search).get('stellarAccountId');
-const stellarCurrencyId = new URLSearchParams(window.location.search).get('stellarCurrencyId');
+const apiKey = new URLSearchParams(window.location.search).get('apiKey'); //'XJTO-3LFZ-PQ9M-ZKRV';
+const stellarAccountId = new URLSearchParams(window.location.search).get('stellarAccountId'); //'GBH36QD5GJT3BE4K6AWDWMX2VGJXIJPMV7H46ANE5VXN7D4GDRVZSSZV';
+const stellarCurrencyId = new URLSearchParams(window.location.search).get('stellarCurrencyId'); //'eb2d2550-4f58-4fff-aef2-72f26b45feb5';
 
 // Initialize the BeansMerchantSdk
 const sdk = BeansMerchantSdk.production(apiKey);
+// const sdk = BeansMerchantSdk.custom('https://yusuf-beans-1.eu.ngrok.io/v3',apiKey);
 
 // Product information
 const product = {
@@ -101,7 +102,6 @@ function startPollingPaymentStatus() {
     sdk
       .getPaymentRequestStatus(paymentRequestId)
       .then((response) => {
-        console.log('Payment status:', response.status);
         if (response.status === 'Completed') {
           // Payment is completed
           clearInterval(pollingIntervalId);

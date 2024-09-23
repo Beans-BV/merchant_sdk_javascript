@@ -112,7 +112,6 @@ export class BeansMerchantSdk {
                     'X-Beans-Company-Api-Key': this.apiKey
                 }
             });
-            console.log(response);
             const data = yield response.json();
             return data;
         });

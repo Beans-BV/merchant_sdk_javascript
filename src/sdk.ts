@@ -148,7 +148,7 @@ export class BeansMerchantSdk {
                 'X-Beans-Company-Api-Key': this.apiKey
             }
         });
-        console.log(response);
+
         const data: PaymentRequestStatusResponse = await response.json();
         return data;
     }
