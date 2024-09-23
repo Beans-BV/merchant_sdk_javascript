@@ -1,1 +1,1 @@
-{"version":3,"file":"payment_request_status_response.d.ts","sourceRoot":"","sources":["../../src/models/payment_request_status_response.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,4BAA4B;IAC3C,MAAM,EAAE,oBAAoB,CAAC;CAC9B;AAED,oBAAY,oBAAoB;IAC9B,SAAS,cAAc;IACvB,OAAO,YAAY;CACpB"}
+{"version":3,"file":"payment_request_status_response.d.ts","sourceRoot":"","sources":["../../src/models/payment_request_status_response.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,4BAA4B;IAC3C,MAAM,EAAE,MAAM,CAAC;CAChB"}

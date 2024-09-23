@@ -99,9 +99,10 @@ function generateQrCode() {
 function startPollingPaymentStatus() {
   pollingIntervalId = setInterval(() => {
     sdk
-      .checkPaymentRequest(paymentRequestId)
+      .getPaymentRequestStatus(paymentRequestId)
       .then((response) => {
-        if (response.isCompleted) {
+        console.log('Payment status:', response.status);
+        if (response.status === 'Completed') {
           // Payment is completed
           clearInterval(pollingIntervalId);
           pollingIntervalId = null;

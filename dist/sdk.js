@@ -94,7 +94,7 @@ export class BeansMerchantSdk {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-Beans-Company-Api-Key': this.apiKey
+                    'X-Beans-Company-Api-Key': this.apiKey,
                 },
                 body: JSON.stringify(body)
             });
@@ -112,6 +112,7 @@ export class BeansMerchantSdk {
                     'X-Beans-Company-Api-Key': this.apiKey
                 }
             });
+            console.log(response);
             const data = yield response.json();
             return data;
         });
