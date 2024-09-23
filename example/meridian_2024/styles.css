@@ -1,0 +1,269 @@
+/* src/styles.css */
+
+/* Color Scheme */
+:root {
+  --primary: #675AA1;
+  --primary-lighter: #8C7DCF;
+  --primary-lightest: #EBE1F6;
+  --primary-darker: #4C407E;
+  --on-primary: #FFFFFF;
+  --secondary: #FDDA7D;
+  --on-secondary: #262626;
+  --background: #675AA1;
+  --on-background: #FFFFFF;
+  --on-background-light: #E0E0E0;
+  --error: #ED6D49;
+  --on-error: #FFFFFF;
+  --error-darker: #c2543b;
+  --success: #5DD784;
+  --warning: #FFC238;
+}
+
+/* Ensure html and body take full height */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Apply the gradient background to body */
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: linear-gradient(to top left, var(--primary-darker), var(--primary), var(--primary-lighter));
+  color: var(--on-background);
+  min-height: 100vh;
+}
+
+/* Main App Container */
+#app {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Common Button Styles */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Header Styles */
+.header {
+  padding: 40px 20px 20px 20px; /* Increased top padding */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center; /* Vertically center items */
+  justify-content: center;
+}
+
+.logo {
+  width: 40px; /* Reduced logo size */
+  height: auto;
+  margin-right: 10px; /* Reduced margin */
+}
+
+.app-title {
+  font-size: 2em;
+  margin: 0;
+  line-height: 1; /* Ensure single-line height */
+}
+
+.subtitle {
+  font-size: 1.2em; /* Reduced font size */
+  margin-top: 10px; /* Added margin-top */
+  color: var(--on-primary); /* Changed to white */
+}
+
+/* Product Styles */
+.product {
+  background-color: var(--on-primary);
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  color: var(--on-secondary);
+}
+
+.product-image {
+  width: 150px;
+  height: auto;
+}
+
+.product-title {
+  margin-top: 20px;
+  color: var(--on-secondary);
+}
+
+.product-price {
+  font-size: 1.2em;
+  color: var(--on-secondary);
+}
+
+/* Quantity Control */
+.quantity-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.quantity-control button {
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  background-color: var(--primary-lighter);
+  color: var(--on-primary);
+}
+
+.quantity-control button:hover {
+  background-color: var(--primary-darker);
+}
+
+.quantity-control #quantity {
+  margin: 0 20px;
+  font-size: 1.5em;
+  color: var(--on-secondary);
+}
+
+/* Total Price */
+.total-price {
+  font-size: 1.5em;
+  color: var(--on-secondary);
+  margin-bottom: 30px;
+}
+
+/* Buy Now Button */
+#buyButton {
+  background-color: var(--secondary);
+  color: var(--on-secondary);
+  padding: 15px 30px;
+  font-size: 1em;
+}
+
+#buyButton:hover {
+  background-color: var(--warning);
+}
+
+/* QR Code Container */
+#qrCodeContainer {
+  margin-top: 20px;
+}
+
+#qrCode {
+  margin-top: 10px;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+#qrCode svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Cancel Button */
+#cancelButton {
+  background-color: var(--error);
+  color: var(--on-error);
+  padding: 10px 20px;
+  font-size: 1em;
+  margin: 20px auto 0 auto;
+  display: inline-block;
+}
+
+#cancelButton:hover {
+  background-color: var(--error-darker);
+}
+
+/* Success Message Container */
+#successContainer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.checkmark-image {
+  width: 100px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.success-title {
+  font-size: 2em;
+  color: var(--on-secondary);
+  margin-bottom: 10px;
+}
+
+.success-subtitle {
+  font-size: 1.2em;
+  color: var(--on-secondary);
+  margin-bottom: 20px;
+}
+
+/* Done Button */
+#doneButton {
+  background-color: var(--secondary);
+  color: var(--on-secondary);
+  padding: 10px 20px;
+  font-size: 1em;
+}
+
+#doneButton:hover {
+  background-color: var(--warning);
+}
+
+/* Footer Styles */
+.footer {
+  margin-top: 50px; /* Increased margin-top */
+  padding: 20px;
+  background-color: transparent; /* Ensure the footer is transparent */
+}
+
+.meridian-logo {
+  width: 200px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 600px) {
+  .product {
+    padding: 15px;
+  }
+
+  .product-image {
+    width: 120px;
+  }
+
+  .logo {
+    width: 30px; /* Further reduce size on small screens */
+    margin-right: 8px;
+  }
+
+  .app-title {
+    font-size: 1.5em;
+  }
+
+  .subtitle {
+    font-size: 1em;
+  }
+
+  .success-title {
+    font-size: 1.5em;
+  }
+
+  .success-subtitle {
+    font-size: 1em;
+  }
+}
