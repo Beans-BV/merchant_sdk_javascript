@@ -1,3 +1,8 @@
 export interface PaymentRequestStatusResponse {
-  isCompleted: boolean;
+  status: PaymentRequestStatus;
+}
+
+export enum PaymentRequestStatus {
+  Completed = 'completed',
+  Pending = 'pending',
 }

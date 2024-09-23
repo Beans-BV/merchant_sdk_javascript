@@ -134,13 +134,12 @@ export class BeansMerchantSdk {
             body: JSON.stringify(body)
         });
         const data: T = await response.json();
-        console.log('API Response:', data); // Log the response data
         return data;
     }
 
-    async checkPaymentRequest(
+    async getPaymentRequestStatus(
         paymentRequestId: string): Promise<PaymentRequestStatusResponse> {
-        const url = `${this.apiBaseUrl}/companies/me/${paymentRequestId}/status`;
+        const url = `${this.apiBaseUrl}/companies/me/payment-requests/${paymentRequestId}/status`;
 
         const response = await fetch(url, {
             method: 'GET',

@@ -5,7 +5,6 @@ export interface DeeplinkResponse extends PaymentRequestResponse {
     deeplink: string;
 }
 export interface SvgQrCodeResponse extends DeeplinkResponse {
-    id: string;
     svgQrCode: string;
 }
 export interface PngQrCodeResponse extends DeeplinkResponse {

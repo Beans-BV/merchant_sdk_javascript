@@ -99,13 +99,12 @@ export class BeansMerchantSdk {
                 body: JSON.stringify(body)
             });
             const data = yield response.json();
-            console.log('API Response:', data); // Log the response data
             return data;
         });
     }
-    checkPaymentRequest(paymentRequestId) {
+    getPaymentRequestStatus(paymentRequestId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const url = `${this.apiBaseUrl}/companies/me/${paymentRequestId}/status`;
+            const url = `${this.apiBaseUrl}/companies/me/payment-requests/${paymentRequestId}/status`;
             const response = yield fetch(url, {
                 method: 'GET',
                 headers: {

@@ -15,6 +15,6 @@ export declare class BeansMerchantSdk {
     generatePngQrCode(stellarAccountId: string, stellarCurrencyId: string, amount: number, memo: string, maxAllowedPayments?: number | null, webhookUrl?: string | null, preferredSize?: number | null): Promise<PngQrCodeResponse>;
     generateSvgQrCode(stellarAccountId: string, stellarCurrencyId: string, amount: number, memo: string, maxAllowedPayments?: number | null, webhookUrl?: string | null, size?: number | null): Promise<SvgQrCodeResponse>;
     private generatePaymentRequest;
-    checkPaymentRequest(paymentRequestId: string): Promise<PaymentRequestStatusResponse>;
+    getPaymentRequestStatus(paymentRequestId: string): Promise<PaymentRequestStatusResponse>;
 }
 //# sourceMappingURL=sdk.d.ts.map
