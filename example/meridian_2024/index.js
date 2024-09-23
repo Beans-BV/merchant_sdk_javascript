@@ -4,8 +4,8 @@ import { BeansMerchantSdk } from "../../dist/sdk.js";
 
 // Get GET parameters
 const apiKey = new URLSearchParams(window.location.search).get('apiKey');
-const stellarCurrencyId = new URLSearchParams(window.location.search).get('stellarCurrencyId');
 const stellarAccountId = new URLSearchParams(window.location.search).get('stellarAccountId');
+const stellarCurrencyId = new URLSearchParams(window.location.search).get('stellarCurrencyId');
 
 // Initialize the BeansMerchantSdk
 const sdk = BeansMerchantSdk.production(apiKey);
@@ -63,12 +63,12 @@ function decreaseQuantity() {
 
 function generateQrCode() {
   const amount = (product.price * product.quantity).toFixed(2);
-  const orderId = 'Meridian2024-' + Date.now();
+  const orderId = `INV${Date.now()}`;
 
   sdk
     .generateSvgQrCode(
       stellarAccountId,
-      usdcStellarCurrencyId,
+      stellarCurrencyId,
       amount,
       orderId
     )
