@@ -3,17 +3,21 @@
 import { BeansMerchantSdk } from "../../dist/sdk.js";
 
 // Get GET parameters
-const apiKey = new URLSearchParams(window.location.search).get('apiKey');
-const stellarAccountId = new URLSearchParams(window.location.search).get('stellarAccountId');
-const stellarCurrencyId = new URLSearchParams(window.location.search).get('stellarCurrencyId'); 
+const apiKey = new URLSearchParams(window.location.search).get("apiKey");
+const stellarAccountId = new URLSearchParams(window.location.search).get(
+  "stellarAccountId"
+);
+const stellarCurrencyId = new URLSearchParams(window.location.search).get(
+  "stellarCurrencyId"
+);
 
 // Initialize the BeansMerchantSdk
 const sdk = BeansMerchantSdk.production(apiKey);
 
 // Product information
 const product = {
-  name: 'Delicious Coffee',
-  price: 0.01, // Price per unit in USD
+  name: "Premium Coffee",
+  price: 5.0, // Price per unit in USD
   // price: 3.5, // Price per unit in USD
   quantity: 1, // Default quantity
 };
@@ -21,32 +25,43 @@ const product = {
 let pollingIntervalId = null; // To store the interval ID
 let paymentRequestId = null; // To store the payment request ID
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   // Set the images' sources
-  document.querySelector('.product-image').src = './assets/cup.png';
-  document.querySelector('.logo').src = './assets/beans_logo.png';
-  document.querySelector('.meridian-logo').src = './assets/meridian_2024_logo.png';
-  document.getElementById('checkmarkImage').src = './assets/checkmark.png';
+  document.querySelector(".product-image").src = "./assets/coffee.png";
+  document.querySelector(".logo").src = "./assets/searcyslogo.png";
+  document.querySelector(".meridian-logo").src =
+    "./assets/meridianLogoBlue.png";
+  document.getElementById("checkmarkImage").src = "./assets/checkmark.png";
 
   // Set initial total price
   updateTotalPrice();
 
   // Add event listeners for quantity controls
-  document.getElementById('increaseButton').addEventListener('click', increaseQuantity);
-  document.getElementById('decreaseButton').addEventListener('click', decreaseQuantity);
-  document.getElementById('buyButton').addEventListener('click', generateQrCode);
+  document
+    .getElementById("increaseButton")
+    .addEventListener("click", increaseQuantity);
+  document
+    .getElementById("decreaseButton")
+    .addEventListener("click", decreaseQuantity);
+  document
+    .getElementById("buyButton")
+    .addEventListener("click", generateQrCode);
 
   // Add event listeners for Cancel and Done buttons
-  document.getElementById('cancelButton').addEventListener('click', resetApplication);
-  document.getElementById('doneButton').addEventListener('click', resetApplication);
+  document
+    .getElementById("cancelButton")
+    .addEventListener("click", resetApplication);
+  document
+    .getElementById("doneButton")
+    .addEventListener("click", resetApplication);
 });
 
 function updateTotalPrice() {
   const totalPrice = (product.price * product.quantity).toFixed(2);
-  document.querySelectorAll('.total-price').forEach((element) => {
-    element.textContent = `Total: $${totalPrice}`;
+  document.querySelectorAll(".total-price").forEach((element) => {
+    element.textContent = `Proceed - $${totalPrice}`;
   });
-  document.getElementById('quantity').textContent = product.quantity;
+  document.getElementById("quantity").textContent = product.quantity;
 }
 
 function increaseQuantity() {
@@ -66,23 +81,21 @@ function generateQrCode() {
   const orderId = `INV${Date.now()}`;
 
   sdk
-    .generateSvgQrCode(
-      stellarAccountId,
-      stellarCurrencyId,
-      amount,
-      orderId
-    )
+    .generateSvgQrCode(stellarAccountId, stellarCurrencyId, amount, orderId)
     .then((qrCode) => {
       // Hide the purchase section (quantity controls and Buy Now button)
-      document.getElementById('purchase-section').style.display = 'none';
+      document.getElementById("purchase-section").style.display = "none";
+      document.getElementById("footer-container").style.display = "none";
       // Update the total price in the QR code container
-      document.querySelector('#qrCodeContainer .total-price').textContent = `Total: $${amount}`;
+      document.querySelector(
+        "#qrCodeContainer .total-price"
+      ).textContent = `Total: $${amount}`;
       // Show the QR code container
-      document.getElementById('qrCodeContainer').style.display = 'block';
+      document.getElementById("qrCodeContainer").style.display = "block";
       // Set the QR code SVG
-      document.getElementById('qrCode').innerHTML = qrCode.svgQrCode;
+      document.getElementById("qrCode").innerHTML = qrCode.svgQrCode;
       // Show the Cancel button
-      document.getElementById('cancelButton').style.display = 'block';
+      document.getElementById("cancelButton").style.display = "block";
 
       // Store the paymentRequestId
       paymentRequestId = qrCode.id;
@@ -91,8 +104,8 @@ function generateQrCode() {
       startPollingPaymentStatus();
     })
     .catch((error) => {
-      console.error('Error generating QR code:', error);
-      alert('Failed to generate QR code.');
+      console.error("Error generating QR code:", error);
+      alert("Failed to generate QR code.");
     });
 }
 
@@ -101,7 +114,7 @@ function startPollingPaymentStatus() {
     sdk
       .getPaymentRequestStatus(paymentRequestId)
       .then((response) => {
-        if (response.status === 'Completed') {
+        if (response.status === "Completed") {
           // Payment is completed
           clearInterval(pollingIntervalId);
           pollingIntervalId = null;
@@ -109,18 +122,18 @@ function startPollingPaymentStatus() {
         }
       })
       .catch((error) => {
-        console.error('Error checking payment status:', error);
+        console.error("Error checking payment status:", error);
       });
   }, 500); // Poll every 500ms
 }
 
 function showSuccessMessage() {
   // Hide the QR code container and Cancel button
-  document.getElementById('qrCodeContainer').style.display = 'none';
-  document.getElementById('cancelButton').style.display = 'none';
+  document.getElementById("qrCodeContainer").style.display = "none";
+  document.getElementById("cancelButton").style.display = "none";
 
   // Show the success message container
-  document.getElementById('successContainer').style.display = 'block';
+  document.getElementById("successContainer").style.display = "block";
 }
 
 function resetApplication() {
@@ -134,15 +147,16 @@ function resetApplication() {
   paymentRequestId = null;
 
   // Hide QR code container, success container, and buttons
-  document.getElementById('qrCodeContainer').style.display = 'none';
-  document.getElementById('successContainer').style.display = 'none';
-  document.getElementById('cancelButton').style.display = 'none';
-  document.getElementById('doneButton').style.display = 'none';
+  document.getElementById("qrCodeContainer").style.display = "none";
+  document.getElementById("successContainer").style.display = "none";
+  document.getElementById("cancelButton").style.display = "none";
+  document.getElementById("doneButton").style.display = "none";
 
   // Reset quantity and total price
   product.quantity = 1;
   updateTotalPrice();
 
   // Show the purchase section
-  document.getElementById('purchase-section').style.display = 'block';
+  document.getElementById("purchase-section").style.display = "block";
+  document.getElementById("footer-container").style.display = "flex";
 }

@@ -1,61 +1,74 @@
 <!-- src/index.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Buy Coffee with Beans</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Buy Coffee with Beans</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Kurale&display=swap"
+    />
 
-  <link rel="stylesheet" href="./styles.css" />
-</head>
-<body>
-  <div id="app">
-    <!-- Header Section -->
-    <header class="header">
-      <div class="logo-container">
-        <img alt="Beans Logo" class="logo" />
-        <h1 class="app-title">Beans App</h1>
-      </div>
-      <h2 class="subtitle">Buy Coffee with Beans</h2>
-    </header>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <!-- Product Section -->
+      <div class="product">
+        <header>
+          <img class="logo" src="./assets/searcyslogo.png" alt="" />
+          <div style="margin-top: -60px">
+            <hr class="custom-divider" />
+          </div>
+        </header>
+        <img alt="Coffee Cup" class="product-image" />
+        <h2 class="product-title">Premium Coffee</h2>
+        <p class="product-description">
+          Featuring ingredients gathered from around the globe, taste one of our
+          premium coffees, and enjoy the event!
+        </p>
 
-    <!-- Product Section -->
-    <div class="product">
-      <img alt="Coffee Cup" class="product-image" />
-      <h2 class="product-title">Delicious Coffee</h2>
-
-      <!-- Purchase Section -->
-      <div id="purchase-section">
-        <p class="product-price">$3.50 per cup</p>
-        <div class="quantity-control">
-          <button id="decreaseButton">-</button>
-          <span id="quantity">1</span>
-          <button id="increaseButton">+</button>
+        <!-- Purchase Section -->
+        <div id="purchase-section">
+          <div class="quantity-control">
+            <button id="decreaseButton">-</button>
+            <span id="quantity" style="font-family: Kurale, serif">1</span>
+            <button id="increaseButton">+</button>
+          </div>
+          <button id="buyButton" class="total-price">Proceed - $5.00</button>
         </div>
-        <p class="total-price">Total: $3.50</p>
-        <button id="buyButton">Buy Now</button>
-      </div>
 
-      <!-- QR Code and Total Amount -->
-      <div id="qrCodeContainer" style="display: none;">
-        <p class="total-price">Total: $3.50</p>
-        <div id="qrCode"></div>
-        <button id="cancelButton" style="display: none;">Cancel</button>
-      </div>
+        <!-- QR Code and Total Amount -->
+        <div id="qrCodeContainer" style="display: none">
+          <p class="total-price">Total: $3.50</p>
+          <div id="qrCode"></div>
+          <button id="cancelButton" style="display: none">Cancel</button>
+        </div>
 
-      <!-- Success Message Container -->
-      <div id="successContainer" style="display: none;">
-        <img alt="Success" id="checkmarkImage" class="checkmark-image" />
-        <h2 class="success-title">Enjoy your coffee!</h2>
-        <p class="success-subtitle">Purchase successful.</p>
-        <button id="doneButton">Done</button>
+        <!-- Success Message Container -->
+        <div id="successContainer" style="display: none">
+          <img alt="Success" id="checkmarkImage" class="checkmark-image" />
+          <h2 class="success-title">Enjoy your coffee!</h2>
+          <p class="success-subtitle">Purchase successful.</p>
+          <button id="doneButton">Done</button>
+        </div>
+        <footer id="footer-container">
+          <div class="footer-logos">
+            <img
+              src="./assets/meridianLogoBlue.png"
+              alt="Meridian Logo"
+              class="meridian-logo"
+            />
+            <img
+              src="./assets/beansbluelogo.png"
+              alt="Beans Logo"
+              class="beans-logo"
+            />
+          </div>
+        </footer>
       </div>
     </div>
 
-    <!-- Footer Section -->
-    <footer class="footer">
-      <img alt="Stellar Meridian 2024" class="meridian-logo" />
-    </footer>
-  </div>
-  <script src="index.js" type="module"></script>
-</body>
+    <script src="index.js" type="module"></script>
+  </body>
 </html>
