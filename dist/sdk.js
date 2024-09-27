@@ -1,1 +1,120 @@
-var e={d:(n,t)=>{for(var r in t)e.o(t,r)&&!e.o(n,r)&&Object.defineProperty(n,r,{enumerable:!0,get:t[r]})},o:(e,n)=>Object.prototype.hasOwnProperty.call(e,n)},n={};e.d(n,{G:()=>r});var t=function(e,n,t,r){return new(t||(t=Promise))((function(i,a){function o(e){try{l(r.next(e))}catch(e){a(e)}}function s(e){try{l(r.throw(e))}catch(e){a(e)}}function l(e){var n;e.done?i(e.value):(n=e.value,n instanceof t?n:new t((function(e){e(n)}))).then(o,s)}l((r=r.apply(e,n||[])).next())}))};class r{constructor(e,n){this.apiBaseUrl=e,this.apiKey=n}static production(e){return new r("https://api.beansapp.com/v3",e)}static staging(e){return new r("https://api.staging.beansapp.com/v3",e)}static custom(e,n){const t=e.endsWith("/")?e.slice(0,e.length-1):e;return new r(t,n)}fetchStellarCurrencies(e){return t(this,void 0,void 0,(function*(){const n=`${this.apiBaseUrl}/companies/me/accounts/${e}/stellar-currencies`,t=yield fetch(n,{headers:{"X-Beans-Company-Api-Key":this.apiKey}});return yield t.json()}))}generateDeeplink(e,n,r,i,a=null,o=null){return t(this,void 0,void 0,(function*(){return yield this.generatePaymentRequest(e,{stellarCurrencyId:n,amount:r,memo:i,maxAllowedPayments:a,paymentReceivedWebHookUrl:o,deeplink:{include:!0}})}))}generatePngQrCode(e,n,r,i,a=null,o=null,s=null){return t(this,void 0,void 0,(function*(){return yield this.generatePaymentRequest(e,{stellarCurrencyId:n,amount:r,memo:i,maxAllowedPayments:a,paymentReceivedWebHookUrl:o,deeplink:{include:!0},pngQrCodeBase64String:{include:!0,preferredSize:s}})}))}generateSvgQrCode(e,n,r,i,a=null,o=null,s=null){return t(this,void 0,void 0,(function*(){return yield this.generatePaymentRequest(e,{stellarCurrencyId:n,amount:r,memo:i,maxAllowedPayments:a,paymentReceivedWebHookUrl:o,deeplink:{include:!0},svgQrCode:{include:!0,size:s}})}))}generatePaymentRequest(e,n){return t(this,void 0,void 0,(function*(){const t=`${this.apiBaseUrl}/companies/me/accounts/${e}/payment-request`,r=yield fetch(t,{method:"POST",headers:{"Content-Type":"application/json","X-Beans-Company-Api-Key":this.apiKey},body:JSON.stringify(n)});return yield r.json()}))}}var i=n.G;export{i as BeansMerchantSdk};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+export class BeansMerchantSdk {
+    constructor(apiBaseUrl, apiKey) {
+        this.apiBaseUrl = apiBaseUrl;
+        this.apiKey = apiKey;
+    }
+    static production(apiKey) {
+        return new BeansMerchantSdk('https://api.beansapp.com/v3', apiKey);
+    }
+    static staging(apiKey) {
+        return new BeansMerchantSdk('https://api.staging.beansapp.com/v3', apiKey);
+    }
+    static custom(apiBaseUrl, apiKey) {
+        const cleanApiBaseUrl = apiBaseUrl.endsWith('/') ? apiBaseUrl.slice(0, apiBaseUrl.length - 1) : apiBaseUrl;
+        return new BeansMerchantSdk(cleanApiBaseUrl, apiKey);
+    }
+    fetchStellarCurrencies(stellarAccountId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const url = `${this.apiBaseUrl}/companies/me/accounts/${stellarAccountId}/stellar-currencies`;
+            const response = yield fetch(url, {
+                headers: {
+                    'X-Beans-Company-Api-Key': this.apiKey
+                }
+            });
+            const data = yield response.json();
+            return data;
+        });
+    }
+    generateDeeplink(stellarAccountId_1, stellarCurrencyId_1, amount_1, memo_1) {
+        return __awaiter(this, arguments, void 0, function* (stellarAccountId, stellarCurrencyId, amount, memo, maxAllowedPayments = null, webhookUrl = null) {
+            const response = yield this.generatePaymentRequest(stellarAccountId, {
+                "stellarCurrencyId": stellarCurrencyId,
+                "amount": amount,
+                "memo": memo,
+                "maxAllowedPayments": maxAllowedPayments,
+                "paymentReceivedWebHookUrl": webhookUrl,
+                "deeplink": {
+                    "include": true
+                }
+            });
+            return response;
+        });
+    }
+    generatePngQrCode(stellarAccountId_1, stellarCurrencyId_1, amount_1, memo_1) {
+        return __awaiter(this, arguments, void 0, function* (stellarAccountId, stellarCurrencyId, amount, memo, maxAllowedPayments = null, webhookUrl = null, preferredSize = null) {
+            const response = yield this.generatePaymentRequest(stellarAccountId, {
+                "stellarCurrencyId": stellarCurrencyId,
+                "amount": amount,
+                "memo": memo,
+                "maxAllowedPayments": maxAllowedPayments,
+                "paymentReceivedWebHookUrl": webhookUrl,
+                "deeplink": {
+                    "include": true
+                },
+                "pngQrCodeBase64String": {
+                    "include": true,
+                    "preferredSize": preferredSize
+                }
+            });
+            return response;
+        });
+    }
+    generateSvgQrCode(stellarAccountId_1, stellarCurrencyId_1, amount_1, memo_1) {
+        return __awaiter(this, arguments, void 0, function* (stellarAccountId, stellarCurrencyId, amount, memo, maxAllowedPayments = null, webhookUrl = null, size = null) {
+            const response = yield this.generatePaymentRequest(stellarAccountId, {
+                "stellarCurrencyId": stellarCurrencyId,
+                "amount": amount,
+                "memo": memo,
+                "maxAllowedPayments": maxAllowedPayments,
+                "paymentReceivedWebHookUrl": webhookUrl,
+                "deeplink": {
+                    "include": true
+                },
+                "svgQrCode": {
+                    "include": true,
+                    "size": size
+                }
+            });
+            return response;
+        });
+    }
+    generatePaymentRequest(stellarAccountId, body) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const url = `${this.apiBaseUrl}/companies/me/accounts/${stellarAccountId}/payment-request`;
+            const response = yield fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Beans-Company-Api-Key': this.apiKey,
+                },
+                body: JSON.stringify(body)
+            });
+            const data = yield response.json();
+            return data;
+        });
+    }
+    getPaymentRequestStatus(paymentRequestId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const url = `${this.apiBaseUrl}/companies/me/payment-requests/${paymentRequestId}/status`;
+            const response = yield fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Beans-Company-Api-Key': this.apiKey
+                }
+            });
+            const data = yield response.json();
+            return data;
+        });
+    }
+}
+//# sourceMappingURL=sdk.js.map

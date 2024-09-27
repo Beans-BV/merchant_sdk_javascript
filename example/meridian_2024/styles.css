@@ -1,0 +1,308 @@
+/* src/styles.css */
+
+/* Color Scheme */
+:root {
+  --primary: #374a53;
+  --secondary: #dab68c;
+  --secondary-darker: #a47a49;
+  --on-secondary: #262626;
+  --background: #f8ffe5;
+  --on-background: #262626;
+  --error: #dd2121;
+  --on-error: #ffffff;
+  --error-darker: #c2543b;
+  --success: #5dd784;
+  --warning: #ffc238;
+}
+
+/* Ensure html and body take full height */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Apply the gradient background to body */
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  color: var(--foreground);
+  background-color: var(--background);
+  min-height: 100vh;
+}
+
+/* Main App Container */
+#app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 0px;
+  box-sizing: border-box;
+  padding-top: 0px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the container is at least the height of the viewport */
+}
+
+#main-content {
+  flex: 1;
+}
+
+/* Header Styles */
+.header {
+  padding-bottom: 24px; /* Increased top padding */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center; /* Vertically center items */
+  justify-content: center;
+}
+
+.logo {
+  width: 280px; /* Reduced logo size */
+  height: auto;
+  margin-top: -40px;
+  /* Reduced margin */
+}
+
+.app-title {
+  font-size: 2em;
+  margin: 0;
+  line-height: 1; /* Ensure single-line height */
+}
+
+.subtitle {
+  font-size: 1.2em; /* Reduced font size */
+  margin-top: 10px; /* Added margin-top */
+}
+
+/* Product Styles */
+.product-image {
+  width: 180px;
+  height: auto;
+}
+
+.product-title {
+  margin-top: 20px;
+  font-family: "Kurale", serif;
+  font-size: 2em;
+}
+
+.product-price {
+  font-size: 1.2em;
+  margin: 20px auto;
+}
+
+/* Quantity Control */
+.quantity-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+  margin-top: 60px;
+}
+
+.quantity-control button {
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  background-color: var(--secondary);
+  color: var(--on-secondary);
+}
+
+.quantity-control button:hover {
+  background-color: var(--secondary-darker);
+}
+
+.quantity-control #quantity {
+  margin: 0 20px;
+  font-size: 1.5em;
+  color: var(--on-secondary);
+}
+
+.order-id {
+  font-size: 1.5em;
+  color: var(--on-secondary);
+  margin-top: 20px;
+  font-family: "Kurale", serif;
+}
+
+/* Total Price */
+.total-price {
+  font-size: 1.5em;
+  color: var(--on-secondary);
+  margin-bottom: 30px;
+  font-family: "Kurale", serif;
+}
+
+/* Buy Now Button */
+#buyButton {
+  background-color: var(--secondary);
+  color: var(--on-secondary);
+  font-family: Kurale, serif;
+  margin-top: 20px;
+  padding: 10px 30px;
+  font-size: 1.5em;
+}
+
+#buyButton:hover {
+  background-color: var(--secondary-darker);
+}
+
+#qrCode {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
+}
+
+/* #qrCode svg {
+  width: 100%;
+  height: 100%;
+} */
+
+/* Cancel Button */
+#cancelButton {
+  background-color: var(--error);
+  color: var(--on-error);
+  padding: 10px 20px;
+  font-size: 1em;
+  margin: 20px auto 0 auto;
+  display: inline-block;
+  font-family: "Kurale", serif;
+}
+
+#cancelButton:hover {
+  background-color: var(--error-darker);
+}
+
+/* Success Message Container */
+#successContainer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.checkmark-image {
+  width: 180px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.success-title {
+  font-size: 2em;
+  color: var(--on-secondary);
+  font-family: "Kurale", serif;
+  margin-bottom: 10px;
+}
+
+.success-subtitle {
+  font-size: 1.2em;
+  color: var(--on-secondary);
+  font-family: "Kurale", serif;
+  margin-bottom: 20px;
+}
+
+/* Done Button */
+#doneButton {
+  background-color: var(--secondary);
+  color: var(--on-secondary);
+  padding: 10px 20px;
+  font-size: 1em;
+}
+
+#doneButton:hover {
+  background-color: var(--secondary-darker);
+}
+
+/* Footer Styles */
+/* Footer Logo Styles */
+footer {
+  position: static;
+  left: 0px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: auto; /* Pushes the footer to the bottom */
+}
+
+.footer-logos {
+  display: flex;
+  justify-content: space-around;
+  width: 250px; /* Adjust based on your design */
+}
+
+.meridian-x-beans-logo {
+  width: 250px;
+  opacity: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Common Button Styles */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: 2px;
+  border: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/*TURAN*/
+.custom-divider {
+  border: none;
+  height: 1px;
+  width: 300px;
+  background: linear-gradient(to right, transparent, #666, transparent);
+  margin: 0px auto;
+}
+
+.product-description {
+  font-family: "Kurale", serif;
+  width: 60%;
+  margin: -10px auto;
+  font-size: 1.15em;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 600px) {
+  .product {
+    padding: 15px;
+  }
+
+  .product-image {
+    width: 160px;
+  }
+  
+  #qrCode {
+    width: 160px;
+    height: 160px;
+  }
+
+  .logo {
+    width: 250px; /* Further reduce size on small screens */
+  }
+
+  .app-title {
+    font-size: 1.5em;
+  }
+
+  .subtitle {
+    font-size: 1em;
+  }
+
+  .success-title {
+    font-size: 1.5em;
+  }
+
+  .success-subtitle {
+    font-size: 1em;
+  }
+}

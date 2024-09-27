@@ -6,12 +6,10 @@
     <title>Checkout</title>
     <link
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+      rel="stylesheet"/>
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <link rel="stylesheet" href="styles.css" />
   </head>
 
@@ -19,7 +17,7 @@
     <nav class="navbar navbar-expand-lg">
       <i class="arrow left mr-4 ml-3" id="backArrow"></i>
       <a class="navbar-brand" href="#" style="color: white">
-        <img src="./static/merchant_logo.png" alt="Logo" /> EkoEbooks
+        <img src="./assets/merchant_logo.png" alt="Logo" /> EkoEbooks
       </a>
       <button
         class="navbar-toggler"
@@ -185,7 +183,7 @@
           Pay with Beans App
         </h2>
         <img
-          src="./static/beans_logo.png"
+          src="./assets/beans_logo.png"
           alt="beanslogo"
           style="height: 1.5rem"
         />
@@ -262,7 +260,7 @@
       <h2>Payment received</h2>
       <p class="mb-4 mt-2">Thank you for your purchase!</p>
       <img
-        src="./static/checkmark.png"
+        src="./assets/checkmark.png"
         alt="Payment received"
         style="width: 100px; height: 100px"
       />
@@ -273,117 +271,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- BeansMerchantSdk script -->
-    <script type="module">
-      import { BeansMerchantSdk } from "../dist/sdk.js";
-      import Constants from "./constants.js";
-
-      const apiKeyInput = Constants.ekoEbooksApiKey;
-      const stellarAccountId = Constants.ekoEbooksStellarAccountId;
-      const stellarCurrencyId = Constants.ngnStellarCurrencyId;
-
-      let amountInput = 0; // Gets updated later
-      let sdk = BeansMerchantSdk.production(apiKeyInput);
-
-      document
-        .getElementById("btnGenerateQR")
-        .addEventListener("click", generateQrCode);
-
-      document
-        .getElementById("backArrow")
-        .addEventListener("click", function () {
-          window.location.href = "index.html";
-        });
-
-      document.getElementById("qrCode").addEventListener("click", function () {
-        qrCodeContainer.style.display = "none";
-        document.getElementById("paymentReceivedContainer").style.display =
-          "block";
-      });
-
-      function generateQrCode() {
-        if (!sdk) {
-          alert("Please initialize the SDK first");
-          return;
-        }
-
-        // Show loading indicator
-        const qrCodeContainer = document.getElementById("qrCodeContainer");
-        const loadingIndicator = document.getElementById("loadingIndicator");
-        const qrCodeElement = document.getElementById("qrCode");
-
-        document.getElementById("checkout-container").style.display = "none";
-        qrCodeContainer.style.display = "none";
-        loadingIndicator.style.display = "block";
-        qrCodeElement.style.display = "none";
-
-        // Generate orderId using current timestamp
-        const orderId = "00" + Date.now();
-
-        sdk
-          .generateSvgQrCode(
-            stellarAccountId,
-            stellarCurrencyId,
-            amountInput,
-            orderId,
-            null,
-            null
-          )
-          .then((qrCode) => {
-            qrCodeContainer.style.display = "block";
-            loadingIndicator.style.display = "none";
-            qrCodeElement.style.display = "block";
-
-            qrCodeElement.innerHTML = qrCode.svgQrCode
-              .replaceAll("#FFFFFF", "#1a191e")
-              .replaceAll("#000000", "#FFFFFF");
-
-            document.querySelector(".seller-name").textContent =
-              "EkoEbooks Payments United States";
-            document.querySelector(".total-amount").textContent =
-              formatCurrency(amountInput);
-            document.querySelector(".order-id").textContent = orderId;
-
-            setTimeout(() => {
-              qrCodeContainer.style.display = "none";
-              document.getElementById(
-                "paymentReceivedContainer"
-              ).style.display = "block";
-            }, 22000);
-          })
-          .catch((error) => {
-            loadingIndicator.style.display = "none";
-            qrCodeContainer.style.display = "none";
-            document.getElementById("checkout-container").style.display =
-              "block";
-            alert("Error generating QR code:", error);
-          });
-      }
-
-      function formatCurrency(amount) {
-        return "₦" + amount.toLocaleString();
-      }
-
-      // Update order total based on amountInput
-      function updateOrderTotal() {
-        amountInput = book.price * book.quantity;
-        document.getElementById("orderTotal").textContent =
-          formatCurrency(amountInput);
-      }
-
-      document.addEventListener("DOMContentLoaded", function () {
-        // Populate book info in the checkout page
-        document.getElementById("orderItems").textContent = formatCurrency(
-          book.quantity * book.price
-        );
-        document.getElementById("orderTotal").textContent = formatCurrency(
-          book.quantity * book.price
-        );
-
-        // Update order total with amountInput
-        updateOrderTotal();
-      });
-    </script>
-    <script src="book.js"></script>
+    <script src="common.js"></script>
+    <script src="books.js"></script>
+    <script src="checkout.js" type="module"></script>
   </body>
 </html>
