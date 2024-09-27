@@ -28,8 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Set the images' sources
   document.querySelector(".product-image").src = "./assets/coffee.png";
   document.querySelector(".logo").src = "./assets/searcyslogo.png";
-  document.querySelector(".meridian-logo").src =
-    "./assets/meridianLogoBlue.png";
+  document.querySelector(".meridian-x-beans-logo").src = "./assets/meridian_x_beans.png";
   document.getElementById("checkmarkImage").src = "./assets/checkmark.png";
 
   // Set initial total price

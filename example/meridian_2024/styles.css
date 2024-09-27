@@ -39,22 +39,20 @@ body {
 #app {
   max-width: 800px;
   margin: 0 auto;
-}
-
-/* Common Button Styles */
-button {
-  font-family: inherit;
-  cursor: pointer;
+  background-color: var(--on-primary);
+  padding: 20px;
   border-radius: 0px;
-  border: none;
+  color: var(--on-secondary);
+  box-sizing: border-box;
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.4);
+  padding-top: 0px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the container is at least the height of the viewport */
 }
 
-button:focus {
-  outline: none;
-}
-
-button:active {
-  transform: scale(0.98);
+#main-content {
+  flex: 1;
 }
 
 /* Header Styles */
@@ -88,17 +86,6 @@ button:active {
 }
 
 /* Product Styles */
-.product {
-  background-color: var(--on-primary);
-  padding: 20px;
-  border-radius: 0px;
-  height: 100vh; /* Optional: if you want it to take up the full screen */
-  color: var(--on-secondary);
-  box-sizing: border-box; /* Ensures padding is included in the height calculation */
-  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.4);
-  padding-top: 0px;
-}
-
 .product-image {
   width: 180px;
   height: auto;
@@ -241,34 +228,40 @@ button:active {
 /* Footer Logo Styles */
 footer {
   position: static;
-  margin-top: 60px;
   left: 0px;
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: auto; /* Pushes the footer to the bottom */
 }
 
 .footer-logos {
   display: flex;
   justify-content: space-around;
-  width: 400px; /* Adjust based on your design */
+  width: 250px; /* Adjust based on your design */
 }
 
-.beans-logo {
-  width: 131px;
+.meridian-x-beans-logo {
+  width: 250px;
   opacity: 50%;
-  height: 45px;
   display: block;
   margin: 0 auto;
-  margin-top: -6px;
 }
 
-.meridian-logo {
-  width: 150px;
-  opacity: 50%;
-  height: 32px;
-  display: block;
-  margin: 0 auto;
+/* Common Button Styles */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: 0px;
+  border: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:active {
+  transform: scale(0.98);
 }
 
 /*TURAN*/
