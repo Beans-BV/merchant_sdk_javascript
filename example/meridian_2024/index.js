@@ -10,6 +10,7 @@ const stellarAccountId = new URLSearchParams(window.location.search).get(
 const stellarCurrencyId = new URLSearchParams(window.location.search).get(
   "stellarCurrencyId"
 );
+const price = new URLSearchParams(window.location.search).get("price");
 
 // Initialize the BeansMerchantSdk
 const sdk = BeansMerchantSdk.production(apiKey);
@@ -17,7 +18,7 @@ const sdk = BeansMerchantSdk.production(apiKey);
 // Product information
 const product = {
   name: "Premium Coffee",
-  price: 0.01, // Price per unit in USD
+  price: price ?? 5.00, // Price per unit in USD
   quantity: 1, // Default quantity
 };
 
