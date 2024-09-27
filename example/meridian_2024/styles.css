@@ -2,25 +2,26 @@
 
 /* Color Scheme */
 :root {
-  --primary: #675AA1;
-  --primary-lighter: #8C7DCF;
-  --primary-lightest: #EBE1F6;
-  --primary-darker: #4C407E;
-  --on-primary: #FFFFFF;
-  --secondary: #FDDA7D;
+  --primary: #374a53;
+  --primary-lighter: #dab68c;
+  --primary-lightest: #ebe1f6;
+  --primary-darker: #a47a49;
+  --on-primary: #f8ffe5;
+  --secondary: #fdda7d;
   --on-secondary: #262626;
-  --background: #675AA1;
-  --on-background: #FFFFFF;
-  --on-background-light: #E0E0E0;
-  --error: #ED6D49;
-  --on-error: #FFFFFF;
+  --background: #675aa1;
+  --on-background: #ffffff;
+  --on-background-light: #e0e0e0;
+  --error: #dd2121;
+  --on-error: #ffffff;
   --error-darker: #c2543b;
-  --success: #5DD784;
-  --warning: #FFC238;
+  --success: #5dd784;
+  --warning: #ffc238;
 }
 
 /* Ensure html and body take full height */
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -30,14 +31,13 @@ html, body {
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  background: linear-gradient(to top left, var(--primary-darker), var(--primary), var(--primary-lighter));
-  color: var(--on-background);
+  background-color: var(--primary);
   min-height: 100vh;
 }
 
 /* Main App Container */
 #app {
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -45,7 +45,7 @@ body {
 button {
   font-family: inherit;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 0px;
   border: none;
 }
 
@@ -69,9 +69,10 @@ button:active {
 }
 
 .logo {
-  width: 40px; /* Reduced logo size */
+  width: 280px; /* Reduced logo size */
   height: auto;
-  margin-right: 10px; /* Reduced margin */
+  margin-top: -40px;
+  /* Reduced margin */
 }
 
 .app-title {
@@ -90,23 +91,29 @@ button:active {
 .product {
   background-color: var(--on-primary);
   padding: 20px;
-  margin-top: 20px;
-  border-radius: 10px;
+  border-radius: 0px;
+  height: 100vh; /* Optional: if you want it to take up the full screen */
   color: var(--on-secondary);
+  box-sizing: border-box; /* Ensures padding is included in the height calculation */
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.4);
+  padding-top: 0px;
 }
 
 .product-image {
-  width: 150px;
+  width: 180px;
   height: auto;
 }
 
 .product-title {
   margin-top: 20px;
+  font-family: "Kurale", serif;
   color: var(--on-secondary);
+  font-size: 2em;
 }
 
 .product-price {
   font-size: 1.2em;
+  margin: 20px auto;
   color: var(--on-secondary);
 }
 
@@ -116,6 +123,7 @@ button:active {
   justify-content: center;
   align-items: center;
   margin: 30px 0;
+  margin-top: 60px;
 }
 
 .quantity-control button {
@@ -123,7 +131,7 @@ button:active {
   height: 40px;
   font-size: 24px;
   background-color: var(--primary-lighter);
-  color: var(--on-primary);
+  color: black;
 }
 
 .quantity-control button:hover {
@@ -141,18 +149,24 @@ button:active {
   font-size: 1.5em;
   color: var(--on-secondary);
   margin-bottom: 30px;
+  margin-top: 20px;
+  font-family: "Kurale", serif;
 }
 
 /* Buy Now Button */
 #buyButton {
-  background-color: var(--secondary);
-  color: var(--on-secondary);
-  padding: 15px 30px;
-  font-size: 1em;
+  background-color: var(--primary-lighter);
+  color: black;
+  font-family: Kurale, serif;
+  margin-top: 20px;
+  padding: 10px 30px;
+  font-size: 1.5em;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 #buyButton:hover {
-  background-color: var(--warning);
+  background-color: var(--primary-darker);
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.4);
 }
 
 /* QR Code Container */
@@ -174,16 +188,17 @@ button:active {
 
 /* Cancel Button */
 #cancelButton {
-  background-color: var(--error);
+  background-color: var(--primary);
   color: var(--on-error);
   padding: 10px 20px;
   font-size: 1em;
   margin: 20px auto 0 auto;
   display: inline-block;
+  font-family: "Kurale", serif;
 }
 
 #cancelButton:hover {
-  background-color: var(--error-darker);
+  background-color: var(--primary-darker);
 }
 
 /* Success Message Container */
@@ -223,17 +238,53 @@ button:active {
 }
 
 /* Footer Styles */
-.footer {
-  margin-top: 50px; /* Increased margin-top */
-  padding: 20px;
-  background-color: transparent; /* Ensure the footer is transparent */
+/* Footer Logo Styles */
+footer {
+  position: static;
+  margin-top: 60px;
+  left: 0px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.footer-logos {
+  display: flex;
+  justify-content: space-around;
+  width: 400px; /* Adjust based on your design */
+}
+
+.beans-logo {
+  width: 131px;
+  opacity: 50%;
+  height: 45px;
+  display: block;
+  margin: 0 auto;
+  margin-top: -6px;
 }
 
 .meridian-logo {
-  width: 200px;
-  height: auto;
+  width: 150px;
+  opacity: 50%;
+  height: 32px;
   display: block;
   margin: 0 auto;
+}
+
+/*TURAN*/
+.custom-divider {
+  border: none;
+  height: 1px;
+  width: 300px;
+  background: linear-gradient(to right, transparent, #666, transparent);
+  margin: 0px auto;
+}
+
+.product-description {
+  font-family: "Kurale", serif;
+  width: 60%;
+  margin: -10px auto;
+  font-size: 1.15em;
 }
 
 /* Media Queries for Responsiveness */
@@ -243,12 +294,11 @@ button:active {
   }
 
   .product-image {
-    width: 120px;
+    width: 160px;
   }
 
   .logo {
-    width: 30px; /* Further reduce size on small screens */
-    margin-right: 8px;
+    width: 250px; /* Further reduce size on small screens */
   }
 
   .app-title {
