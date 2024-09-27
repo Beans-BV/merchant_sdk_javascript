@@ -18,7 +18,6 @@ const sdk = BeansMerchantSdk.production(apiKey);
 const product = {
   name: "Premium Coffee",
   price: 5.0, // Price per unit in USD
-  // price: 3.5, // Price per unit in USD
   quantity: 1, // Default quantity
 };
 
