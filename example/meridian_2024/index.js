@@ -17,7 +17,7 @@ const sdk = BeansMerchantSdk.production(apiKey);
 // Product information
 const product = {
   name: "Premium Coffee",
-  price: 5.0, // Price per unit in USD
+  price: 0.01, // Price per unit in USD
   quantity: 1, // Default quantity
 };
 
@@ -26,13 +26,13 @@ let paymentRequestId = null; // To store the payment request ID
 
 document.addEventListener("DOMContentLoaded", () => {
   // Set the images' sources
-  document.querySelector(".product-image").src = "./assets/coffee.png";
-  document.querySelector(".logo").src = "./assets/searcyslogo.png";
-  document.querySelector(".meridian-x-beans-logo").src = "./assets/meridian_x_beans.png";
+  document.querySelectorAll(".product-image").forEach((e) => e.src = "./assets/coffee2.png");
+  document.querySelectorAll(".logo").forEach((e) => e.src = "./assets/searcyslogo.png");
+  document.querySelectorAll(".meridian-x-beans-logo").forEach((e) => e.src = "./assets/meridian_x_beans.png");
   document.getElementById("checkmarkImage").src = "./assets/checkmark.png";
 
   // Set initial total price
-  updateTotalPrice();
+  updateTotal();
 
   // Add event listeners for quantity controls
   document
@@ -54,7 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("click", resetApplication);
 });
 
-function updateTotalPrice() {
+function updateTotal() {
+  document.getElementById("product-amount").textContent = product.quantity;
+
   const totalPrice = (product.price * product.quantity).toFixed(2);
   document.querySelectorAll(".total-price").forEach((element) => {
     element.textContent = `Proceed - $${totalPrice}`;
@@ -64,35 +66,46 @@ function updateTotalPrice() {
 
 function increaseQuantity() {
   product.quantity += 1;
-  updateTotalPrice();
+  updateTotal();
 }
 
 function decreaseQuantity() {
   if (product.quantity > 1) {
     product.quantity -= 1;
-    updateTotalPrice();
+    updateTotal();
   }
 }
-
 function generateQrCode() {
   const amount = (product.price * product.quantity).toFixed(2);
   const orderId = `INV${Date.now()}`;
+  document.querySelectorAll(".order-id").forEach((e) => e.textContent = orderId);
 
   sdk
     .generateSvgQrCode(stellarAccountId, stellarCurrencyId, amount, orderId)
     .then((qrCode) => {
-      // Hide the purchase section (quantity controls and Buy Now button)
+      // Hide the purchase section and footer
       document.getElementById("purchase-section").style.display = "none";
-      document.getElementById("footer-container").style.display = "none";
+
       // Update the total price in the QR code container
       document.querySelector(
         "#qrCodeContainer .total-price"
       ).textContent = `Total: $${amount}`;
-      // Show the QR code container
-      document.getElementById("qrCodeContainer").style.display = "block";
+
+      // Get CSS variables for colors
+      const rootStyles = getComputedStyle(document.documentElement);
+      const qrForegroundColor = rootStyles.getPropertyValue('--on-background').trim();
+      const qrBackgroundColor = rootStyles.getPropertyValue('--background').trim();
+
+      // Replace colors in the SVG
+      const customizedSvg = qrCode.svgQrCode
+        .replaceAll('#000000', qrForegroundColor)
+        .replaceAll('#FFFFFF', qrBackgroundColor);
+
       // Set the QR code SVG
-      document.getElementById("qrCode").innerHTML = qrCode.svgQrCode;
-      // Show the Cancel button
+      document.getElementById("qrCode").innerHTML = customizedSvg;
+
+      // Show the QR code container and Cancel button
+      document.getElementById("qrCodeContainer").style.display = "block";
       document.getElementById("cancelButton").style.display = "block";
 
       // Store the paymentRequestId
@@ -147,12 +160,10 @@ function resetApplication() {
   // Hide QR code container, success container, and buttons
   document.getElementById("qrCodeContainer").style.display = "none";
   document.getElementById("successContainer").style.display = "none";
-  document.getElementById("cancelButton").style.display = "none";
-  document.getElementById("doneButton").style.display = "none";
 
   // Reset quantity and total price
   product.quantity = 1;
-  updateTotalPrice();
+  updateTotal();
 
   // Show the purchase section
   document.getElementById("purchase-section").style.display = "block";

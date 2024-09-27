@@ -3,15 +3,11 @@
 /* Color Scheme */
 :root {
   --primary: #374a53;
-  --primary-lighter: #dab68c;
-  --primary-lightest: #ebe1f6;
-  --primary-darker: #a47a49;
-  --on-primary: #f8ffe5;
-  --secondary: #fdda7d;
+  --secondary: #dab68c;
+  --secondary-darker: #a47a49;
   --on-secondary: #262626;
-  --background: #675aa1;
-  --on-background: #ffffff;
-  --on-background-light: #e0e0e0;
+  --background: #f8ffe5;
+  --on-background: #262626;
   --error: #dd2121;
   --on-error: #ffffff;
   --error-darker: #c2543b;
@@ -31,7 +27,8 @@ body {
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  background-color: var(--primary);
+  color: var(--foreground);
+  background-color: var(--background);
   min-height: 100vh;
 }
 
@@ -39,12 +36,9 @@ body {
 #app {
   max-width: 800px;
   margin: 0 auto;
-  background-color: var(--on-primary);
   padding: 20px;
   border-radius: 0px;
-  color: var(--on-secondary);
   box-sizing: border-box;
-  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.4);
   padding-top: 0px;
   display: flex;
   flex-direction: column;
@@ -57,7 +51,7 @@ body {
 
 /* Header Styles */
 .header {
-  padding: 40px 20px 20px 20px; /* Increased top padding */
+  padding-bottom: 24px; /* Increased top padding */
 }
 
 .logo-container {
@@ -82,7 +76,6 @@ body {
 .subtitle {
   font-size: 1.2em; /* Reduced font size */
   margin-top: 10px; /* Added margin-top */
-  color: var(--on-primary); /* Changed to white */
 }
 
 /* Product Styles */
@@ -94,14 +87,12 @@ body {
 .product-title {
   margin-top: 20px;
   font-family: "Kurale", serif;
-  color: var(--on-secondary);
   font-size: 2em;
 }
 
 .product-price {
   font-size: 1.2em;
   margin: 20px auto;
-  color: var(--on-secondary);
 }
 
 /* Quantity Control */
@@ -117,12 +108,12 @@ body {
   width: 40px;
   height: 40px;
   font-size: 24px;
-  background-color: var(--primary-lighter);
-  color: black;
+  background-color: var(--secondary);
+  color: var(--on-secondary);
 }
 
 .quantity-control button:hover {
-  background-color: var(--primary-darker);
+  background-color: var(--secondary-darker);
 }
 
 .quantity-control #quantity {
@@ -131,51 +122,49 @@ body {
   color: var(--on-secondary);
 }
 
+.order-id {
+  font-size: 1.5em;
+  color: var(--on-secondary);
+  margin-top: 20px;
+  font-family: "Kurale", serif;
+}
+
 /* Total Price */
 .total-price {
   font-size: 1.5em;
   color: var(--on-secondary);
   margin-bottom: 30px;
-  margin-top: 20px;
   font-family: "Kurale", serif;
 }
 
 /* Buy Now Button */
 #buyButton {
-  background-color: var(--primary-lighter);
-  color: black;
+  background-color: var(--secondary);
+  color: var(--on-secondary);
   font-family: Kurale, serif;
   margin-top: 20px;
   padding: 10px 30px;
   font-size: 1.5em;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 #buyButton:hover {
-  background-color: var(--primary-darker);
-  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.4);
-}
-
-/* QR Code Container */
-#qrCodeContainer {
-  margin-top: 20px;
+  background-color: var(--secondary-darker);
 }
 
 #qrCode {
-  margin-top: 10px;
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   margin: 0 auto;
 }
 
-#qrCode svg {
+/* #qrCode svg {
   width: 100%;
   height: 100%;
-}
+} */
 
 /* Cancel Button */
 #cancelButton {
-  background-color: var(--primary);
+  background-color: var(--error);
   color: var(--on-error);
   padding: 10px 20px;
   font-size: 1em;
@@ -185,7 +174,7 @@ body {
 }
 
 #cancelButton:hover {
-  background-color: var(--primary-darker);
+  background-color: var(--error-darker);
 }
 
 /* Success Message Container */
@@ -195,7 +184,7 @@ body {
 }
 
 .checkmark-image {
-  width: 100px;
+  width: 180px;
   height: auto;
   margin-bottom: 20px;
 }
@@ -203,12 +192,14 @@ body {
 .success-title {
   font-size: 2em;
   color: var(--on-secondary);
+  font-family: "Kurale", serif;
   margin-bottom: 10px;
 }
 
 .success-subtitle {
   font-size: 1.2em;
   color: var(--on-secondary);
+  font-family: "Kurale", serif;
   margin-bottom: 20px;
 }
 
@@ -221,7 +212,7 @@ body {
 }
 
 #doneButton:hover {
-  background-color: var(--warning);
+  background-color: var(--secondary-darker);
 }
 
 /* Footer Styles */
@@ -252,7 +243,7 @@ footer {
 button {
   font-family: inherit;
   cursor: pointer;
-  border-radius: 0px;
+  border-radius: 2px;
   border: none;
 }
 
@@ -288,6 +279,11 @@ button:active {
 
   .product-image {
     width: 160px;
+  }
+  
+  #qrCode {
+    width: 160px;
+    height: 160px;
   }
 
   .logo {

@@ -13,22 +13,21 @@
   </head>
   <body>
     <div id="app">
+      <header class="header">
+        <img class="logo" src="./assets/searcyslogo.png" alt="" />
+        <div style="margin-top: -60px">
+          <hr class="custom-divider" />
+        </div>
+      </header>
       <div class="content">
-        <header>
-          <img class="logo" src="./assets/searcyslogo.png" alt="" />
-          <div style="margin-top: -60px">
-            <hr class="custom-divider" />
-          </div>
-        </header>
-        <img alt="Coffee Cup" class="product-image" />
-        <h2 class="product-title">Premium Coffee</h2>
-        <p class="product-description">
-          Featuring ingredients gathered from around the globe, taste one of our
-          premium coffees, and enjoy the event!
-        </p>
-
         <!-- Purchase Section -->
         <div id="purchase-section">
+          <img alt="Coffee Cup" class="product-image" />
+          <h2 class="product-title">Premium Coffee</h2>
+          <p class="product-description">
+            Featuring ingredients gathered from around the globe, taste one of our
+            premium coffees, and enjoy the event!
+          </p>
           <div class="quantity-control">
             <button id="decreaseButton">-</button>
             <span id="quantity" style="font-family: Kurale, serif">1</span>
@@ -39,9 +38,11 @@
 
         <!-- QR Code and Total Amount -->
         <div id="qrCodeContainer" style="display: none">
-          <p class="total-price">Total: $3.50</p>
           <div id="qrCode"></div>
-          <button id="cancelButton" style="display: none">Cancel</button>
+          <h2 class="product-title"><span id="product-amount"></span> x Premium Coffee</h2>
+          <p class="order-id">Order Nr:</p>
+          <p class="total-price">Total: $3.50</p>
+          <button id="cancelButton">Cancel</button>
         </div>
 
         <!-- Success Message Container -->
