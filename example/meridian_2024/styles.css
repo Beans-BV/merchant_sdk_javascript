@@ -37,12 +37,12 @@ body {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  border-radius: 0px;
+  border-radius: 0;
   box-sizing: border-box;
-  padding-top: 0px;
+  padding-top: 0;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensures the container is at least the height of the viewport */
+  min-height: 100vh;
 }
 
 #main-content {
@@ -51,47 +51,48 @@ body {
 
 /* Header Styles */
 .header {
-  padding-bottom: 24px; /* Increased top padding */
+  padding-bottom: 24px;
+  margin-bottom: 2vh;
 }
 
 .logo-container {
   display: flex;
-  align-items: center; /* Vertically center items */
+  align-items: center;
   justify-content: center;
+  max-width: 100%;
 }
 
 .logo {
-  width: 280px; /* Reduced logo size */
+  width: 30vh;
   height: auto;
   margin-top: -40px;
-  /* Reduced margin */
 }
 
 .app-title {
   font-size: 2em;
   margin: 0;
-  line-height: 1; /* Ensure single-line height */
+  line-height: 1;
 }
 
 .subtitle {
-  font-size: 1.2em; /* Reduced font size */
-  margin-top: 10px; /* Added margin-top */
+  font-size: 1.2em;
+  margin-top: 10px;
 }
 
 /* Product Styles */
 .product-image {
-  width: 180px;
+  width: 16vh;
   height: auto;
 }
 
 .product-title {
-  margin-top: 20px;
+  margin-top: 1em;
   font-family: "Kurale", serif;
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 .product-price {
-  font-size: 1.2em;
+  font-size: 1.1em;
   margin: 20px auto;
 }
 
@@ -101,13 +102,13 @@ body {
   justify-content: center;
   align-items: center;
   margin: 30px 0;
-  margin-top: 60px;
+  margin-top: 4em;
 }
 
 .quantity-control button {
-  width: 40px;
-  height: 40px;
-  font-size: 24px;
+  width: 1.8em;
+  height: 1.8em;
+  font-size: 1.5em;
   background-color: var(--secondary);
   color: var(--on-secondary);
 }
@@ -122,19 +123,18 @@ body {
   color: var(--on-secondary);
 }
 
-.order-id {
+.order-id,
+.total-price,
+.success-title,
+.success-subtitle {
   font-size: 1.5em;
   color: var(--on-secondary);
   margin-top: 20px;
   font-family: "Kurale", serif;
 }
 
-/* Total Price */
 .total-price {
-  font-size: 1.5em;
-  color: var(--on-secondary);
   margin-bottom: 30px;
-  font-family: "Kurale", serif;
 }
 
 /* Buy Now Button */
@@ -142,8 +142,8 @@ body {
   background-color: var(--secondary);
   color: var(--on-secondary);
   font-family: Kurale, serif;
-  margin-top: 20px;
-  padding: 10px 30px;
+  margin-top: 1em;
+  padding: 0.4em 1.2em;
   font-size: 1.5em;
 }
 
@@ -151,16 +151,12 @@ body {
   background-color: var(--secondary-darker);
 }
 
+/* QR Code */
 #qrCode {
   width: 180px;
   height: 180px;
   margin: 0 auto;
 }
-
-/* #qrCode svg {
-  width: 100%;
-  height: 100%;
-} */
 
 /* Cancel Button */
 #cancelButton {
@@ -189,20 +185,6 @@ body {
   margin-bottom: 20px;
 }
 
-.success-title {
-  font-size: 2em;
-  color: var(--on-secondary);
-  font-family: "Kurale", serif;
-  margin-bottom: 10px;
-}
-
-.success-subtitle {
-  font-size: 1.2em;
-  color: var(--on-secondary);
-  font-family: "Kurale", serif;
-  margin-bottom: 20px;
-}
-
 /* Done Button */
 #doneButton {
   background-color: var(--secondary);
@@ -216,20 +198,19 @@ body {
 }
 
 /* Footer Styles */
-/* Footer Logo Styles */
 footer {
   position: static;
-  left: 0px;
+  left: 0;
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: auto; /* Pushes the footer to the bottom */
+  margin-top: auto;
 }
 
 .footer-logos {
   display: flex;
   justify-content: space-around;
-  width: 250px; /* Adjust based on your design */
+  width: 250px;
 }
 
 .meridian-x-beans-logo {
@@ -255,13 +236,12 @@ button:active {
   transform: scale(0.98);
 }
 
-/*TURAN*/
 .custom-divider {
   border: none;
   height: 1px;
   width: 300px;
   background: linear-gradient(to right, transparent, #666, transparent);
-  margin: 0px auto;
+  margin: 0 auto;
 }
 
 .product-description {
@@ -272,22 +252,43 @@ button:active {
 }
 
 /* Media Queries for Responsiveness */
-@media (max-width: 600px) {
-  .product {
-    padding: 15px;
-  }
-
-  .product-image {
-    width: 160px;
-  }
-  
-  #qrCode {
-    width: 160px;
-    height: 160px;
-  }
-
+@media (max-width: 389px) {
   .logo {
-    width: 250px; /* Further reduce size on small screens */
+    width: 60vw;
+    margin-bottom: 0.7em;
+  }
+
+  .custom-divider {
+    width: 65vw;
+  }
+
+  .product-title {
+    font-size: 1.2em;
+  }
+
+  .product-description {
+    width: 90%;
+    font-size: 1em;
+  }
+
+  .quantity-control button {
+    width: 9vw;
+    height: 9vw;
+    font-size: 1em;
+  }
+
+  #buyButton {
+    margin-top: 1em;
+    font-size: 1.1em;
+  }
+
+  .meridian-x-beans-logo {
+    width: 50vw;
+  }
+
+  #qrCode {
+    width: 26vh;
+    height: 26vh;
   }
 
   .app-title {
@@ -302,6 +303,83 @@ button:active {
     font-size: 1.5em;
   }
 
+  .success-subtitle {
+    font-size: 1em;
+  }
+}
+
+@media (min-width: 390px) and (max-width: 767px) {
+  .logo {
+    width: 60vw;
+    margin-bottom: 0.7em;
+  }
+
+  .custom-divider {
+    width: 65vw;
+  }
+
+  .product-title {
+    font-size: 1.5em;
+  }
+
+  .product-description {
+    width: 80%;
+    font-size: 1.2em;
+  }
+
+  .quantity-control button {
+    width: 9vw;
+    height: 9vw;
+    font-size: 1.25em;
+  }
+
+  #buyButton {
+    margin-top: 1em;
+    font-size: 1.25em;
+  }
+
+  .meridian-x-beans-logo {
+    width: 50vw;
+  }
+
+  #qrCode {
+    width: 30vh;
+    height: 30vh;
+  }
+
+  .app-title {
+    font-size: 1.5em;
+  }
+
+  .subtitle {
+    font-size: 1em;
+  }
+
+  .success-title {
+    font-size: 1.5em;
+  }
+
+  .success-subtitle {
+    font-size: 1em;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .product {
+    padding: 15px;
+  }
+
+  .product-description {
+    width: 60%;
+    font-size: 1.15em;
+  }
+
+  .app-title,
+  .success-title {
+    font-size: 1.5em;
+  }
+
+  .subtitle,
   .success-subtitle {
     font-size: 1em;
   }
