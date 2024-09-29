@@ -18,7 +18,7 @@ const sdk = BeansMerchantSdk.production(apiKey);
 // Product information
 const product = {
   name: "Premium Coffee",
-  price: price ?? 5.00, // Price per unit in USD
+  price: price ?? 5.0, // Price per unit in USD
   quantity: 1, // Default quantity
 };
 
@@ -27,9 +27,15 @@ let paymentRequestId = null; // To store the payment request ID
 
 document.addEventListener("DOMContentLoaded", () => {
   // Set the images' sources
-  document.querySelectorAll(".product-image").forEach((e) => e.src = "./assets/coffee2.png");
-  document.querySelectorAll(".logo").forEach((e) => e.src = "./assets/searcyslogo.png");
-  document.querySelectorAll(".meridian-x-beans-logo").forEach((e) => e.src = "./assets/meridian_x_beans.png");
+  document
+    .querySelectorAll(".product-image")
+    .forEach((e) => (e.src = "./assets/coffee2.png"));
+  document
+    .querySelectorAll(".logo")
+    .forEach((e) => (e.src = "./assets/searcyslogo.png"));
+  document
+    .querySelectorAll(".meridian-x-beans-logo")
+    .forEach((e) => (e.src = "./assets/meridian_x_beans.png"));
   document.getElementById("checkmarkImage").src = "./assets/checkmark.png";
 
   // Set initial total price
@@ -79,13 +85,16 @@ function decreaseQuantity() {
 function generateQrCode() {
   const amount = (product.price * product.quantity).toFixed(2);
   const orderId = `INV${Date.now()}`;
-  document.querySelectorAll(".order-id").forEach((e) => e.textContent = orderId);
+  document
+    .querySelectorAll(".order-id")
+    .forEach((e) => (e.textContent = orderId));
 
   sdk
     .generateSvgQrCode(stellarAccountId, stellarCurrencyId, amount, orderId)
     .then((qrCode) => {
       // Hide the purchase section and footer
       document.getElementById("purchase-section").style.display = "none";
+      document.getElementById("proceed-container").style.display = "none";
 
       // Update the total price in the QR code container
       document.querySelector(
@@ -94,13 +103,17 @@ function generateQrCode() {
 
       // Get CSS variables for colors
       const rootStyles = getComputedStyle(document.documentElement);
-      const qrForegroundColor = rootStyles.getPropertyValue('--on-background').trim();
-      const qrBackgroundColor = rootStyles.getPropertyValue('--background').trim();
+      const qrForegroundColor = rootStyles
+        .getPropertyValue("--on-background")
+        .trim();
+      const qrBackgroundColor = rootStyles
+        .getPropertyValue("--background")
+        .trim();
 
       // Replace colors in the SVG
       const customizedSvg = qrCode.svgQrCode
-        .replaceAll('#000000', qrForegroundColor)
-        .replaceAll('#FFFFFF', qrBackgroundColor);
+        .replaceAll("#000000", qrForegroundColor)
+        .replaceAll("#FFFFFF", qrBackgroundColor);
 
       // Set the QR code SVG
       document.getElementById("qrCode").innerHTML = customizedSvg;
@@ -169,4 +182,5 @@ function resetApplication() {
   // Show the purchase section
   document.getElementById("purchase-section").style.display = "block";
   document.getElementById("footer-container").style.display = "flex";
+  document.getElementById("proceed-container").style.display = "block";
 }
