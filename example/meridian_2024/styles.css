@@ -18,7 +18,6 @@
 /* Ensure html and body take full height */
 html,
 body {
-  height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -42,15 +41,22 @@ body {
   padding-top: 0;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 80vh;
+  position: relative;
 }
 
 #main-content {
   flex: 1;
 }
 
+.content {
+  justify-content: center;
+  align-items: center;
+}
+
 /* Header Styles */
 .header {
+  margin-top: 2vh;
   padding-bottom: 24px;
   margin-bottom: 2vh;
 }
@@ -81,7 +87,7 @@ body {
 
 /* Product Styles */
 .product-image {
-  width: 16vh;
+  width: 14vh;
   height: auto;
 }
 
@@ -101,8 +107,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 30px 0;
-  margin-top: 4em;
+  margin: 2em 0;
+  margin-top: 2.2em;
 }
 
 .quantity-control button {
@@ -198,26 +204,14 @@ body {
 }
 
 /* Footer Styles */
-footer {
-  position: static;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: auto;
-}
-
-.footer-logos {
-  display: flex;
-  justify-content: space-around;
-  width: 250px;
-}
 
 .meridian-x-beans-logo {
-  width: 250px;
+  width: 150px;
+  left: 50%;
   opacity: 50%;
-  display: block;
-  margin: 0 auto;
+  transform: translate(-50%, 50%);
+  position: absolute;
+  bottom: -4vw;
 }
 
 /* Common Button Styles */
@@ -254,7 +248,7 @@ button:active {
 /* Media Queries for Responsiveness */
 @media (max-width: 389px) {
   .logo {
-    width: 60vw;
+    width: 47vw;
     margin-bottom: 0.7em;
   }
 
@@ -262,33 +256,44 @@ button:active {
     width: 65vw;
   }
 
+  .product-image {
+    width: 10vh;
+    height: auto;
+  }
+
   .product-title {
-    font-size: 1.2em;
+    font-size: 1em;
   }
 
   .product-description {
     width: 90%;
-    font-size: 1em;
+    font-size: 0.8em;
   }
 
   .quantity-control button {
-    width: 9vw;
-    height: 9vw;
+    width: 7vw;
+    height: 7vw;
     font-size: 1em;
+    padding-inline: 0px;
+    padding-block: 0px;
+  }
+
+  .quantity-control #quantity {
+    font-size: 0.85em;
   }
 
   #buyButton {
-    margin-top: 1em;
-    font-size: 1.1em;
+    margin-top: 0.75em;
+    font-size: 0.8em;
   }
 
   .meridian-x-beans-logo {
-    width: 50vw;
+    width: 35vw;
   }
 
   #qrCode {
-    width: 26vh;
-    height: 26vh;
+    width: 22vh;
+    height: 22vh;
   }
 
   .app-title {
@@ -310,27 +315,34 @@ button:active {
 
 @media (min-width: 390px) and (max-width: 767px) {
   .logo {
-    width: 60vw;
+    width: 50vw;
     margin-bottom: 0.7em;
   }
 
   .custom-divider {
-    width: 65vw;
+    width: 50vw;
+  }
+
+  .product-image {
+    width: 14vh;
+    height: auto;
   }
 
   .product-title {
-    font-size: 1.5em;
+    font-size: 1.25em;
   }
 
   .product-description {
     width: 80%;
-    font-size: 1.2em;
+    font-size: 1em;
   }
 
   .quantity-control button {
-    width: 9vw;
-    height: 9vw;
-    font-size: 1.25em;
+    width: 8vw;
+    height: 8vw;
+    font-size: 1em;
+    padding-inline: 0px;
+    padding-block: 0px;
   }
 
   #buyButton {
@@ -338,13 +350,9 @@ button:active {
     font-size: 1.25em;
   }
 
-  .meridian-x-beans-logo {
-    width: 50vw;
-  }
-
   #qrCode {
-    width: 30vh;
-    height: 30vh;
+    width: 26vh;
+    height: 26vh;
   }
 
   .app-title {
@@ -382,5 +390,47 @@ button:active {
   .subtitle,
   .success-subtitle {
     font-size: 1em;
+  }
+}
+
+@media (max-height: 400px) and (orientation: landscape) {
+  /* Adjustments for horizontal mobile view */
+  .logo {
+    width: 45vh;
+    margin-bottom: 6vh;
+  }
+
+  .product-description {
+    width: 60%;
+    font-size: 0.9em;
+  }
+
+  .quantity-control button {
+    width: 8vh;
+    height: 8vh;
+    font-size: 0.9em;
+  }
+
+  .product-image {
+    width: 12vw;
+    height: auto;
+  }
+
+  #buyButton {
+    font-size: 1em;
+    padding: 0.5em 1.5em;
+  }
+
+  .app-title {
+    font-size: 1.2em;
+  }
+
+  .subtitle {
+    font-size: 0.9em;
+  }
+
+  .meridian-x-beans-logo {
+    width: 30vh;
+    margin-bottom: 20px;
   }
 }

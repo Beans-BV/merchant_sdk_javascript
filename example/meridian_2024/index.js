@@ -94,7 +94,6 @@ function generateQrCode() {
     .then((qrCode) => {
       // Hide the purchase section and footer
       document.getElementById("purchase-section").style.display = "none";
-      document.getElementById("proceed-container").style.display = "none";
 
       // Update the total price in the QR code container
       document.querySelector(
@@ -181,6 +180,5 @@ function resetApplication() {
 
   // Show the purchase section
   document.getElementById("purchase-section").style.display = "block";
-  document.getElementById("footer-container").style.display = "flex";
-  document.getElementById("proceed-container").style.display = "block";
+  document.getElementById("footer-container").style.display = "block";
 }
