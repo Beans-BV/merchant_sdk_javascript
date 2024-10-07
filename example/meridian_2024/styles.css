@@ -13,6 +13,7 @@
   --error-darker: #c2543b;
   --success: #5dd784;
   --warning: #ffc238;
+  --black: #000000;
 }
 
 /* Ensure html and body take full height */
@@ -52,8 +53,9 @@ body {
 
 /* Header Styles */
 .header {
-  padding-bottom: 24px;
-  margin-bottom: 2vh;
+  /* padding-bottom: 24px; */
+  margin-bottom: 6vh;
+  background-color: var(--black);
 }
 
 .logo-container {
@@ -108,8 +110,8 @@ body {
 
 .quantity-control button {
   padding: 0;
-  width: 1.8em;
-  height: 1.8em;
+  width: 2em;
+  height: 2em;
   font-size: 1.5em;
   background-color: var(--secondary);
   color: var(--on-secondary);
@@ -286,11 +288,11 @@ button:active {
     font-size: 1em;
   }
 
-  .quantity-control button {
+  /* .quantity-control button {
     width: 9vw;
     height: 9vw;
     font-size: 1em;
-  }
+  } */
 
   #buyButton {
     margin-top: 1em;
@@ -353,11 +355,11 @@ button:active {
     font-size: 1.2em;
   }
 
-  .quantity-control button {
-    width: 9vw;
-    height: 9vw;
+  /* .quantity-control button {
+    width: 8vw;
+    height: 8vw;
     font-size: 1.25em;
-  }
+  } */
 
   #buyButton {
     margin-top: 1em;
@@ -432,10 +434,10 @@ button:active {
     margin: 15px 0;
   }
 
-  .quantity-control button {
+  /* .quantity-control button {
     width: 1.5em;
     height: 1.5em;
-  }
+  } */
 
   #successContainer {
     margin-top: 0;
