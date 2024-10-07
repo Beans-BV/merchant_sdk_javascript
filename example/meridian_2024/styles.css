@@ -21,6 +21,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 /* Apply the gradient background to body */
@@ -106,6 +107,7 @@ body {
 }
 
 .quantity-control button {
+  padding: 0;
   width: 1.8em;
   height: 1.8em;
   font-size: 1.5em;
@@ -180,7 +182,7 @@ body {
 }
 
 .checkmark-image {
-  width: 180px;
+  width: 25vh;
   height: auto;
   margin-bottom: 20px;
 }
@@ -212,7 +214,7 @@ footer {
 .footer-logos {
   display: flex;
   justify-content: space-around;
-  width: 250px;
+  width: 100%;
 }
 
 .meridian-x-beans-logo {
@@ -415,8 +417,15 @@ button:active {
     margin-bottom: 20px;
   }
 
+  .order-id,
+  .total-price,
+  .success-title,
+  .success-subtitle {
+    margin: 10px 0;
+  }
+
   .total-price {
-    margin: 0 !important;
+    margin: 10px 0;
   }
 
   .product-title {
@@ -426,5 +435,21 @@ button:active {
   .quantity-control button {
     width: 1.5em;
     height: 1.5em;
+  }
+
+  #successContainer {
+    margin-top: 0;
+  }
+
+}
+
+
+@media (max-height: 510px) {
+  body {
+    overflow: auto;
+  }
+
+  #app{
+    margin-bottom: 100px;
   }
 }
