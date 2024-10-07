@@ -63,9 +63,9 @@ body {
 }
 
 .logo {
-  width: 30vh;
+  width: 25vh;
   height: auto;
-  margin-top: -40px;
+  /* margin-top: -40px; */
 }
 
 .app-title {
@@ -199,12 +199,14 @@ body {
 
 /* Footer Styles */
 footer {
-  position: static;
+  position: fixed;
+  bottom: 0;
   left: 0;
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: auto;
+  background-color: var(--background);
+  padding: 10px 0;
 }
 
 .footer-logos {
@@ -254,8 +256,12 @@ button:active {
 /* Media Queries for Responsiveness */
 @media (max-width: 389px) {
   .logo {
-    width: 60vw;
-    margin-bottom: 0.7em;
+    width: 50vw;
+    /* margin-bottom: 0.7em; */
+  }
+
+  .quantity-control {
+    margin-top: 2rem;
   }
 
   .custom-divider {
@@ -263,6 +269,13 @@ button:active {
   }
 
   .product-title {
+    font-size: 1.2em;
+  }
+
+  .order-id,
+  .total-price,
+  .success-title,
+  .success-subtitle {
     font-size: 1.2em;
   }
 
@@ -310,8 +323,12 @@ button:active {
 
 @media (min-width: 390px) and (max-width: 767px) {
   .logo {
-    width: 60vw;
-    margin-bottom: 0.7em;
+    width: 30vw;
+    /* margin-bottom: 0.7em; */
+  }
+
+  .quantity-control {
+    margin-top: 3em;
   }
 
   .custom-divider {
@@ -319,6 +336,13 @@ button:active {
   }
 
   .product-title {
+    font-size: 1.5em;
+  }
+
+  .order-id,
+  .total-price,
+  .success-title,
+  .success-subtitle {
     font-size: 1.5em;
   }
 
@@ -382,5 +406,25 @@ button:active {
   .subtitle,
   .success-subtitle {
     font-size: 1em;
+  }
+}
+
+@media (max-height: 576px) {
+  .quantity-control {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .total-price {
+    margin: 0 !important;
+  }
+
+  .product-title {
+    margin: 15px 0;
+  }
+
+  .quantity-control button {
+    width: 1.5em;
+    height: 1.5em;
   }
 }

@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .forEach((e) => (e.src = "./assets/coffee2.png"));
   document
     .querySelectorAll(".logo")
-    .forEach((e) => (e.src = "./assets/searcyslogo.png"));
+    .forEach((e) => (e.src = "./assets/notes_logo_black.png"));
   document
     .querySelectorAll(".meridian-x-beans-logo")
     .forEach((e) => (e.src = "./assets/meridian_x_beans.png"));
