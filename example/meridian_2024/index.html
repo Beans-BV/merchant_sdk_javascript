@@ -13,56 +13,60 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <header class="header">
-      <img class="logo" alt="logo" />
-      <!-- <div>
-        <hr class="custom-divider" />
-      </div> -->
-    </header>
-    <div id="app">
-      <div class="content">
-        <!-- Purchase Section -->
-        <div id="purchase-section">
-          <img alt="Coffee Cup" class="product-image" />
-          <h2 class="product-title">Premium Coffee</h2>
-          <p class="product-description">
-            Featuring ingredients gathered from around the globe, taste one of
-            our premium coffees, and enjoy the event!
-          </p>
-          <div class="quantity-control">
-            <button id="decreaseButton">-</button>
-            <span id="quantity" style="font-family: Kurale, serif">1</span>
-            <button id="increaseButton">+</button>
+    <div>
+      <header class="header">
+        <img class="logo" alt="logo" />
+        <!-- <div>
+          <hr class="custom-divider" />
+        </div> -->
+      </header>
+      <div class="container">
+        <div id="app">
+          <div class="content">
+            <!-- Purchase Section -->
+            <div id="purchase-section">
+              <img alt="Coffee Cup" class="product-image" />
+              <h2 class="product-title">Premium Coffee</h2>
+              <p class="product-description">
+                Featuring ingredients gathered from around the globe, taste one of
+                our premium coffees, and enjoy the event!
+              </p>
+              <div class="quantity-control">
+                <button id="decreaseButton">-</button>
+                <span id="quantity" style="font-family: Kurale, serif">1</span>
+                <button id="increaseButton">+</button>
+              </div>
+            </div>
+
+            <!-- QR Code and Total Amount -->
+            <div id="qrCodeContainer" style="display: none">
+              <div id="qrCode"></div>
+              <h2 class="product-title">
+                <span id="product-amount"></span> x Premium Coffee
+              </h2>
+              <p class="order-id">Order Nr:</p>
+              <p class="total-price">Total: $3.50</p>
+              <button id="cancelButton">Cancel</button>
+            </div>
+
+            <!-- Success Message Container -->
+            <div id="successContainer" style="display: none">
+              <img alt="Success" id="checkmarkImage" class="checkmark-image" />
+              <h2 class="success-title">Enjoy your coffee!</h2>
+              <p class="success-subtitle">Purchase successful.</p>
+              <button id="doneButton">Done</button>
+            </div>
           </div>
-        </div>
-
-        <!-- QR Code and Total Amount -->
-        <div id="qrCodeContainer" style="display: none">
-          <div id="qrCode"></div>
-          <h2 class="product-title">
-            <span id="product-amount"></span> x Premium Coffee
-          </h2>
-          <p class="order-id">Order Nr:</p>
-          <p class="total-price">Total: $3.50</p>
-          <button id="cancelButton">Cancel</button>
-        </div>
-
-        <!-- Success Message Container -->
-        <div id="successContainer" style="display: none">
-          <img alt="Success" id="checkmarkImage" class="checkmark-image" />
-          <h2 class="success-title">Enjoy your coffee!</h2>
-          <p class="success-subtitle">Purchase successful.</p>
-          <button id="doneButton">Done</button>
+          <div id="proceed-container">
+            <button id="buyButton" class="total-price">Proceed - $5.00</button>
+          </div>
+          <footer id="footer-container">
+            <div class="footer-logos">
+              <img alt="Meridian Logo" class="meridian-x-beans-logo" />
+            </div>
+          </footer>
         </div>
       </div>
-      <div id="proceed-container">
-        <button id="buyButton" class="total-price">Proceed - $5.00</button>
-      </div>
-      <footer id="footer-container">
-        <div class="footer-logos">
-          <img alt="Meridian Logo" class="meridian-x-beans-logo" />
-        </div>
-      </footer>
     </div>
 
     <script src="index.js" type="module"></script>

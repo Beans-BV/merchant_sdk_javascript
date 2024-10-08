@@ -30,7 +30,7 @@ body {
   font-family: Arial, sans-serif;
   text-align: center;
   color: var(--foreground);
-  background-color: var(--background);
+  background-color: var(--black);
   min-height: 100vh;
 }
 
@@ -47,15 +47,18 @@ body {
   min-height: 100vh;
 }
 
+.container {
+  background-color: var(--background);
+  padding-top:6vh;
+}
+
 #main-content {
   flex: 1;
 }
 
 /* Header Styles */
 .header {
-  /* padding-bottom: 24px; */
-  margin-bottom: 6vh;
-  background-color: var(--black);
+  padding: 15px 0;
 }
 
 .logo-container {
@@ -260,12 +263,12 @@ button:active {
 /* Media Queries for Responsiveness */
 @media (max-width: 389px) {
   .logo {
-    width: 50vw;
+    width: 40vw;
     /* margin-bottom: 0.7em; */
   }
 
   .quantity-control {
-    margin-top: 2rem;
+    margin: 1.5rem 0;
   }
 
   .custom-divider {
@@ -452,6 +455,6 @@ button:active {
   }
 
   #app{
-    margin-bottom: 100px;
+    padding-bottom: 120px;
   }
 }
