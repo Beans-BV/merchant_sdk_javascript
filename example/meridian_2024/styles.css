@@ -3,13 +3,13 @@
 /* Color Scheme */
 :root {
   --primary: #374a53;
-  --secondary: #dab68c;
-  --secondary-darker: #a47a49;
-  --on-secondary: #262626;
-  --background: #f8ffe5;
+  --secondary: #000;
+  --secondary-darker: #000;
+  --on-secondary: #fff;
+  --background: #fff;
   --on-background: #262626;
   --error: #dd2121;
-  --on-error: #ffffff;
+  --on-error: #fff;
   --error-darker: #c2543b;
   --success: #5dd784;
   --warning: #ffc238;
@@ -127,7 +127,7 @@ body {
 .quantity-control #quantity {
   margin: 0 20px;
   font-size: 1.5em;
-  color: var(--on-secondary);
+  color: var(--on-background);
 }
 
 .order-id,
@@ -135,7 +135,7 @@ body {
 .success-title,
 .success-subtitle {
   font-size: 1.5em;
-  color: var(--on-secondary);
+  color: var(--on-background);
   margin-top: 20px;
   font-family: "Kurale", serif;
 }
