@@ -13,10 +13,10 @@ export class BeansMerchantSdk {
         this.apiKey = apiKey;
     }
     static production(apiKey: string): BeansMerchantSdk {
-        return new BeansMerchantSdk('https://api.beansapp.com/v3', apiKey);
+        return new BeansMerchantSdk('https://api.beansapp.com/v4', apiKey);
     }
     static staging(apiKey: string): BeansMerchantSdk {
-        return new BeansMerchantSdk('https://api.staging.beansapp.com/v3', apiKey);
+        return new BeansMerchantSdk('https://api.staging.beansapp.com/v4', apiKey);
     }
     static custom(apiBaseUrl: string, apiKey: string): BeansMerchantSdk {
         const cleanApiBaseUrl = apiBaseUrl.endsWith('/') ? apiBaseUrl.slice(0, apiBaseUrl.length - 1) : apiBaseUrl;
