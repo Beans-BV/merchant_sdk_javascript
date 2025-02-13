@@ -4,7 +4,6 @@
 * **BREAKING CHANGES:**
 *  - API version increased from v3 to v4
 
-
 ## 2.0.0
 * Changes so the SDK is more in line with the Dart SDK
 * 
