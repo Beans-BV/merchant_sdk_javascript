@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sub-Account Management - Beans Merchant SDK</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #222;
+            color: #fff;
+            padding: 20px;
+        }
+        .card {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #444;
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #444;
+            border-bottom: 1px solid #555;
+        }
+        .form-control, .form-select {
+            background-color: #444;
+            color: #fff;
+            border: 1px solid #555;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #444;
+            color: #fff;
+        }
+        .btn-primary {
+            background-color: #c5b3fe;
+            border-color: #c5b3fe;
+            color: #000;
+        }
+        .btn-primary:hover {
+            background-color: #563d7c;
+            border-color: #563d7c;
+            color: #fff;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+        .preview-container {
+            width: 100%;
+            max-width: 400px;
+            height: 200px;
+            border: 1px dashed #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        #avatarPreview {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        #accountDetails {
+            background-color: #444;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        pre {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .result-container {
+            margin-top: 20px;
+        }
+        #resultAvatar {
+            max-width: 150px;
+            max-height: 150px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Sub-Account Management</h1>
+        <p class="lead">This example demonstrates how to create and manage company sub-accounts using the Beans Merchant SDK.</p>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Create Sub-Account Form -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Create Sub-Account</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="createAccountForm">
+                            <div class="mb-3">
+                                <label for="apiKey" class="form-label">Company API Key</label>
+                                <input type="text" class="form-control" id="apiKey" placeholder="Your API Key" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="stellarAccountId" class="form-label">Stellar Account ID</label>
+                                <input type="text" class="form-control" id="stellarAccountId" placeholder="e.g. GBZX4364PEPQTDICMIQDZ56K4T75QZCR4NBEYKO6PDRJAHZKGUOJPCXB" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nameEn" class="form-label">Name (English)</label>
+                                <input type="text" class="form-control" id="nameEn" placeholder="e.g. Marketing Account" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nameVi" class="form-label">Name (Vietnamese)</label>
+                                <input type="text" class="form-control" id="nameVi" placeholder="e.g. Tài khoản Marketing">
+                            </div>
+                            <div class="mb-3">
+                                <label for="avatarFile" class="form-label">Account Avatar (optional)</label>
+                                <input class="form-control" type="file" id="avatarFile" accept="image/*">
+                            </div>
+                            <div class="preview-container">
+                                <img id="avatarPreview" src="" alt="Avatar Preview" style="display: none;" />
+                                <span id="previewPlaceholder">Avatar preview will appear here</span>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create Sub-Account</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <!-- Results -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Results</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="alertContainer"></div>
+                        
+                        <div id="accountDetails" style="display: none;">
+                            <h4>Sub-Account Details</h4>
+                            <div class="mb-3">
+                                <strong>Account ID:</strong> <span id="resultAccountId"></span>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Company ID:</strong> <span id="resultCompanyId"></span>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Stellar Account ID:</strong> <span id="resultStellarAccountId"></span>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Name (English):</strong> <span id="resultNameEn"></span>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Name (Vietnamese):</strong> <span id="resultNameVi"></span>
+                            </div>
+                            <div class="mb-3" id="avatarSection" style="display: none;">
+                                <strong>Avatar:</strong><br>
+                                <img id="resultAvatar" src="" alt="Account Avatar">
+                            </div>
+                        </div>
+                        
+                        <div class="result-container">
+                            <h4>API Response</h4>
+                            <pre id="jsonResponse">Results will appear here</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <h3>Code Example</h3>
+            <pre>
+// Create a Beans Merchant SDK instance
+const sdk = BeansMerchantSdk.staging(apiKey);
+
+// Create a sub-account
+const name = {
+    'en': 'Marketing Account',
+    'vi': 'Tài khoản Marketing'
+};
+
+const response = await sdk.createCompanyAccount(
+    'GBZX4364PEPQTDICMIQDZ56K4T75QZCR4NBEYKO6PDRJAHZKGUOJPCXB',
+    name
+);
+
+// Upload avatar for the sub-account
+const imageFile = document.getElementById('avatarFile').files[0];
+const updatedAccount = await sdk.uploadCompanyAccountAvatar(
+    'me',
+    response.account.stellarAccountId,
+    imageFile
+);
+
+// Get avatar for the sub-account
+const avatarArrayBuffer = await sdk.getCompanyAccountAvatar(
+    'me',
+    updatedAccount.id,
+    updatedAccount.avatarId
+);</pre>
+        </div>
+        
+        <div class="mt-5 text-center">
+            <a href="../index.html" class="btn btn-secondary">Back to Examples</a>
+        </div>
+    </div>
+
+    <script type="module">
+        import { BeansMerchantSdk } from '../../dist/sdk.js';
+        
+        // Preview avatar image when selected
+        document.getElementById('avatarFile').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('avatarPreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    document.getElementById('previewPlaceholder').style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Handle form submission
+        document.getElementById('createAccountForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const apiKey = document.getElementById('apiKey').value;
+            const stellarAccountId = document.getElementById('stellarAccountId').value;
+            const nameEn = document.getElementById('nameEn').value;
+            const nameVi = document.getElementById('nameVi').value;
+            const avatarFile = document.getElementById('avatarFile').files[0];
+            
+            // Clear previous results
+            document.getElementById('alertContainer').innerHTML = '';
+            document.getElementById('jsonResponse').textContent = 'Processing...';
+            document.getElementById('accountDetails').style.display = 'none';
+            
+            try {
+                // Create SDK instance
+                const sdk = BeansMerchantSdk.staging(apiKey);
+                
+                // Create name object
+                const name = { 'en': nameEn };
+                if (nameVi) {
+                    name['vi'] = nameVi;
+                }
+                
+                // Create sub-account
+                showAlert('info', 'Creating sub-account...');
+                const response = await sdk.createCompanyAccount(stellarAccountId, name);
+                
+                // Display results
+                document.getElementById('jsonResponse').textContent = JSON.stringify(response, null, 2);
+                
+                // Populate account details
+                document.getElementById('resultAccountId').textContent = response.account.id;
+                document.getElementById('resultCompanyId').textContent = response.account.companyId;
+                document.getElementById('resultStellarAccountId').textContent = response.account.stellarAccountId;
+                document.getElementById('resultNameEn').textContent = response.account.name.en || 'N/A';
+                document.getElementById('resultNameVi').textContent = response.account.name.vi || 'N/A';
+                document.getElementById('accountDetails').style.display = 'block';
+                
+                // Upload avatar if provided
+                if (avatarFile) {
+                    try {
+                        showAlert('info', 'Uploading avatar...');
+                        const updatedAccount = await sdk.uploadCompanyAccountAvatar('me', stellarAccountId, avatarFile);
+                        
+                        // Update JSON response with updated account
+                        document.getElementById('jsonResponse').textContent = JSON.stringify(updatedAccount, null, 2);
+                        
+                        // Fetch and display avatar
+                        if (updatedAccount.avatarId) {
+                            showAlert('info', 'Fetching avatar...');
+                            const avatarArrayBuffer = await sdk.getCompanyAccountAvatar('me', updatedAccount.id, updatedAccount.avatarId);
+                            
+                            // Convert ArrayBuffer to Blob and create URL
+                            const blob = new Blob([avatarArrayBuffer]);
+                            const imageUrl = URL.createObjectURL(blob);
+                            
+                            // Display avatar
+                            document.getElementById('resultAvatar').src = imageUrl;
+                            document.getElementById('avatarSection').style.display = 'block';
+                        }
+                        
+                        showAlert('success', 'Sub-account created and avatar uploaded successfully!');
+                    } catch (avatarError) {
+                        console.error('Avatar upload error:', avatarError);
+                        showAlert('warning', 'Sub-account created, but avatar upload failed: ' + avatarError.message);
+                    }
+                } else {
+                    showAlert('success', 'Sub-account created successfully!');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('jsonResponse').textContent = error.toString();
+                showAlert('danger', 'Error: ' + error.message);
+            }
+        });
+        
+        // Helper function to show alerts
+        function showAlert(type, message) {
+            const alertContainer = document.getElementById('alertContainer');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type} alert-dismissible fade show`;
+            alert.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+            alertContainer.appendChild(alert);
+        }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

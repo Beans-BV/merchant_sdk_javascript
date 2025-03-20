@@ -18,9 +18,16 @@
       - [Generate Deeplink](#generate-deeplink)
       - [Generate PNG QR Code](#generate-png-qr-code)
       - [Generate SVG QR Code](#generate-svg-qr-code)
+      - [Create Company Account](#create-company-account)
+      - [Upload Company Account Avatar](#upload-company-account-avatar)
+      - [Get Company Account Avatar](#get-company-account-avatar)
   - [Webhook Notifications](#webhook-notifications)
 - [Questions and Answers](#questions-and-answers)
   - [Do I have to use stroops?](#do-i-have-to-use-stroops)
+- [Examples](#examples)
+    - [Checkout](#checkout)
+    - [Sub-Account Management](#sub-account-management)
+    - [Advanced (for developers)](#advanced-for-developers)
 
 # Introduction
 
@@ -250,6 +257,91 @@ sdk.generateSvgQRCode('stellarAccountId', 'stellarCurrencyId', 100, 'memo', 1, '
   });
 ```
 
+#### Create Company Account
+
+*Creates a sub-account for the company.*
+
+Method Signature:<br>
+*`Promise<CreateCompanyAccountResponse> createCompanyAccount(...)`*
+
+Parameters:<br>
+  - `stellarAccountId`: *The Stellar account ID for the sub-account.*
+  - `name`: *The name of the sub-account in different languages as a map where the key is the language code (e.g., 'en', 'vi') and the value is the name in that language.*
+
+Returns:<br>
+`Promise<CreateCompanyAccountResponse>`: *A promise that resolves with the response object containing the created company account.*
+
+Return Object Properties:<br>
+  - `account`: *The CompanyAccount object representing the created sub-account.*
+
+Example:<br>
+```js
+const name = {
+  'en': 'Marketing Account',
+  'vi': 'Tài khoản Marketing'
+};
+
+sdk.createCompanyAccount('GBZX4364PEPQTDICMIQDZ56K4T75QZCR4NBEYKO6PDRJAHZKGUOJPCXB', name)
+  .then((response) => {
+    console.log('Created company account:', response.account.id);
+  });
+```
+
+#### Upload Company Account Avatar
+
+*Uploads an avatar for a company sub-account.*
+
+Method Signature:<br>
+*`Promise<CompanyAccount> uploadCompanyAccountAvatar(...)`*
+
+Parameters:<br>
+  - `companyId`: *The ID of the company or 'me' for the current company.*
+  - `stellarAccountId`: *The Stellar account ID of the sub-account.*
+  - `imageData`: *The image data as a File, Blob, or ArrayBuffer.*
+
+Returns:<br>
+`Promise<CompanyAccount>`: *A promise that resolves with the updated CompanyAccount object.*
+
+Example:<br>
+```js
+// Using a File from file input
+const imageFile = document.getElementById('avatarFile').files[0];
+
+sdk.uploadCompanyAccountAvatar('me', 'GBZX4364PEPQTDICMIQDZ56K4T75QZCR4NBEYKO6PDRJAHZKGUOJPCXB', imageFile)
+  .then((updatedAccount) => {
+    console.log('Account updated with avatar:', updatedAccount.avatarId);
+  });
+```
+
+#### Get Company Account Avatar
+
+*Gets the avatar for a company sub-account.*
+
+Method Signature:<br>
+*`Promise<ArrayBuffer> getCompanyAccountAvatar(...)`*
+
+Parameters:<br>
+  - `companyId`: *The ID of the company or 'me' for the current company.*
+  - `accountId`: *The ID of the sub-account.*
+  - `avatarId`: *The ID of the avatar.*
+
+Returns:<br>
+`Promise<ArrayBuffer>`: *A promise that resolves with the image data as an ArrayBuffer.*
+
+Example:<br>
+```js
+sdk.getCompanyAccountAvatar('me', 'account-id', 'avatar-id')
+  .then((avatarArrayBuffer) => {
+    // Convert ArrayBuffer to Blob and create URL
+    const blob = new Blob([avatarArrayBuffer]);
+    const imageUrl = URL.createObjectURL(blob);
+    
+    // Display the image
+    const imgElement = document.getElementById('avatarImage');
+    imgElement.src = imageUrl;
+  });
+```
+
 ## Webhook Notifications
 
 *Beans Merchant API sends a webhook notification to the provided URL when a payment is received.*
@@ -268,3 +360,25 @@ Example Webhook Payload:<br>
 ## Do I have to use stroops?
 
 Our platform utilizes Stellar blockchain technology to simplify digital transactions, making it accessible even to those unfamiliar with cryptocurrencies. We've streamlined the payment process using `Stellar Lumen (XLM)` and other cryptocurrencies, allowing you to transact in main currency units instead of dealing with complex conversions like `stroops`. For example, to request a payment of `1 XLM`, you just set the amoun to `"1"` and our system automatically handles the conversion to `10,000,000 stroops`, ensuring a user-friendly payment experience.
+
+# Examples
+
+We've provided examples to help you understand what you as a business can do with the Beans Merchant SDK.
+
+### Checkout
+
+This example showcases a checkout page that allows users to pay for items using Beans. You can see how easy it is to integrate Beans payments into your e-commerce platform.
+
+### Sub-Account Management
+
+This example demonstrates how to create and manage company sub-accounts using the Beans Merchant SDK. Features include:
+- Creating sub-accounts with multilingual names
+- Uploading avatar images for sub-accounts
+- Retrieving and displaying avatar images
+- Detailed display of account information
+
+This functionality is particularly useful for businesses that need to manage multiple Stellar accounts under a single company account.
+
+### Advanced (for developers)
+
+This example is more technical and aimed at developers who want to understand the full capabilities of the Beans Merchant SDK.
