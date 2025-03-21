@@ -40,6 +40,15 @@
             border-color: #563d7c;
             color: #fff;
         }
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
         .alert {
             margin-top: 20px;
         }
@@ -78,6 +87,17 @@
             max-width: 150px;
             max-height: 150px;
             margin-top: 10px;
+        }
+        .account-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .delete-status {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -135,7 +155,13 @@
                         <div id="alertContainer"></div>
                         
                         <div id="accountDetails" style="display: none;">
-                            <h4>Sub-Account Details</h4>
+                            <div class="account-actions">
+                                <h4>Sub-Account Details</h4>
+                                <button id="deleteAccountBtn" class="btn btn-danger">Delete Account</button>
+                            </div>
+                            
+                            <div id="deleteStatus" class="delete-status" style="display: none;"></div>
+                            
                             <div class="mb-3">
                                 <strong>Account ID:</strong> <span id="resultAccountId"></span>
                             </div>
@@ -196,7 +222,14 @@ const avatarArrayBuffer = await sdk.getCompanyAccountAvatar(
     'me',
     updatedAccount.id,
     updatedAccount.avatarId
-);</pre>
+);
+
+// Delete a sub-account
+const deleteResponse = await sdk.deleteCompanyAccount(
+    'GBZX4364PEPQTDICMIQDZ56K4T75QZCR4NBEYKO6PDRJAHZKGUOJPCXB'
+);
+console.log('Deleted account:', deleteResponse.account.id);
+console.log('Deletion status:', deleteResponse.status);</pre>
         </div>
         
         <div class="mt-5 text-center">
@@ -206,6 +239,9 @@ const avatarArrayBuffer = await sdk.getCompanyAccountAvatar(
 
     <script type="module">
         import { BeansMerchantSdk } from '../../dist/sdk.js';
+        
+        let currentSdk = null;
+        let currentStellarAccountId = null;
         
         // Preview avatar image when selected
         document.getElementById('avatarFile').addEventListener('change', function(event) {
@@ -219,6 +255,54 @@ const avatarArrayBuffer = await sdk.getCompanyAccountAvatar(
                     document.getElementById('previewPlaceholder').style.display = 'none';
                 };
                 reader.readAsDataURL(file);
+            }
+        });
+        
+        // Delete account button handler
+        document.getElementById('deleteAccountBtn').addEventListener('click', async function() {
+            if (!currentSdk || !currentStellarAccountId) {
+                showAlert('danger', 'No account available to delete.');
+                return;
+            }
+            
+            if (!confirm('Are you sure you want to delete this sub-account? This action cannot be undone.')) {
+                return;
+            }
+            
+            try {
+                document.getElementById('deleteAccountBtn').disabled = true;
+                document.getElementById('deleteAccountBtn').textContent = 'Deleting...';
+                document.getElementById('deleteStatus').style.display = 'none';
+                
+                showAlert('info', 'Deleting sub-account...');
+                const deleteResponse = await currentSdk.deleteCompanyAccount(currentStellarAccountId);
+                
+                // Update JSON response with delete response
+                document.getElementById('jsonResponse').textContent = JSON.stringify(deleteResponse, null, 2);
+                
+                // Display delete status
+                const statusElement = document.getElementById('deleteStatus');
+                statusElement.textContent = `Account deleted successfully. Status: ${deleteResponse.status}`;
+                statusElement.style.backgroundColor = '#28a74520';
+                statusElement.style.color = '#28a745';
+                statusElement.style.display = 'block';
+                
+                document.getElementById('deleteAccountBtn').textContent = 'Account Deleted';
+                showAlert('success', 'Sub-account deleted successfully!');
+            } catch (error) {
+                console.error('Error deleting account:', error);
+                document.getElementById('jsonResponse').textContent = error.toString();
+                
+                // Display delete error
+                const statusElement = document.getElementById('deleteStatus');
+                statusElement.textContent = `Error deleting account: ${error.message}`;
+                statusElement.style.backgroundColor = '#dc354520';
+                statusElement.style.color = '#dc3545';
+                statusElement.style.display = 'block';
+                
+                document.getElementById('deleteAccountBtn').disabled = false;
+                document.getElementById('deleteAccountBtn').textContent = 'Delete Account';
+                showAlert('danger', 'Error deleting account: ' + error.message);
             }
         });
         
@@ -236,10 +320,14 @@ const avatarArrayBuffer = await sdk.getCompanyAccountAvatar(
             document.getElementById('alertContainer').innerHTML = '';
             document.getElementById('jsonResponse').textContent = 'Processing...';
             document.getElementById('accountDetails').style.display = 'none';
+            document.getElementById('deleteStatus').style.display = 'none';
+            document.getElementById('deleteAccountBtn').disabled = false;
+            document.getElementById('deleteAccountBtn').textContent = 'Delete Account';
             
             try {
                 // Create SDK instance
-                const sdk = BeansMerchantSdk.staging(apiKey);
+                currentSdk = BeansMerchantSdk.staging(apiKey);
+                currentStellarAccountId = stellarAccountId;
                 
                 // Create name object
                 const name = { 'en': nameEn };
@@ -249,7 +337,7 @@ const avatarArrayBuffer = await sdk.getCompanyAccountAvatar(
                 
                 // Create sub-account
                 showAlert('info', 'Creating sub-account...');
-                const response = await sdk.createCompanyAccount(stellarAccountId, name);
+                const response = await currentSdk.createCompanyAccount(stellarAccountId, name);
                 
                 // Display results
                 document.getElementById('jsonResponse').textContent = JSON.stringify(response, null, 2);
@@ -266,7 +354,7 @@ const avatarArrayBuffer = await sdk.getCompanyAccountAvatar(
                 if (avatarFile) {
                     try {
                         showAlert('info', 'Uploading avatar...');
-                        const updatedAccount = await sdk.uploadCompanyAccountAvatar('me', stellarAccountId, avatarFile);
+                        const updatedAccount = await currentSdk.uploadCompanyAccountAvatar('me', stellarAccountId, avatarFile);
                         
                         // Update JSON response with updated account
                         document.getElementById('jsonResponse').textContent = JSON.stringify(updatedAccount, null, 2);
@@ -274,7 +362,7 @@ const avatarArrayBuffer = await sdk.getCompanyAccountAvatar(
                         // Fetch and display avatar
                         if (updatedAccount.avatarId) {
                             showAlert('info', 'Fetching avatar...');
-                            const avatarArrayBuffer = await sdk.getCompanyAccountAvatar('me', updatedAccount.id, updatedAccount.avatarId);
+                            const avatarArrayBuffer = await currentSdk.getCompanyAccountAvatar('me', updatedAccount.id, updatedAccount.avatarId);
                             
                             // Convert ArrayBuffer to Blob and create URL
                             const blob = new Blob([avatarArrayBuffer]);

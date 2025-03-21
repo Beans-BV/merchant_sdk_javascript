@@ -1,5 +1,6 @@
 import { CompanyAccount } from './models/company_account';
 import { CreateCompanyAccountResponse } from './models/create_company_account_response';
+import { DeleteCompanyAccountResponse } from './models/delete_company_account_response';
 import { FetchStellarCurrenciesResponse } from './models/fetch_stellar_currencies_response';
 import { PaymentRequestStatusResponse } from './models/payment_request_status_response';
 import { DeeplinkResponse,PaymentRequestResponse,PngQrCodeResponse,SvgQrCodeResponse } from './models/qr_code_response';
@@ -8,7 +9,13 @@ import { UploadAvatarResponse } from './models/upload_avatar_response';
 
 export {
     CompanyAccount,
-    CreateCompanyAccountResponse,FetchStellarCurrenciesResponse,PngQrCodeResponse,StellarCurrency,SvgQrCodeResponse,UploadAvatarResponse
+    CreateCompanyAccountResponse,
+    DeleteCompanyAccountResponse,
+    FetchStellarCurrenciesResponse,
+    PngQrCodeResponse,
+    StellarCurrency,
+    SvgQrCodeResponse,
+    UploadAvatarResponse
 };
 
 export class BeansMerchantSdk {
@@ -260,5 +267,39 @@ export class BeansMerchantSdk {
         }
 
         return await response.arrayBuffer();
+    }
+
+    /**
+     * Deletes a sub-account for the company
+     * 
+     * @param stellarAccountId The Stellar account ID of the sub-account to delete
+     * @returns Promise containing the deleted company account and status information
+     * 
+     * @example
+     * ```typescript
+     * const response = await sdk.deleteCompanyAccount('GCQYCNYU3T73JCQ2J36A3JJ5CUQO4DY4EOKMPUL5723ZH7N6XMMNPAA3');
+     * console.log('Deleted account:', response.account.id);
+     * console.log('Status:', response.status);
+     * ```
+     */
+    async deleteCompanyAccount(
+        stellarAccountId: string
+    ): Promise<DeleteCompanyAccountResponse> {
+        const url = `${this.apiBaseUrl}/companies/me/sub-accounts/${stellarAccountId}`;
+
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Beans-Company-Api-Key': this.apiKey,
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to delete company account: ${response.status} ${response.statusText}`);
+        }
+
+        const data: DeleteCompanyAccountResponse = await response.json();
+        return data;
     }
 }

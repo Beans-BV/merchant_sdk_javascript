@@ -20,6 +20,7 @@
       - [Generate SVG QR Code](#generate-svg-qr-code)
       - [Create Company Account](#create-company-account)
       - [Upload Company Account Avatar](#upload-company-account-avatar)
+      - [Delete Company Account](#delete-company-account)
       - [Get Company Account Avatar](#get-company-account-avatar)
   - [Webhook Notifications](#webhook-notifications)
 - [Questions and Answers](#questions-and-answers)
@@ -313,6 +314,32 @@ sdk.uploadCompanyAccountAvatar('me', 'GBZX4364PEPQTDICMIQDZ56K4T75QZCR4NBEYKO6PD
   });
 ```
 
+#### Delete Company Account
+
+*Deletes a sub-account for the company.*
+
+Method Signature:<br>
+*`Promise<DeleteCompanyAccountResponse> deleteCompanyAccount(...)`*
+
+Parameters:<br>
+  - `stellarAccountId`: *The Stellar account ID of the sub-account to delete.*
+
+Returns:<br>
+`Promise<DeleteCompanyAccountResponse>`: *A promise that resolves with the response object containing information about the deleted sub-account.*
+
+Return Object Properties:<br>
+  - `account`: *The CompanyAccount object representing the deleted sub-account.*
+  - `status`: *The status of the deletion operation, typically "deleted".*
+
+Example:<br>
+```js
+sdk.deleteCompanyAccount('GCQYCNYU3T73JCQ2J36A3JJ5CUQO4DY4EOKMPUL5723ZH7N6XMMNPAA3')
+  .then((response) => {
+    console.log('Deleted account:', response.account.id);
+    console.log('Status:', response.status);
+  });
+```
+
 #### Get Company Account Avatar
 
 *Gets the avatar for a company sub-account.*
@@ -371,13 +398,15 @@ This example showcases a checkout page that allows users to pay for items using 
 
 ### Sub-Account Management
 
-This example demonstrates how to create and manage company sub-accounts using the Beans Merchant SDK. Features include:
-- Creating sub-accounts with multilingual names
-- Uploading avatar images for sub-accounts
-- Retrieving and displaying avatar images
-- Detailed display of account information
+We've added an example that demonstrates how to create and manage company sub-accounts. This example shows how to:
+- Create a new sub-account with multi-language support
+- Upload an avatar for a sub-account
+- Retrieve and display the avatar
+- Delete a sub-account when it's no longer needed
 
 This functionality is particularly useful for businesses that need to manage multiple Stellar accounts under a single company account.
+
+Find the full example code [here](https://github.com/Beans-BV/merchant_sdk_javascript/blob/main/example/subaccount/index.html).
 
 ### Advanced (for developers)
 
