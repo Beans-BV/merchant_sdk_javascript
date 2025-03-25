@@ -302,4 +302,48 @@ export class BeansMerchantSdk {
         const data: DeleteCompanyAccountResponse = await response.json();
         return data;
     }
+
+    /**
+     * Fetches all merchant accounts
+     * @returns Promise containing list of company accounts
+     */
+    async getMerchantAccounts(): Promise<CompanyAccount[]> {
+        const url = `${this.apiBaseUrl}/companies/me/accounts`;
+
+        const response = await fetch(url, {
+            headers: {
+                'X-Beans-Company-Api-Key': this.apiKey
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch merchant accounts: ${response.status} ${response.statusText}`);
+        }
+
+        // Extract accounts array from response data
+        const responseData = await response.json();
+        return responseData.accounts;
+    }
+
+    /**
+     * Fetches a specific merchant account by Stellar account ID
+     * @param stellarAccountId The Stellar account ID to fetch
+     * @returns Promise containing the company account
+     */
+    async getMerchantAccount(stellarAccountId: string): Promise<CompanyAccount> {
+        const url = `${this.apiBaseUrl}/companies/me/accounts/${stellarAccountId}`;
+
+        const response = await fetch(url, {
+            headers: {
+                'X-Beans-Company-Api-Key': this.apiKey
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch merchant account: ${response.status} ${response.statusText}`);
+        }
+
+        const data: CompanyAccount = await response.json();
+        return data;
+    }
 }
