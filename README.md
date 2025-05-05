@@ -409,7 +409,7 @@ We've added an example that demonstrates how to create and manage company accoun
 
 This functionality is particularly useful for businesses that need to manage multiple Stellar accounts under a single company account.
 
-Find the full example code [here](https://github.com/Beans-BV/merchant_sdk_javascript/blob/main/example/subaccount/index.html).
+Find the full example code [here](https://github.com/Beans-BV/merchant_sdk_javascript/blob/main/example/account/index.html).
 
 ### Advanced (for developers)
 

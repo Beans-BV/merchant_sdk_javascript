@@ -2,30 +2,30 @@
         let currentSdk = null;
         let currentStellarAccountId = null;
         // Load existing Accounts
-        async function loadSubaccounts() {
-            const subaccountsList = document.getElementById('subaccountsList');
+        async function loadaccounts() {
+            const accountsList = document.getElementById('accountsList');
             if (!currentSdk) return;
 
             try {
                 const accounts = await currentSdk.getMerchantAccounts();
-                subaccountsList.innerHTML = accounts.map(account => `
+                accountsList.innerHTML = accounts.map(account => `
                     <div class="account-card">
-                        <div class="subaccount-info">
-                            <img class="subaccount-avatar"
+                        <div class="account-info">
+                            <img class="account-avatar"
                                  src="${account.avatarId ? `data:image/jpeg;base64,${account.avatarId}` : 'https://via.placeholder.com/50'}" 
                                  alt="Avatar">
-                            <div class="subaccount-details">
-                                <div class="subaccount-name">${account.name.en || 'Unnamed Account'}</div>
-                                <div class="subaccount-id">${account.stellarAccountId}</div>
+                            <div class="account-details">
+                                <div class="account-name">${account.name.en || 'Unnamed Account'}</div>
+                                <div class="account-id">${account.stellarAccountId}</div>
                             </div>
                         </div>
-                        <button class="btn btn-danger btn-sm" onclick="deleteSubaccount('${account.stellarAccountId}')">
+                        <button class="btn btn-danger btn-sm" onclick="deleteaccount('${account.stellarAccountId}')">
                             Delete
                         </button>
                     </div>
                 `).join('');
             } catch (error) {
-                subaccountsList.innerHTML = `
+                accountsList.innerHTML = `
                     <div class="alert alert-danger">
                         Error loading Accounts: ${error.message}
                     </div>
@@ -47,7 +47,7 @@
             }
         });
         // Delete account function
-        window.deleteSubaccount = async function(stellarAccountId) {
+        window.deleteaccount = async function(stellarAccountId) {
             if (!currentSdk) return;
             if (!confirm('Are you sure you want to delete this Account? This action cannot be undone.')) {
                 return;
@@ -55,7 +55,7 @@
             try {
                 const deleteResponse = await currentSdk.deleteCompanyAccount(stellarAccountId);
                 showAlert('success', 'Account deleted successfully!');
-                await loadSubaccounts();
+                await loadaccounts();
             } catch (error) {
                 showAlert('danger', 'Error deleting Account: ' + error.message);
             }
@@ -124,7 +124,7 @@
                 }
 
                 // Reload Accounts list
-                await loadSubaccounts();
+                await loadaccounts();
             } catch (error) {
                 console.error('Error:', error);
                 document.getElementById('jsonResponse').textContent = error.toString();
