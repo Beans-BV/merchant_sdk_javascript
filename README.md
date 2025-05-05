@@ -296,7 +296,7 @@ Method Signature:<br>
 *`Promise<CompanyAccount> uploadCompanyAccountAvatar(...)`*
 
 Parameters:<br>
-  - `companyId`: *The ID of the company or 'me' for the current company.*
+  - `companyId`: *The ID of the company, or the string "me" to automatically resolve the ID from the provided API token.*
   - `stellarAccountId`: *The Stellar account ID of the account.*
   - `imageData`: *The image data as a File, Blob, or ArrayBuffer.*
 
@@ -414,4 +414,6 @@ Find the full example code [here](https://github.com/Beans-BV/merchant_sdk_javas
 ### Advanced (for developers)
 
 This example is more technical and aimed at developers who want to understand the full capabilities of the Beans Merchant SDK.
+
+
 Find the full example code [here](https://github.com/Beans-BV/merchant_sdk_javascript/tree/main/example/shopping_basket).

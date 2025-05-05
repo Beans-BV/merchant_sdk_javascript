@@ -119,7 +119,7 @@ console.log('Found Accounts:', accounts);
 const accountDetails = await sdk.getMerchantAccount(stellarAccountId);
 console.log('Account details:', accountDetails);
 
-// Create a Account
+// Create an Account
 const name = {
     'en': 'Marketing Account',
     'vn': 'Tài khoản Marketing'
@@ -145,7 +145,7 @@ const avatarArrayBuffer = await sdk.getCompanyAccountAvatar(
     updatedAccount.avatarId
 );
 
-// Delete a Account
+// Delete an Account
 const deleteResponse = await sdk.deleteCompanyAccount(
     'GBZX4364PEPQTDICMIQDZ56K4T75QZCR4NBEYKO6PDRJAHZKGUOJPCXB'
 );

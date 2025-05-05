@@ -21,7 +21,7 @@ export declare class BeansMerchantSdk {
     private generatePaymentRequest;
     getPaymentRequestStatus(paymentRequestId: string): Promise<PaymentRequestStatusResponse>;
     /**
-     * Creates a Account for the company
+     * Creates an Account for the company
      *
      * @param stellarAccountId The Stellar account ID for the Account
      * @param name The name of the Account in different languages as a map where
@@ -48,7 +48,7 @@ export declare class BeansMerchantSdk {
      */
     getCompanyAccountAvatar(companyId: string, accountId: string, avatarId: string): Promise<ArrayBuffer>;
     /**
-     * Deletes a Account for the company
+     * Deletes an Account for the company
      *
      * @param stellarAccountId The Stellar account ID of the Account to delete
      * @returns Promise containing the deleted company account and status information

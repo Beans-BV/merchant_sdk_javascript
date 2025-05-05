@@ -9,7 +9,7 @@
             try {
                 const accounts = await currentSdk.getMerchantAccounts();
                 subaccountsList.innerHTML = accounts.map(account => `
-                    <div class="subaccount-card">
+                    <div class="account-card">
                         <div class="subaccount-info">
                             <img class="subaccount-avatar"
                                  src="${account.avatarId ? `data:image/jpeg;base64,${account.avatarId}` : 'https://via.placeholder.com/50'}" 
