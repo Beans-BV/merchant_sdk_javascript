@@ -1,0 +1,1 @@
+{"version":3,"file":"company_account.d.ts","sourceRoot":"","sources":["../../src/models/company_account.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,cAAc;IAC3B,EAAE,EAAE,MAAM,CAAC;IACX,SAAS,EAAE,MAAM,CAAC;IAClB,gBAAgB,EAAE,MAAM,CAAC;IACzB,IAAI,EAAE,MAAM,CAAC,MAAM,EAAE,MAAM,CAAC,CAAC;IAC7B,QAAQ,CAAC,EAAE,MAAM,CAAC;CACrB"}

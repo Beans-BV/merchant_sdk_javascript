@@ -27,7 +27,7 @@
   - [Do I have to use stroops?](#do-i-have-to-use-stroops)
 - [Examples](#examples)
     - [Checkout](#checkout)
-    - [Sub-Account Management](#sub-account-management)
+    - [account Management](#account-management)
     - [Advanced (for developers)](#advanced-for-developers)
 
 # Introduction
@@ -260,26 +260,26 @@ sdk.generateSvgQRCode('stellarAccountId', 'stellarCurrencyId', 100, 'memo', 1, '
 
 #### Create Company Account
 
-*Creates a sub-account for the company.*
+*Creates an account for the company or its clients to receive payments..*
 
 Method Signature:<br>
 *`Promise<CreateCompanyAccountResponse> createCompanyAccount(...)`*
 
 Parameters:<br>
-  - `stellarAccountId`: *The Stellar account ID for the sub-account.*
-  - `name`: *The name of the sub-account in different languages as a map where the key is the language code (e.g., 'en', 'vi') and the value is the name in that language.*
+  - `stellarAccountId`: *The Stellar account ID for the account.*
+  - `name`: *The name of the account in different languages as a map where the key is the language code (e.g., 'en', 'vn') and the value is the name in that language.*
 
 Returns:<br>
 `Promise<CreateCompanyAccountResponse>`: *A promise that resolves with the response object containing the created company account.*
 
 Return Object Properties:<br>
-  - `account`: *The CompanyAccount object representing the created sub-account.*
+  - `account`: *The CompanyAccount object representing the created account.*
 
 Example:<br>
 ```js
 const name = {
   'en': 'Marketing Account',
-  'vi': 'Tài khoản Marketing'
+  'vn': 'Tài khoản Marketing'
 };
 
 sdk.createCompanyAccount('GBZX4364PEPQTDICMIQDZ56K4T75QZCR4NBEYKO6PDRJAHZKGUOJPCXB', name)
@@ -290,14 +290,14 @@ sdk.createCompanyAccount('GBZX4364PEPQTDICMIQDZ56K4T75QZCR4NBEYKO6PDRJAHZKGUOJPC
 
 #### Upload Company Account Avatar
 
-*Uploads an avatar for a company sub-account.*
+*Uploads an avatar for a company account.*
 
 Method Signature:<br>
 *`Promise<CompanyAccount> uploadCompanyAccountAvatar(...)`*
 
 Parameters:<br>
   - `companyId`: *The ID of the company or 'me' for the current company.*
-  - `stellarAccountId`: *The Stellar account ID of the sub-account.*
+  - `stellarAccountId`: *The Stellar account ID of the account.*
   - `imageData`: *The image data as a File, Blob, or ArrayBuffer.*
 
 Returns:<br>
@@ -316,19 +316,19 @@ sdk.uploadCompanyAccountAvatar('me', 'GBZX4364PEPQTDICMIQDZ56K4T75QZCR4NBEYKO6PD
 
 #### Delete Company Account
 
-*Deletes a sub-account for the company.*
+*Deletes an account from the company.*
 
 Method Signature:<br>
 *`Promise<DeleteCompanyAccountResponse> deleteCompanyAccount(...)`*
 
 Parameters:<br>
-  - `stellarAccountId`: *The Stellar account ID of the sub-account to delete.*
+  - `stellarAccountId`: *The Stellar account ID of the account to delete.*
 
 Returns:<br>
-`Promise<DeleteCompanyAccountResponse>`: *A promise that resolves with the response object containing information about the deleted sub-account.*
+`Promise<DeleteCompanyAccountResponse>`: *A promise that resolves with the response object containing information about the deleted an account.*
 
 Return Object Properties:<br>
-  - `account`: *The CompanyAccount object representing the deleted sub-account.*
+  - `account`: *The CompanyAccount object representing the deleted an account.*
   - `status`: *The status of the deletion operation, typically "deleted".*
 
 Example:<br>
@@ -342,14 +342,14 @@ sdk.deleteCompanyAccount('GCQYCNYU3T73JCQ2J36A3JJ5CUQO4DY4EOKMPUL5723ZH7N6XMMNPA
 
 #### Get Company Account Avatar
 
-*Gets the avatar for a company sub-account.*
+*Gets the avatar for a company account.*
 
 Method Signature:<br>
 *`Promise<ArrayBuffer> getCompanyAccountAvatar(...)`*
 
 Parameters:<br>
-  - `companyId`: *The ID of the company or 'me' for the current company.*
-  - `accountId`: *The ID of the sub-account.*
+  - `companyId`: *The ID of the company, or the string "me" to automatically resolve the ID from the provided API token.*
+  - `accountId`: *The ID of the account.*
   - `avatarId`: *The ID of the avatar.*
 
 Returns:<br>
@@ -396,13 +396,16 @@ We've provided examples to help you understand what you as a business can do wit
 
 This example showcases a checkout page that allows users to pay for items using Beans. You can see how easy it is to integrate Beans payments into your e-commerce platform.
 
-### Sub-Account Management
+Find the full example code [here](https://github.com/Beans-BV/merchant_sdk_javascript/tree/main/example/shopping_basket).
 
-We've added an example that demonstrates how to create and manage company sub-accounts. This example shows how to:
-- Create a new sub-account with multi-language support
-- Upload an avatar for a sub-account
+
+### account Management
+
+We've added an example that demonstrates how to create and manage company accounts. This example shows how to:
+- Create a new account with multi-language support
+- Upload an avatar for an account
 - Retrieve and display the avatar
-- Delete a sub-account when it's no longer needed
+- Delete an account when it's no longer needed
 
 This functionality is particularly useful for businesses that need to manage multiple Stellar accounts under a single company account.
 
@@ -411,3 +414,4 @@ Find the full example code [here](https://github.com/Beans-BV/merchant_sdk_javas
 ### Advanced (for developers)
 
 This example is more technical and aimed at developers who want to understand the full capabilities of the Beans Merchant SDK.
+Find the full example code [here](https://github.com/Beans-BV/merchant_sdk_javascript/tree/main/example/shopping_basket).

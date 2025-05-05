@@ -3,7 +3,7 @@ import { CreateCompanyAccountResponse } from './models/create_company_account_re
 import { DeleteCompanyAccountResponse } from './models/delete_company_account_response';
 import { FetchStellarCurrenciesResponse } from './models/fetch_stellar_currencies_response';
 import { PaymentRequestStatusResponse } from './models/payment_request_status_response';
-import { DeeplinkResponse,PaymentRequestResponse,PngQrCodeResponse,SvgQrCodeResponse } from './models/qr_code_response';
+import { DeeplinkResponse, PaymentRequestResponse, PngQrCodeResponse, SvgQrCodeResponse } from './models/qr_code_response';
 import { StellarCurrency } from './models/stellar_currency';
 import { UploadAvatarResponse } from './models/upload_avatar_response';
 
@@ -167,11 +167,11 @@ export class BeansMerchantSdk {
     }
 
     /**
-     * Creates a sub-account for the company
+     * Creates a Account for the company
      * 
-     * @param stellarAccountId The Stellar account ID for the sub-account
-     * @param name The name of the sub-account in different languages as a map where
-     * the key is the language code (e.g., 'en', 'vi') and the value is the name in that language
+     * @param stellarAccountId The Stellar account ID for the Account
+     * @param name The name of the Account in different languages as a map where
+     * the key is the language code (e.g., 'en', 'vn') and the value is the name in that language
      * @returns Promise containing the created company account
      */
     async createCompanyAccount(
@@ -201,10 +201,10 @@ export class BeansMerchantSdk {
     }
 
     /**
-     * Uploads an avatar for a company sub-account
+     * Uploads an avatar for a company Account
      * 
      * @param companyId The ID of the company or 'me' for the current company
-     * @param stellarAccountId The Stellar account ID of the sub-account
+     * @param stellarAccountId The Stellar account ID of the Account
      * @param imageData The image data as a File, Blob, or ArrayBuffer
      * @returns Promise containing the updated company account
      */
@@ -241,10 +241,10 @@ export class BeansMerchantSdk {
     }
 
     /**
-     * Gets the avatar for a company sub-account
+     * Gets the avatar for a company Account
      * 
      * @param companyId The ID of the company or 'me' for the current company
-     * @param accountId The ID of the sub-account
+     * @param accountId The ID of the Account
      * @param avatarId The ID of the avatar
      * @returns Promise containing the avatar image as an ArrayBuffer
      */
@@ -270,9 +270,9 @@ export class BeansMerchantSdk {
     }
 
     /**
-     * Deletes a sub-account for the company
+     * Deletes a Account for the company
      * 
-     * @param stellarAccountId The Stellar account ID of the sub-account to delete
+     * @param stellarAccountId The Stellar account ID of the Account to delete
      * @returns Promise containing the deleted company account and status information
      * 
      * @example
@@ -285,7 +285,7 @@ export class BeansMerchantSdk {
     async deleteCompanyAccount(
         stellarAccountId: string
     ): Promise<DeleteCompanyAccountResponse> {
-        const url = `${this.apiBaseUrl}/companies/me/sub-accounts/${stellarAccountId}`;
+        const url = `${this.apiBaseUrl}/companies/me/Accounts/${stellarAccountId}`;
 
         const response = await fetch(url, {
             method: 'DELETE',

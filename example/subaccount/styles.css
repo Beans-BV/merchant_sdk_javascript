@@ -1,0 +1,139 @@
+ body {
+            background-color: #222;
+            color: #fff;
+            padding: 20px;
+        }
+        .card {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #444;
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #444;
+            border-bottom: 1px solid #555;
+        }
+        .form-control, .form-select {
+            background-color: #444;
+            color: #fff;
+            border: 1px solid #555;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #444;
+            color: #fff;
+        }
+        .btn-primary {
+            background-color: #c5b3fe;
+            border-color: #c5b3fe;
+            color: #000;
+        }
+        .btn-primary:hover {
+            background-color: #563d7c;
+            border-color: #563d7c;
+            color: #fff;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+        .preview-container {
+            width: 100%;
+            max-width: 400px;
+            height: 200px;
+            border: 1px dashed #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        #avatarPreview {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        #accountDetails {
+            background-color: #444;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        pre {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .result-container {
+            margin-top: 20px;
+        }
+        #resultAvatar {
+            max-width: 150px;
+            max-height: 150px;
+            margin-top: 10px;
+        }
+        .account-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .delete-status {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        .subaccount-list {
+            margin-top: 20px;
+        }
+        .subaccount-card {
+            background-color: #444;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .subaccount-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .subaccount-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .subaccount-details {
+            flex-grow: 1;
+        }
+        .subaccount-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .subaccount-id {
+            font-size: 0.9em;
+            color: #aaa;
+        }
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
