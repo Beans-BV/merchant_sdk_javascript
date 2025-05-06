@@ -398,7 +398,6 @@ This example showcases a checkout page that allows users to pay for items using 
 
 Find the full example code [here](https://github.com/Beans-BV/merchant_sdk_javascript/tree/main/example/shopping_basket).
 
-
 ### account Management
 
 We've added an example that demonstrates how to create and manage company accounts. This example shows how to:
