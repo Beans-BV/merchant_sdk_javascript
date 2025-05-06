@@ -1,0 +1,1 @@
+{"version":3,"file":"delete_company_account_response.d.ts","sourceRoot":"","sources":["../../src/models/delete_company_account_response.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,cAAc,EAAE,MAAM,mBAAmB,CAAC;AAEnD;;GAEG;AACH,MAAM,WAAW,4BAA4B;IACzC;;OAEG;IACH,OAAO,EAAE,cAAc,CAAC;IAExB;;OAEG;IACH,MAAM,EAAE,MAAM,CAAC;CAClB"}

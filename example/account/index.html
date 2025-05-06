@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Management - Beans Merchant SDK</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Account Management</h1>
+        <p class="lead">This example demonstrates how to create and manage company Accounts using the Beans Merchant SDK.</p>
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Create Account Form -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Create Account</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="createAccountForm">
+                            <div class="mb-3">
+                                <label for="apiKey" class="form-label">Company API Key</label>
+                                <input type="text" class="form-control" id="apiKey" placeholder="Your API Key" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="stellarAccountId" class="form-label">Stellar Account ID</label>
+                                <input type="text" class="form-control" id="stellarAccountId" placeholder="e.g. GBZX4364PEPQTDICMIQDZ56K4T75QZCR4NBEYKO6PDRJAHZKGUOJPCXB" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nameEn" class="form-label">Name (English)</label>
+                                <input type="text" class="form-control" id="nameEn" placeholder="e.g. Marketing Account" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nameVn" class="form-label">Name (Vietnamese)</label>
+                                <input type="text" class="form-control" id="nameVn" placeholder="e.g. Tài khoản Marketing">
+                            </div>
+                            <div class="mb-3">
+                                <label for="avatarFile" class="form-label">Account Avatar (optional)</label>
+                                <input class="form-control" type="file" id="avatarFile" accept="image/*">
+                            </div>
+                            <div class="preview-container">
+                                <img id="avatarPreview" src="" alt="Avatar Preview" style="display: none;" />
+                                <span id="previewPlaceholder">Avatar preview will appear here</span>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create Account</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Existing Accounts List -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Existing Accounts</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="accountsList" class="account-list">
+                            <div class="text-center">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- Results -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Results</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="alertContainer"></div>
+                        <div id="accountDetails" style="display: none;">
+                            <div class="account-actions">
+                                <h4>Account Details</h4>
+                                <button id="deleteAccountBtn" class="btn btn-danger">Delete Account</button>
+                            </div>
+                            <div id="deleteStatus" class="delete-status" style="display: none;"></div>
+                            <div class="mb-3">
+                                <strong>Account ID:</strong> <span id="resultAccountId"></span>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Company ID:</strong> <span id="resultCompanyId"></span>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Stellar Account ID:</strong> <span id="resultStellarAccountId"></span>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Name (English):</strong> <span id="resultNameEn"></span>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Name (Vietnamese):</strong> <span id="resultNameVn"></span>
+                            </div>
+                            <div class="mb-3" id="avatarSection" style="display: none;">
+                                <strong>Avatar:</strong><br>
+                                <img id="resultAvatar" src="" alt="Account Avatar">
+                            </div>
+                        </div>
+                        <div class="result-container">
+                            <h4>API Response</h4>
+                            <pre id="jsonResponse">Results will appear here</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4">
+            <h3>Code Example</h3>
+            <pre>
+// Create a Beans Merchant SDK instance
+const sdk = BeansMerchantSdk.staging(apiKey);
+
+// Get all Accounts
+const accounts = await sdk.getMerchantAccounts();
+console.log('Found Accounts:', accounts);
+
+// Get details of a specific Account
+const accountDetails = await sdk.getMerchantAccount(stellarAccountId);
+console.log('Account details:', accountDetails);
+
+// Create an Account
+const name = {
+    'en': 'Marketing Account',
+    'vn': 'Tài khoản Marketing'
+};
+
+const response = await sdk.createCompanyAccount(
+    'GBZX4364PEPQTDICMIQDZ56K4T75QZCR4NBEYKO6PDRJAHZKGUOJPCXB',
+    name
+);
+
+// Upload avatar for the Account
+const imageFile = document.getElementById('avatarFile').files[0];
+const updatedAccount = await sdk.uploadCompanyAccountAvatar(
+    'me',
+    response.account.stellarAccountId,
+    imageFile
+);
+
+// Get avatar for the Account
+const avatarArrayBuffer = await sdk.getCompanyAccountAvatar(
+    'me',
+    updatedAccount.id,
+    updatedAccount.avatarId
+);
+
+// Delete an Account
+const deleteResponse = await sdk.deleteCompanyAccount(
+    'GBZX4364PEPQTDICMIQDZ56K4T75QZCR4NBEYKO6PDRJAHZKGUOJPCXB'
+);
+console.log('Deleted account:', deleteResponse.account.id);
+console.log('Deletion status:', deleteResponse.status);</pre>
+        </div>
+        <div class="mt-5 text-center">
+            <a href="../index.html" class="btn btn-secondary">Back to Examples</a>
+        </div>
+    </div>
+    <script type="module" src="./account.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
