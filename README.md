@@ -415,5 +415,4 @@ Find the full example code [here](https://github.com/Beans-BV/merchant_sdk_javas
 
 This example is more technical and aimed at developers who want to understand the full capabilities of the Beans Merchant SDK.
 
-
 Find the full example code [here](https://github.com/Beans-BV/merchant_sdk_javascript/tree/main/example/shopping_basket).
