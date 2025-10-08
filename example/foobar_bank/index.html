@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FooBar Bank - Deposit from Beans App</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-university mr-2"></i>
+                Bank
+            </a>
+            <div class="navbar-nav ml-auto">
+                <span class="navbar-text">
+                    <i class="fas fa-user mr-1"></i>
+                    Account: 1234-5678
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-success text-white text-center">
+                        <h4 class="mb-0">
+                            <i class="fas fa-plus-circle mr-2"></i>
+                            Deposit Funds
+                        </h4>
+                    </div>
+                    <div class="card-body p-4">
+                        <!-- Bank Account Info -->
+                        <div class="account-info mb-4">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h6 class="text-muted mb-1">Account Holder</h6>
+                                    <p class="mb-0 font-weight-bold">K. Mulder</p>
+                                </div>
+                                <div class="col-6">
+                                    <h6 class="text-muted mb-1">Account Number</h6>
+                                    <p class="mb-0 font-weight-bold">1234-5678</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Deposit Form -->
+                        <form id="depositForm">
+                            <div class="form-group">
+                                <label for="amount" class="font-weight-bold">
+                                    Deposit Amount
+                                </label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <input 
+                                        type="number" 
+                                        class="form-control form-control-lg" 
+                                        id="amount" 
+                                        placeholder="0.00" 
+                                        step="0.01" 
+                                        min="0.01"
+                                        required
+                                    >
+                                </div>
+                                <small class="form-text text-muted">
+                                    Minimum deposit: $0.01
+                                </small>
+                            </div>
+
+
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-success btn-lg px-5" id="depositBtn">
+                                    <i class="fas fa-mobile-alt mr-2"></i>
+                                    Pay with Beans App
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Status Messages -->
+                        <div id="statusMessage" class="mt-3" style="display: none;">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                <span id="statusText"></span>
+                            </div>
+                        </div>
+
+                        <!-- Error Messages -->
+                        <div id="errorMessage" class="mt-3" style="display: none;">
+                            <div class="alert alert-danger">
+                                <i class="fas fa-exclamation-triangle mr-2"></i>
+                                <span id="errorText"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instructions -->
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            <i class="fas fa-info-circle text-primary mr-2"></i>
+                            How it works
+                        </h6>
+                        <ol class="mb-0">
+                            <li>Enter the amount you want to deposit</li>
+                            <li>Click "Deposit from Beans App"</li>
+                            <li>The Beans app will open automatically</li>
+                            <li>Complete the payment in the Beans app</li>
+                            <li>Funds will be transferred to your FooBar Bank account (Account: 1234-5678)</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light mt-5 py-4">
+        <div class="container text-center">
+            <p class="text-muted mb-0">
+                <i class="fas fa-shield-alt mr-1"></i>
+                Secure banking powered by Beans
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Beans SDK -->
+    <script type="module" src="index.js"></script>
+</body>
+</html>
