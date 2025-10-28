@@ -1,0 +1,111 @@
+<div class="card mb-3">
+    <div class="card-header">
+        <h3>Payment Configuration</h3>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <label>Select Currency</label>
+            <select 
+                class="form-control"
+                id="payment-currency-select"
+                onchange="handlePaymentCurrencyChange(event)"
+            >
+                <option value="">-- Select Currency --</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Select Destination Account</label>
+            <select 
+                class="form-control"
+                id="payment-account-select"
+                onchange="handlePaymentAccountChange(event)"
+            >
+                <option value="">-- Select Account --</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Amount</label>
+            <input 
+                type="number" 
+                step="0.01"
+                class="form-control"
+                id="payment-amount"
+                value="10.50"
+                onchange="handlePaymentAmountChange(event)"
+            />
+        </div>
+
+        <div class="form-group">
+            <label>Memo</label>
+            <input 
+                type="text" 
+                class="form-control"
+                id="payment-memo"
+                value="Demo Payment"
+                onchange="handlePaymentMemoChange(event)"
+            />
+        </div>
+
+        <div class="form-group">
+            <label>Max Allowed Payments (optional)</label>
+            <input 
+                type="number" 
+                class="form-control"
+                id="payment-max-payments"
+                value="1"
+                onchange="handlePaymentMaxPaymentsChange(event)"
+            />
+        </div>
+
+        <div class="form-group">
+            <label>Webhook URL (optional)</label>
+            <input 
+                type="url" 
+                class="form-control"
+                id="payment-webhook-url"
+                placeholder="https://example.com/webhook"
+                onchange="handlePaymentWebhookUrlChange(event)"
+            />
+        </div>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-header">
+        <h3>Payment Generation Methods</h3>
+    </div>
+    <div class="card-body">
+        <div id="payment-error-container"></div>
+
+        <div class="d-flex gap-2" role="group">
+            <button 
+                class="btn btn-primary"
+                id="generate-deeplink-btn"
+                onclick="handleGenerateDeeplink()"
+            >
+                <i class="fas fa-link"></i> Generate Deeplink
+            </button>
+
+            <button 
+                class="btn btn-primary"
+                id="generate-svg-qr-btn"
+                onclick="handleGenerateSvgQrCode()"
+            >
+                <i class="fas fa-qrcode"></i> Generate SVG QR Code
+            </button>
+
+            <button 
+                class="btn btn-primary"
+                id="generate-png-qr-btn"
+                onclick="handleGeneratePngQrCode()"
+            >
+                <i class="fas fa-image"></i> Generate PNG QR Code
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="payment-result-container"></div>
+

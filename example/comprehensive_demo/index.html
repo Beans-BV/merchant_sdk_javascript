@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beans Merchant SDK - Comprehensive Demo</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">
+                <i class="fas fa-coffee"></i> Beans Merchant SDK - Comprehensive Demo
+            </span>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-4">
+        <!-- Tab Navigation -->
+        <ul class="nav nav-tabs mb-4" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link tab-button active" data-tab="setup" type="button">
+                    <i class="fas fa-cog"></i> Setup
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link tab-button" data-tab="stellar-currencies" type="button">
+                    <i class="fas fa-coins"></i> Stellar Currencies
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link tab-button" data-tab="accounts" type="button">
+                    <i class="fas fa-users"></i> Accounts
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link tab-button" data-tab="payments" type="button">
+                    <i class="fas fa-money-bill-wave"></i> Payments
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div id="setup-tab-content" class="tab-content"></div>
+        <div id="stellar-currencies-tab-content" class="tab-content" style="display: none;"></div>
+        <div id="accounts-tab-content" class="tab-content" style="display: none;"></div>
+        <div id="payments-tab-content" class="tab-content" style="display: none;"></div>
+    </div>
+
+    <!-- SDK from CDN - Load as ES Module and expose globally -->
+    <!-- For local development, use: ../../dist/sdk.js -->
+    <!-- For GitHub Pages/RawGit, use: https://cdn.jsdelivr.net/gh/Beans-BV/merchant_sdk_javascript@main/dist/sdk.js -->
+    <!-- For npm CDN, use: https://cdn.jsdelivr.net/npm/beans-merchant-sdk@latest/dist/sdk.js -->
+    <script type="module">
+        import { BeansMerchantSdk, ApiException } from '../../dist/sdk.js';
+        // Expose to global scope for use in regular scripts
+        window.BeansMerchantSdk = BeansMerchantSdk;
+        window.ApiException = ApiException;
+        // Signal that SDK is ready
+        window.sdkReady = true;
+        // Dispatch event for scripts that are waiting
+        window.dispatchEvent(new Event('sdk-ready'));
+    </script>
+    
+    <!-- Core Files - Defer to ensure SDK loads first -->
+    <script src="utils.js" defer></script>
+    <script src="state.js" defer></script>
+    <script src="sdk.js" defer></script>
+    <script src="tabs.js" defer></script>
+    <script src="main.js" defer></script>
+</body>
+</html>
+

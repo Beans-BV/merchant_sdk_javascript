@@ -112,12 +112,12 @@
 const sdk = BeansMerchantSdk.staging(apiKey);
 
 // Get all Accounts
-const accounts = await sdk.getMerchantAccounts();
-console.log('Found Accounts:', accounts);
+const accountsResponse = await sdk.getCompanyAccounts();
+console.log('Found Accounts:', accountsResponse.accounts);
 
 // Get details of a specific Account
-const accountDetails = await sdk.getMerchantAccount(stellarAccountId);
-console.log('Account details:', accountDetails);
+const accountResponse = await sdk.getCompanyAccount(stellarAccountId);
+console.log('Account details:', accountResponse.account);
 
 // Create an Account
 const name = {
@@ -139,10 +139,8 @@ const updatedAccount = await sdk.uploadCompanyAccountAvatar(
 );
 
 // Get avatar for the Account
-const avatarArrayBuffer = await sdk.getCompanyAccountAvatar(
-    'me',
-    updatedAccount.id,
-    updatedAccount.avatarId
+const avatarArrayBuffer = await sdk.getAvatarUrlBytes(
+    updatedAccount.avatarUrl
 );
 
 // Delete an Account

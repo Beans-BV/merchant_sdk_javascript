@@ -1,0 +1,73 @@
+<div class="card">
+    <div class="card-header">
+        <h3>SDK Configuration</h3>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <label>
+                <input 
+                    type="checkbox" 
+                    id="use-custom-sdk-checkbox"
+                    onchange="handleToggleCustomSdk(event)"
+                />
+                Use Custom SDK
+            </label>
+            <small class="form-text text-muted">
+                Configure custom base URL instead of predefined environments
+            </small>
+        </div>
+
+        <div id="custom-sdk-section" style="display: none;">
+            <div class="form-group">
+                <label>Custom Base URL</label>
+                <input 
+                    type="text" 
+                    class="form-control"
+                    id="custom-base-url-input"
+                    placeholder="https://api.example.com"
+                    onchange="handleCustomBaseUrlChange(event)"
+                />
+            </div>
+        </div>
+
+        <div id="environment-section">
+            <div class="form-group">
+                <label>Environment</label>
+                <select 
+                    class="form-control"
+                    id="environment-select"
+                    onchange="handleEnvironmentChange(event)"
+                >
+                    <option value="staging">Staging</option>
+                    <option value="production">Production</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>API Key</label>
+            <input 
+                type="text" 
+                class="form-control"
+                id="api-key-input"
+                placeholder="Enter your API key"
+                onchange="handleApiKeyChange(event)"
+            />
+        </div>
+
+        <div class="form-group">
+            <label>Stellar Account ID</label>
+            <input 
+                type="text" 
+                class="form-control"
+                id="stellar-account-id-input"
+                placeholder="Enter Stellar Account ID (56 characters)"
+                onchange="handleStellarAccountIdChange(event)"
+            />
+        </div>
+
+        <div id="validation-error-container"></div>
+        <div id="api-error-container"></div>
+    </div>
+</div>
+

@@ -7,12 +7,13 @@
             if (!currentSdk) return;
 
             try {
-                const accounts = await currentSdk.getMerchantAccounts();
+                const accountsResponse = await currentSdk.getCompanyAccounts();
+                const accounts = accountsResponse.accounts;
                 accountsList.innerHTML = accounts.map(account => `
                     <div class="account-card">
                         <div class="account-info">
                             <img class="account-avatar"
-                                 src="${account.avatarId ? `data:image/jpeg;base64,${account.avatarId}` : 'https://via.placeholder.com/50'}" 
+                                 src="${account.avatarUrl || 'https://via.placeholder.com/50'}" 
                                  alt="Avatar">
                             <div class="account-details">
                                 <div class="account-name">${account.name.en || 'Unnamed Account'}</div>
@@ -104,9 +105,9 @@
                         // Update JSON response with updated account
                         document.getElementById('jsonResponse').textContent = JSON.stringify(updatedAccount, null, 2);
                         // Fetch and display avatar
-                        if (updatedAccount.avatarId) {
+                        if (updatedAccount.avatarUrl) {
                             showAlert('info', 'Fetching avatar...');
-                            const avatarArrayBuffer = await currentSdk.getCompanyAccountAvatar('me', updatedAccount.id, updatedAccount.avatarId);
+                            const avatarArrayBuffer = await currentSdk.getAvatarUrlBytes(updatedAccount.avatarUrl);
                             // Convert ArrayBuffer to Blob and create URL
                             const blob = new Blob([avatarArrayBuffer]);
                             const imageUrl = URL.createObjectURL(blob);

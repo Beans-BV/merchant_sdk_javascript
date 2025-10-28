@@ -1,19 +1,24 @@
+import { ApiException } from './exceptions/api_exception';
 import { CompanyAccount } from './models/company_account';
 import { CreateCompanyAccountResponse } from './models/create_company_account_response';
 import { DeleteCompanyAccountResponse } from './models/delete_company_account_response';
 import { FetchStellarCurrenciesResponse } from './models/fetch_stellar_currencies_response';
+import { GetCompanyAccountResponseDto } from './models/get_company_account_response';
+import { GetCompanyAccountsResponseDto } from './models/get_company_accounts_response';
+import { LanguageString } from './models/language_string';
 import { PaymentRequestStatusResponse } from './models/payment_request_status_response';
 import { DeeplinkResponse, PngQrCodeResponse, SvgQrCodeResponse } from './models/qr_code_response';
 import { StellarCurrency } from './models/stellar_currency';
-import { UploadAvatarResponse } from './models/upload_avatar_response';
-export { CompanyAccount, CreateCompanyAccountResponse, DeleteCompanyAccountResponse, FetchStellarCurrenciesResponse, PngQrCodeResponse, StellarCurrency, SvgQrCodeResponse, UploadAvatarResponse };
+export { ApiException, CompanyAccount, CreateCompanyAccountResponse, DeleteCompanyAccountResponse, FetchStellarCurrenciesResponse, GetCompanyAccountResponseDto, GetCompanyAccountsResponseDto, PngQrCodeResponse, StellarCurrency, SvgQrCodeResponse };
+type FetchFunction = typeof fetch;
 export declare class BeansMerchantSdk {
     private constructor();
-    static production(apiKey: string): BeansMerchantSdk;
-    static staging(apiKey: string): BeansMerchantSdk;
-    static custom(apiBaseUrl: string, apiKey: string): BeansMerchantSdk;
+    static production(apiKey: string, fetchFunction?: FetchFunction): BeansMerchantSdk;
+    static staging(apiKey: string, fetchFunction?: FetchFunction): BeansMerchantSdk;
+    static custom(apiBaseUrl: string, apiKey: string, fetchFunction?: FetchFunction): BeansMerchantSdk;
     private apiBaseUrl;
     private apiKey;
+    private fetchFunction;
     fetchStellarCurrencies(stellarAccountId: string): Promise<FetchStellarCurrenciesResponse>;
     generateDeeplink(stellarAccountId: string, stellarCurrencyId: string, amount: number, memo: string, maxAllowedPayments?: number | null, webhookUrl?: string | null): Promise<DeeplinkResponse>;
     generatePngQrCode(stellarAccountId: string, stellarCurrencyId: string, amount: number, memo: string, maxAllowedPayments?: number | null, webhookUrl?: string | null, preferredSize?: number | null): Promise<PngQrCodeResponse>;
@@ -28,7 +33,7 @@ export declare class BeansMerchantSdk {
      * the key is the language code (e.g., 'en', 'vn') and the value is the name in that language
      * @returns Promise containing the created company account
      */
-    createCompanyAccount(stellarAccountId: string, name: Record<string, string>): Promise<CreateCompanyAccountResponse>;
+    createCompanyAccount(stellarAccountId: string, name: LanguageString): Promise<CreateCompanyAccountResponse>;
     /**
      * Uploads an avatar for a company Account
      *
@@ -39,14 +44,12 @@ export declare class BeansMerchantSdk {
      */
     uploadCompanyAccountAvatar(companyId: string, stellarAccountId: string, imageData: File | Blob | ArrayBuffer): Promise<CompanyAccount>;
     /**
-     * Gets the avatar for a company Account
+     * Gets the avatar bytes from a URL
      *
-     * @param companyId The ID of the company or 'me' for the current company
-     * @param accountId The ID of the Account
-     * @param avatarId The ID of the avatar
+     * @param avatarUrl The full URL of the avatar
      * @returns Promise containing the avatar image as an ArrayBuffer
      */
-    getCompanyAccountAvatar(companyId: string, accountId: string, avatarId: string): Promise<ArrayBuffer>;
+    getAvatarUrlBytes(avatarUrl: string): Promise<ArrayBuffer>;
     /**
      * Deletes an Account for the company
      *
@@ -62,15 +65,16 @@ export declare class BeansMerchantSdk {
      */
     deleteCompanyAccount(stellarAccountId: string): Promise<DeleteCompanyAccountResponse>;
     /**
-     * Fetches all merchant accounts
-     * @returns Promise containing list of company accounts
+     * Fetches all company accounts
+     * @returns Promise containing the response DTO with company accounts
      */
-    getMerchantAccounts(): Promise<CompanyAccount[]>;
+    getCompanyAccounts(): Promise<GetCompanyAccountsResponseDto>;
     /**
-     * Fetches a specific merchant account by Stellar account ID
+     * Fetches a specific company account by Stellar account ID
      * @param stellarAccountId The Stellar account ID to fetch
-     * @returns Promise containing the company account
+     * @returns Promise containing the response DTO with company account
      */
-    getMerchantAccount(stellarAccountId: string): Promise<CompanyAccount>;
+    getCompanyAccount(stellarAccountId: string): Promise<GetCompanyAccountResponseDto>;
+    private _getMimeTypeFromExtension;
 }
 //# sourceMappingURL=sdk.d.ts.map

@@ -23,7 +23,9 @@
       - [Create Company Account](#create-company-account)
       - [Upload Company Account Avatar](#upload-company-account-avatar)
       - [Delete Company Account](#delete-company-account)
-      - [Get Company Account Avatar](#get-company-account-avatar)
+      - [Get Avatar URL Bytes](#get-avatar-url-bytes)
+      - [Get Company Accounts](#get-company-accounts)
+      - [Get Company Account](#get-company-account)
   - [Webhook Notifications](#webhook-notifications)
 - [Questions and Answers](#questions-and-answers)
   - [Do I have to use stroops?](#do-i-have-to-use-stroops)
@@ -320,7 +322,7 @@ const imageFile = document.getElementById('avatarFile').files[0];
 
 sdk.uploadCompanyAccountAvatar('me', 'GBZX4364PEPQTDICMIQDZ56K4T75QZCR4NBEYKO6PDRJAHZKGUOJPCXB', imageFile)
   .then((updatedAccount) => {
-    console.log('Account updated with avatar:', updatedAccount.avatarId);
+    console.log('Account updated with avatar URL:', updatedAccount.avatarUrl);
   });
 ```
 
@@ -350,32 +352,73 @@ sdk.deleteCompanyAccount('GCQYCNYU3T73JCQ2J36A3JJ5CUQO4DY4EOKMPUL5723ZH7N6XMMNPA
   });
 ```
 
-#### Get Company Account Avatar
+#### Get Avatar URL Bytes
 
-*Gets the avatar for a company account.*
+*Gets the avatar bytes from a URL.*
 
 Method Signature:<br>
-*`Promise<ArrayBuffer> getCompanyAccountAvatar(...)`*
+*`Promise<ArrayBuffer> getAvatarUrlBytes(...)`*
 
 Parameters:<br>
-  - `companyId`: *The ID of the company, or the string "me" to automatically resolve the ID from the provided API token.*
-  - `accountId`: *The ID of the account.*
-  - `avatarId`: *The ID of the avatar.*
+  - `avatarUrl`: *The full URL of the avatar.*
 
 Returns:<br>
 `Promise<ArrayBuffer>`: *A promise that resolves with the image data as an ArrayBuffer.*
 
 Example:<br>
 ```js
-sdk.getCompanyAccountAvatar('me', 'account-id', 'avatar-id')
-  .then((avatarArrayBuffer) => {
-    // Convert ArrayBuffer to Blob and create URL
-    const blob = new Blob([avatarArrayBuffer]);
-    const imageUrl = URL.createObjectURL(blob);
-    
-    // Display the image
-    const imgElement = document.getElementById('avatarImage');
-    imgElement.src = imageUrl;
+// After uploading or fetching an account, use the avatarUrl from the account object
+const account = await sdk.getCompanyAccount('stellarAccountId');
+if (account.account.avatarUrl) {
+  sdk.getAvatarUrlBytes(account.account.avatarUrl)
+    .then((avatarArrayBuffer) => {
+      // Convert ArrayBuffer to Blob and create URL
+      const blob = new Blob([avatarArrayBuffer]);
+      const imageUrl = URL.createObjectURL(blob);
+      
+      // Display the image
+      const imgElement = document.getElementById('avatarImage');
+      imgElement.src = imageUrl;
+    });
+}
+```
+
+#### Get Company Accounts
+
+*Fetches all company accounts.*
+
+Method Signature:<br>
+`Promise<GetCompanyAccountsResponseDto> getCompanyAccounts()`
+
+Returns:<br>
+`Promise<GetCompanyAccountsResponseDto>`: *A promise that resolves with the response DTO containing an array of company accounts.*
+
+Example:<br>
+```js
+sdk.getCompanyAccounts()
+  .then((response) => {
+    console.log('Company accounts:', response.accounts);
+  });
+```
+
+#### Get Company Account
+
+*Fetches a specific company account by Stellar account ID.*
+
+Method Signature:<br>
+`Promise<GetCompanyAccountResponseDto> getCompanyAccount(...)`
+
+Parameters:<br>
+  - `stellarAccountId`: *The Stellar account ID to fetch.*
+
+Returns:<br>
+`Promise<GetCompanyAccountResponseDto>`: *A promise that resolves with the response DTO containing the company account.*
+
+Example:<br>
+```js
+sdk.getCompanyAccount('stellarAccountId')
+  .then((response) => {
+    console.log('Company account:', response.account);
   });
 ```
 
