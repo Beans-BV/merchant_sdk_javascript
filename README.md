@@ -12,7 +12,9 @@
   - [Usage](#usage)
 - [API Reference](#api-reference)
   - [BeansMerchantSdk](#beansmerchantsdk)
-    - [Constructor](#constructor)
+    - [Constructor Methods](#constructor-methods)
+      - [Production Environment](#production-environment)
+      - [Staging Environment](#staging-environment)
     - [Methods](#methods)
       - [Fetch Stellar Currencies](#fetch-stellar-currencies)
       - [Generate Deeplink](#generate-deeplink)
@@ -85,7 +87,7 @@ npm install beans-merchant-sdk
 import {BeansMerchantSdk, BeansMerchantSdkEnvironment}  from '../node_modules/beans-merchant-sdk/dist/sdk.js';
 
 // Create an instance of BeansMerchantSdk
-const sdk = new BeansMerchantSdk(BeansMerchantSdkEnvironment.STAGING, 'your-api-key');
+const sdk = new BeansMerchantSdk.staging('YOUR_API_KEY');
 
 // Fetch currencies
 sdk.fetchCurrencies('stellarAccountId')
@@ -122,12 +124,20 @@ The Beans Merchant SDK provides a simple and intuitive interface for interacting
 
 The `BeansMerchantSdk` class provides methods for interacting with the Beans Merchant API.
 
-### Constructor
+### Constructor Methods
 
-`BeansMerchantSdk(...)`: Initializes a new SDK instance.
+The SDK provides three static factory methods to create instances:
+
+#### Production Environment
+`BeansMerchantSdk.production(apiKey: string)`: Creates an SDK instance for the production environment.
 
 Parameters:
-- `environment`: API environment (STAGING or PRODUCTION).
+- `apiKey`: Your Beans Merchant API key.
+
+#### Staging Environment
+`BeansMerchantSdk.staging(apiKey: string)`: Creates an SDK instance for the staging environment.
+
+Parameters:
 - `apiKey`: Your Beans Merchant API key.
 
 ### Methods
