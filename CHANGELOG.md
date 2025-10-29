@@ -1,4 +1,4 @@
-## 4.0.0
+## 5.0.0
 *  - Added `avatarUrl` to `CompanyAccount` class
 *  - Added `LanguageString` class for better multi-language support
 *  - Added `GetCompanyAccountResponseDto` and `GetCompanyAccountsResponseDto` response DTOs

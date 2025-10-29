@@ -1,7 +1,7 @@
 {
   "name": "beans-merchant-sdk",
   "description": "Beans Merchant API Library",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "type": "module",
   "main": "dist/sdk.js",
   "scripts": {
