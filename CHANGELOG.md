@@ -1,3 +1,17 @@
+## 4.0.0
+*  - Added `avatarUrl` to `CompanyAccount` class
+*  - Added `LanguageString` class for better multi-language support
+*  - Added `GetCompanyAccountResponseDto` and `GetCompanyAccountsResponseDto` response DTOs
+*
+* **BREAKING CHANGES:**
+*  - Renamed `getMerchantAccounts()` method to `getCompanyAccounts()`
+*  - Renamed `getMerchantAccount()` method to `getCompanyAccount()`
+*  - `getCompanyAccounts()` now returns `GetCompanyAccountsResponseDto` instead of `CompanyAccount[]`
+*  - `getCompanyAccount()` now returns `GetCompanyAccountResponseDto` instead of `CompanyAccount`
+*  - Removed `getCompanyAccountAvatar()` method - instead use the `AvatarUrl` in combination with `getAvatarUrlBytes(avatarUrl)`
+*  - `CompanyAccount` class it's `name` property is now of type `LanguageString` instead of `Record<string, string>`
+*  - `createCompanyAccount()` method now requires `LanguageString` instead of `Record<string, string>`
+
 ## 3.0.0
 * Beans API v4 support
 * 
